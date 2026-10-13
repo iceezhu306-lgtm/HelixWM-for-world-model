@@ -1,0 +1,3 @@
+# CPU verification environment. Install torch from the official CPU index first.
+torch==2.6.0
+numpy==2.2.6

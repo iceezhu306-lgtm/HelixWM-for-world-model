@@ -2,9 +2,11 @@
 
 **Real-Dream Double-Helix World Model**
 
-HelixWM 是从真实观测与模型想象的双路径关系出发构建的世界模型研究构想。本仓库拟保存第一版设计思路、数学公式、流程图、参考代码和正确性测试。
+HelixWM 是从真实观测与模型想象的双路径关系出发构建的世界模型研究构想。本仓库保存第一版设计思路、数学公式、流程图、PyTorch 参考代码和正确性测试。
 
-> 当前阶段：原理构建与参考实现准备。尚无 HelixWM 正式实验结果；本文的性能改进均为研究假设。
+> 当前阶段：v0.1 原理与可运行的数学参考实现。尚无 HelixWM 正式实验结果；本文的性能改进均为研究假设。代码使用小型向量输入，不是完整 DreamerV3 或 Walker 训练程序。
+
+阅读顺序：[本页核心公式](#2-时间索引与双路径公式) → [详细设计与流程图](docs/DESIGN.md) → [合成公式演示](examples/synthetic_trace.py) → [验证记录](docs/VALIDATION.md)。
 
 ## 1. 研究目标与最小核心
 
@@ -112,6 +114,8 @@ $$
 
 误差历史 $D_t=(d_{t-L+1},\ldots,d_t)$ 只能包含时刻 $t$ 已获得的信息。episode 开始时截短历史或使用有效掩码，不跨 reset。预测必须在真实结果到来之前保存，并与模型版本关联。
 
+代码参数 `reward_scale` 接收严格正的有效分母；若采用上式的 epsilon 稳定项，传入 `s_r + epsilon`。
+
 多个独立初始化、bootstrap 监督的预测成员提供分歧代理：
 
 $$
@@ -206,18 +210,37 @@ flowchart TD
 
 ## 7. 公式与代码对应关系
 
-以下为计划结构，文件提交和运行验证完成后再更新为实际链接。
+以下文件为已实现的数学核心；正式环境、replay、完整 actor/critic 和训练恢复尚未接入。
 
-| 模块 | 计划路径 | 职责 |
+| 模块 | 代码 | 职责 |
 |---|---|---|
-| 双路径模型 | helixwm/rssm.py | observe_step、imagine_step、共享状态表示 |
-| 模型损失 | helixwm/losses.py | 基础损失、多步校正、梯度隔离 |
-| 可靠性 | helixwm/reliability.py | 真实误差、ensemble、风险目标 |
-| 价值目标 | helixwm/returns.py | 连续前缀、lambda-return、bootstrap |
-| 公式演示 | examples/synthetic_trace.py | 小型合成输入，明确标注非环境实验 |
-| 正确性测试 | tests/ | 因果时序、梯度、掩码、回报边界 |
+| 分布运算 | [distributions.py](helixwm/distributions.py) | grouped KL/JS、straight-through 采样 |
+| 双路径模型 | [rssm.py](helixwm/rssm.py) | observe_step、imagine_step、共享状态表示 |
+| 模型损失 | [losses.py](helixwm/losses.py) | 基础损失、多步校正、梯度隔离 |
+| 可靠性 | [reliability.py](helixwm/reliability.py) | 历史真实误差、bootstrap ensemble、因果风险头和标签 |
+| 价值目标 | [returns.py](helixwm/returns.py) | 连续前缀、lambda-return、bootstrap |
+| 公式演示 | [synthetic_trace.py](examples/synthetic_trace.py) | 合成输入、反传验证、手算回报核对，优化器更新次数为零 |
+| 正确性测试 | [tests](tests/) | 因果时序、梯度、掩码、回报边界、半精度回归 |
 
-最先验证：
+参考实现的观测/奖励头使用固定单位方差 Gaussian 损失，continuation 使用 Bernoulli 损失；没有照搬 DreamerV3 的 distributional heads、free bits、归一化及其他训练细节。所有网络尺寸和示例阈值仅用于数学验证。
+
+### 本地运行
+
+在独立 Python 3.12 环境、仓库根目录运行：
+
+```bash
+python -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+python -m pip install numpy==2.2.6
+python -m pip install -e .
+python -m unittest discover -s tests -v
+python -m examples.synthetic_trace
+```
+
+CPU 安装方式见 [PyTorch 官方历史版本说明](https://pytorch.org/get-started/previous-versions/)。本仓库只验证 CPU 数学核心，不据此宣称 GPU/CUDA 或 RTX 5090 训练兼容性。包声明的版本范围不代表每个组合都已验证。
+
+运行脚本只生成合成张量并检查梯度，不连接 SSH、不创建实验、不更新模型参数。示例输出中 loss/风险概率来自未训练模型，不是性能结果。
+
+主要验证内容：
 
 1. Dream 接口不读取未来观测。
 2. 校正损失不沿教师 posterior 或起点输入回传，但动力学获得有限梯度。
@@ -238,8 +261,9 @@ flowchart TD
 | 阶段 | 状态 |
 |---|---|
 | 基本设计与公式 | 第一版草案，待持续讨论 |
-| 参考实现 | 尚未在此 README 中确认提交完成 |
-| 本地/CI 运行测试 | 尚未确认通过 |
+| 参考实现 | v0.1 数学核心、合成演示和测试已实现 |
+| 本地测试 | 30 项 unittest 与合成演示通过；见验证记录 |
+| CI | 本次未配置或执行 GitHub Actions |
 | Walker 正式训练 | 尚未开展 |
 | 多 seed 与论文级比较 | 尚未开展 |
 
