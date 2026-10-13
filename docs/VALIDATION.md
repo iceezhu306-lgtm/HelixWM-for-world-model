@@ -2,6 +2,8 @@
 
 Date: 2026-10-13. Scope: the mathematical reference implementation on a local CPU. No environment experiments or remote training were started.
 
+The later [RTX 5090 environment verification](ENVIRONMENT_RTX5090.md) has a separate record for CUDA operators, RSSM gradients, initialized checkpoint reload, and bounded Walker EGL rendering. It does not constitute formal training.
+
 ## Tested Environment
 
 - Windows x64, Python 3.12.14.

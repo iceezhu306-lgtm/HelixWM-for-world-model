@@ -236,7 +236,7 @@ python -m unittest discover -s tests -v
 python -m examples.synthetic_trace
 ```
 
-See the [official PyTorch instructions for previous versions](https://pytorch.org/get-started/previous-versions/) for CPU installation. Validation covers the mathematical core on CPU only; it does not establish GPU/CUDA or RTX 5090 training compatibility. The package's declared version range does not mean that every combination has been tested.
+See the [official PyTorch instructions for previous versions](https://pytorch.org/get-started/previous-versions/) for CPU installation. These local checks cover the mathematical core on CPU. The separate [RTX 5090 environment runbook](docs/ENVIRONMENT_RTX5090.md) records the isolated GPU stack, bounded CUDA/Walker checks, and their scope. The package's declared version range does not mean that every combination has been tested.
 
 The demonstration generates synthetic tensors and checks gradients. It does not connect over SSH, start experiments, or update model parameters. Its losses and risk probabilities come from untrained models and are not performance results.
 
@@ -263,6 +263,7 @@ The first version establishes the basic model, equations, and correctness tests 
 | Basic design and equations | Initial draft, open to further discussion |
 | Reference implementation | v0.1 mathematical core, synthetic demonstration, and tests implemented |
 | Local tests | 30 unit tests and the synthetic demonstration passed; see the validation record |
+| RTX 5090 environment | Isolated GPU environment and bounded CUDA/Walker smoke checks passed; see the environment runbook |
 | CI | GitHub Actions was not configured or run for this version |
 | Formal Walker training | Not started |
 | Multiple seeds and publication-level comparisons | Not started |

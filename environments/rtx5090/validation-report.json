@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "scope": "environment validation only; no formal training or policy evaluation",
+  "started_utc": "2026-10-13T10:28:24.747696+00:00",
+  "python": "3.12.12 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 20:16:04) [GCC 11.2.0]",
+  "executable": "/root/autodl-tmp/helixwm/env/bin/python",
+  "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+  "output_directory": "/root/autodl-tmp/helixwm/smoke/final_validation",
+  "script_sha256": "51c634adfc612f108fcde981e5a525ae8a93bfa2c83b6402844f45f73685ccf5",
+  "optimizer_steps": 0,
+  "versions": {
+    "torch": "2.7.1+cu128",
+    "dm-control": "1.0.28",
+    "mujoco": "3.3.0",
+    "numpy": "2.2.6",
+    "Pillow": "11.2.1",
+    "helixwm-reference": "0.1.0"
+  },
+  "checks": {
+    "cuda_model_checkpoint": {
+      "status": "PASS",
+      "device": "cuda:0",
+      "device_name": "NVIDIA GeForce RTX 5090",
+      "device_capability": [
+        12,
+        0
+      ],
+      "compiled_architectures": [
+        "sm_75",
+        "sm_80",
+        "sm_86",
+        "sm_90",
+        "sm_100",
+        "sm_120",
+        "compute_120"
+      ],
+      "torch_version": "2.7.1+cu128",
+      "torch_cuda_version": "12.8",
+      "cudnn_version": 90701,
+      "gpu_total_memory_bytes": 33668988928,
+      "gpu_peak_allocated_bytes": 19086336,
+      "matmul": {
+        "shape": [
+          128,
+          128
+        ],
+        "loss": 128.98876953125,
+        "outputs_and_gradients_finite": true
+      },
+      "convolution": {
+        "scope": "isolated synthetic RGB operator check; not an RSSM architecture change",
+        "input_shape": [
+          2,
+          3,
+          64,
+          64
+        ],
+        "output_shape": [
+          2,
+          8,
+          64,
+          64
+        ],
+        "kernel_size": [
+          3,
+          3
+        ],
+        "loss": 0.3346450924873352,
+        "outputs_input_and_parameter_gradients_finite": true,
+        "parameters_unchanged": true,
+        "optimizer_steps": 0
+      },
+      "rssm": {
+        "data_source": "synthetic vector observations; not Walker observations",
+        "observation_shape": [
+          2,
+          7,
+          5
+        ],
+        "action_shape": [
+          2,
+          6,
+          2
+        ],
+        "prior_logits_shape": [
+          2,
+          7,
+          4,
+          4
+        ],
+        "losses": {
+          "total": 4.932659149169922,
+          "observation": 3.6808254718780518,
+          "reward": 0.5317739248275757,
+          "continuation": 0.5947628617286682,
+          "dynamics_kl": 0.11390621215105057,
+          "representation_kl": 0.11390621215105057
+        },
+        "cross_correction_loss": 0.14100505411624908,
+        "combined_loss": 4.9467597007751465,
+        "all_parameter_gradients_present_and_finite": true,
+        "parameters_unchanged": true,
+        "optimizer_steps": 0
+      },
+      "checkpoint": {
+        "file": "initialized_model_state_dict.pt",
+        "bytes": 35137,
+        "sha256": "f5c9fdfb8b7aeb2dfa4accc2e49d25576ed68fdaf889cbe579bbf2ee1bb8428c",
+        "strict_state_dict_reload": "PASS",
+        "deterministic_sample_false_output_match": "bitwise_exact",
+        "compared_output_tensors": 58,
+        "optimizer_steps": 0,
+        "contents": "initialized model state_dict and configuration only",
+        "exact_training_resume_supported": false,
+        "missing_training_state": [
+          "optimizer",
+          "replay",
+          "RNG",
+          "environment",
+          "training_progress"
+        ]
+      }
+    },
+    "walker_headless": {
+      "status": "PASS",
+      "domain": "walker",
+      "task": "walk",
+      "seed": 0,
+      "actions": "zero actions only",
+      "control_step_calls": 4,
+      "counting_scope": "environment smoke only; not training frames or an experiment budget",
+      "simulation_time_start_seconds": 0.0,
+      "simulation_time_end_seconds": 0.10000000000000005,
+      "control_timestep_seconds": 0.025,
+      "physics_timestep_seconds": 0.0025,
+      "action_shape": [
+        6
+      ],
+      "observation_shapes": {
+        "orientations": [
+          14
+        ],
+        "height": [],
+        "velocity": [
+          9
+        ]
+      },
+      "rewards": [
+        0.16569445376426029,
+        0.16569445376426029,
+        0.16569445376426029,
+        0.1656932027460471
+      ],
+      "episode_ended": false,
+      "render": {
+        "requested_backend": "egl",
+        "file": "walker_walk_egl_smoke.png",
+        "shape": [
+          64,
+          64,
+          3
+        ],
+        "dtype": "uint8",
+        "pixel_standard_deviation": 32.9503012767204,
+        "saved_png_decode": "PASS",
+        "sha256": "b87b9f32ff5384328c8f189983fefa32ff6333974cd594eed59501316289850f"
+      },
+      "trained_policy_evaluation": false
+    }
+  },
+  "status": "PASS",
+  "finished_utc": "2026-10-13T10:28:27.422880+00:00"
+}
