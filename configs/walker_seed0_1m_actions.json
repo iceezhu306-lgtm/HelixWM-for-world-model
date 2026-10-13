@@ -1,0 +1,33 @@
+{
+  "name": "helixwm_v1_walker_seed0",
+  "experiment_class": "single_seed_pilot",
+  "seed": 0,
+  "budget_agent_steps": 1000000,
+  "environment": {"action_repeat": 2, "image_size": 64, "episode_env_steps": 1000, "camera_id": 0},
+  "model": {"action_dim": 6, "hidden_dim": 256, "groups": 16, "classes": 16, "embed_dim": 256, "cnn_depth": 32, "image_size": 64},
+  "learner": {
+    "burnin": 8, "horizon": 15, "cc_horizon": 5, "cc_scale": 0.1,
+    "grad_clip": 100.0, "risk_threshold": 0.5, "risk_error_threshold": 0.25,
+    "reward_scale": 2.0, "ensemble_members": 3, "ensemble_bootstrap_prob": 0.8,
+    "target_tau": 0.01, "gamma": 0.99, "lambda_": 0.95, "entropy_scale": 0.001,
+    "imagination_batch": 128, "aux_batch": 128, "actor_hidden": 256,
+    "critic_hidden": 256, "reliability_hidden": 64, "history_window": 8,
+    "model_lr": 0.0003, "ensemble_lr": 0.0003, "risk_lr": 0.0003,
+    "actor_lr": 0.00008, "critic_lr": 0.00008
+  },
+  "batch_size": 16,
+  "sequence_length": 32,
+  "prefill_agent_steps": 5000,
+  "train_every": 5,
+  "replay_capacity_steps": 200000,
+  "replay_cache_episodes": 400,
+  "checkpoint_every": 10000,
+  "eval_every": 20000,
+  "eval_seeds": [10000, 10001, 10002, 10003, 10004],
+  "final_eval_seeds": [10000, 10001, 10002, 10003, 10004, 10005, 10006, 10007, 10008, 10009, 10010, 10011, 10012, 10013, 10014, 10015, 10016, 10017, 10018, 10019],
+  "log_every": 100,
+  "resource_every_seconds": 60,
+  "minimum_free_disk_bytes": 2147483648,
+  "torch_threads": 4,
+  "deterministic_algorithms": true
+}

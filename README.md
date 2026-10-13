@@ -4,7 +4,9 @@
 
 HelixWM is a world model research concept built around two interacting paths: real observations and model imagination. This repository contains the initial design, mathematical formulation, flowcharts, PyTorch reference implementation, and correctness tests.
 
-> Current stage: v0.1 principles and an executable mathematical reference implementation. No formal HelixWM experiments have been completed; all proposed performance improvements remain research hypotheses. The code uses small vector inputs and does not implement a complete DreamerV3 or Walker training pipeline.
+> Current stage: v0.1 principles, a mathematical reference core, and a first pixel Walker training pipeline. No performance improvement has been established. The vector reference remains independently tested; the new controller is our initial research implementation, not DreamerV3 reproduction code.
+
+The [first experiment protocol](docs/first_experiment_protocol.md) fixes Walker Walk, seed 0, **1,000,000 action decisions**, action repeat 2 (**2,000,000 DMC calls**). It specifies the smoke gates, immutable checkpoints, frozen evaluation, one stage video, learning curves, and six-hour monitoring. Runtime status and measured results belong in the experiment evidence, not in this design claim.
 
 Suggested reading order: [Core equations](#2-time-indexing-and-the-two-paths) → [Detailed design and flowcharts](docs/DESIGN.md) → [Synthetic formula demonstration](examples/synthetic_trace.py) → [Validation record](docs/VALIDATION.md).
 
