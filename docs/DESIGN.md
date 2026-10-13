@@ -1,51 +1,51 @@
-# HelixWM v0.1：从原理到可检查的代码
+# HelixWM v0.1: From Principles to Inspectable Code
 
-## 研究问题
+## Research Question
 
-模型 ensemble 可以因为相同的数据缺口或表示偏差而一致犯错。HelixWM 的核心假设是：**已经发生的真实预测误差，能否在 ensemble 分歧之外，帮助判断接下来哪些想象片段值得用于策略学习？**
+Model ensembles can agree on incorrect predictions because they share gaps in the data or biases in their representations. HelixWM asks: **Can previously observed prediction errors provide information beyond ensemble disagreement when deciding which upcoming imagined segments to use for policy learning?**
 
-这个问题包含三个独立部分：修正预测模型、估计预测风险、控制预测的使用范围。它们需要独立消融，不能仅凭组合结构宣称创新或性能提升。
+This question has three distinct parts: correcting the predictive model, estimating prediction risk, and controlling how far predictions are used. Each requires a separate ablation; combining them does not by itself establish novelty or improved performance.
 
-## v0.1 的边界
+## Scope of v0.1
 
-这是与 [README](../README.md) 公式对应的 PyTorch 参考实现。小型向量编码器便于检查因果性、梯度和数值计算；不是 DreamerV3 作者代码的复现，也不是已接入像素 Walker 的完整训练程序。
+This is a PyTorch reference implementation of the equations in the [README](../README.md). A small vector encoder makes causality, gradients, and numerical computations easy to inspect. It is neither a reproduction of the authors' DreamerV3 implementation nor a complete training program connected to pixel-based Walker.
 
-正式环境仍以 DMC Walker Walk 的像素连续控制为候选。这里的合成输入只做程序验证，不产生实验回报、学习曲线或论文结果。
+Pixel-based continuous control in DMC Walker Walk remains the candidate environment for formal experiments. Synthetic inputs here serve only to validate the implementation; they do not produce experimental returns, learning curves, or research results.
 
-首版选用共享 RSSM。独立的 Real/Dream 动力学是原构想中的可选结构，后续可以比较；Real 是观测条件下的估计，而不是物理真值。
+The first version uses a shared RSSM. Separate Real and Dream dynamics remain an option from the original concept and can be compared later. Real is an observation-conditioned estimate, not physical ground truth.
 
-## 时间索引与数据接口
+## Time Indexing and Data Interfaces
 
-| 张量 | 形状 | 含义 |
+| Tensor | Shape | Meaning |
 |---|---|---|
-| observations | B × (T+1) × O | 从 o_0 到 o_T |
-| actions | B × T × A | a_t 导致下一观测 o_(t+1) |
-| rewards / continuations | B × (T+1) | r_i、c_i 对齐 o_i；第 0 项不训练 transition 预测头 |
-| is_first | B × (T+1) | 当前观测是否新 episode 的第一帧 |
-| valid | B × (T+1) | 观测是否有效；不是 episode 终止标记 |
-| posterior / prior logits | B × (T+1) × J × C | 分组 categorical 潜变量 |
+| observations | B × (T+1) × O | o_0 through o_T |
+| actions | B × T × A | a_t leads to the next observation o_(t+1) |
+| rewards / continuations | B × (T+1) | r_i and c_i align with o_i; index 0 is excluded from transition prediction head training |
+| is_first | B × (T+1) | Whether the current observation is the first frame of a new episode |
+| valid | B × (T+1) | Whether an observation is valid; not an episode termination flag |
+| posterior / prior logits | B × (T+1) × J × C | Grouped categorical latent variables |
 
-reset 位置必须清除上一回合状态与动作的影响。多步校正要求从起点到终点全部有效，且中间没有 reset。校正不跨 episode，即使两端都有有效观测。
+At each reset, the effects of the previous episode's state and action must be cleared. Multi-step correction requires every position from the start through the endpoint to be valid, with no intervening reset. Correction cannot cross episode boundaries, even when both endpoints have valid observations.
 
 ```mermaid
 flowchart LR
-    S["b_t = h_t,z_t"] --> F["共享转移 f(h_t,z_t,a_t)"]
+    S["b_t = h_t,z_t"] --> F["Shared transition f(h_t,z_t,a_t)"]
     A["a_t"] --> F
     F --> H["h_(t+1)"]
-    H --> P["prior p：Dream"]
-    H --> Q["posterior q：Real"]
-    O["已获得 o_(t+1)"] --> E["encoder"] --> Q
-    P --> ZD["采样 Dream z_(t+1)"]
-    Q --> ZR["采样 Real z_(t+1)"]
+    H --> P["Prior p: Dream"]
+    H --> Q["Posterior q: Real"]
+    O["Observed o_(t+1)"] --> E["Encoder"] --> Q
+    P --> ZD["Sample Dream z_(t+1)"]
+    Q --> ZR["Sample Real z_(t+1)"]
 ```
 
-Dream 的函数输入没有未来观测参数。共享参数并不意味着两条轨迹相同：Real 每步吸收观测，Dream 依赖自己预测的状态递推。
+Dream does not accept future observations as function inputs. Shared parameters do not imply identical trajectories: Real incorporates an observation at each step, while Dream recurs through its own predicted states.
 
-## 基础学习与多步校正
+## Base Learning and Multi-Step Correction
 
-参考预测头使用固定单位方差的 Gaussian 观测/奖励损失（省略常数）以及 Bernoulli continuation 损失。分组 latent 的 KL 对所有组求和。基础损失保留 dynamics/representation 两条 KL 梯度路径。
+The reference prediction heads use Gaussian observation and reward losses with fixed unit variance (omitting constants), plus a Bernoulli continuation loss. KL divergence for the grouped latent is summed across all groups. The base loss retains separate dynamics and representation KL gradient paths.
 
-多步校正从 k=2 开始：
+Multi-step correction begins at k=2:
 
 $$
 L_{cc}=\frac{\sum_{t,k\ge2}m_{t,k}w_k\,\mathbb E_{roll}
@@ -53,59 +53,59 @@ L_{cc}=\frac{\sum_{t,k\ge2}m_{t,k}w_k\,\mathbb E_{roll}
  {\sum_{t,k\ge2}m_{t,k}w_k+\epsilon}.
 $$
 
-v0.1 默认 w_k=1，用一次随机 rollout 近似期望。起点、教师 posterior 都 detach；共享动力学仍通过 Dream 路径获得梯度。straight-through categorical 采样提供近似梯度，不宣称是精确无偏梯度。
+In v0.1, w_k=1 by default, and one stochastic rollout approximates the expectation. Both the starting state and the teacher posterior are detached; the shared dynamics still receive gradients through the Dream path. Straight-through categorical sampling supplies approximate gradients, with no claim that they are exact or unbiased.
 
 ```mermaid
 flowchart TD
-    B["Real 起点 b_t"] --> S["stop gradient"] --> R["记录动作条件的 Dream rollout"]
-    Q["未来 Real posterior"] --> SQ["stop gradient"] --> KL["多步 KL"]
+    B["Real starting state b_t"] --> S["Stop gradient"] --> R["Dream rollout conditioned on recorded actions"]
+    Q["Future Real posterior"] --> SQ["Stop gradient"] --> KL["Multi-step KL"]
     R --> KL
-    KL --> U["更新 Dream 使用的共享动力学"]
+    KL --> U["Update the shared dynamics used by Dream"]
     U --> R
 ```
 
-此处梯度隔离是该辅助损失的局部计算性质。基础模型损失仍需训练 encoder；更新共享动力学也会改变之后 Real 路径的上下文。
+Gradient isolation here is a local computational property of this auxiliary loss. The base model loss must still train the encoder, and updates to the shared dynamics also change the context used by subsequent Real trajectories.
 
-## 可靠性：输入与标签必须分开
+## Reliability: Keep Inputs Separate from Labels
 
-1. 预测在看到结果前保存，之后才能计算观测到的误差历史。
-2. ensemble 成员独立初始化，用各自 bootstrap 掩码监督；同一模型多次采样不等于模型 ensemble。
-3. risk head 的第 k 项只读取当前 belief、已发生的误差历史以及前 k 个候选动作/分歧。
-4. 真实未来奖励仅用于构建训练标签：
+1. Predictions are stored before outcomes are observed; only afterward can the observed error history be computed.
+2. Ensemble members are initialized independently and supervised with their own bootstrap masks. Repeated samples from one model do not constitute a model ensemble.
+3. The risk head's kth output reads only the current belief, previously observed error history, and the first k candidate actions and disagreement values.
+4. Actual future rewards are used only to construct training labels:
 
 $$
 Y_{t,k}=\mathbf1\left[\max_{1\le j\le k}
  |r_{t+j}-\hat r_{t,j}|/s_r>\varepsilon_{task}\right].
 $$
 
-这里的累计事件指“此前曾超过阈值”，不是把误差相加。没有实际未来标签的样本必须屏蔽；不能用零标签表示未知。
+The cumulative event here means that the threshold has been exceeded at least once within the prefix; it does not sum the errors. Samples without observed future labels must be masked, and unknown labels must not be treated as zero-valued supervision.
 
-多个 categorical 预测成员的 mixture JS 对成员和 latent 组求平均；它是分歧代理，不是错误概率。训练 BCE 也不保证风险头已校准，后续需要独立 episode 划分的校准集和测试集。
+Mixture JS divergence across categorical prediction members is averaged over members and latent groups. It is a proxy for disagreement, not an error probability. BCE training does not guarantee a calibrated risk head; calibration and test sets split by episode will be needed later.
 
-## 门控与价值目标
+## Gating and Value Targets
 
-取最长连续可信前缀 H，第一步就不可信时 H=0。v0.1 在固定长度数组上计算，不能据此声称减少 rollout 生成成本。
+Select the longest contiguous trusted prefix H; if the first step is untrusted, H=0. The v0.1 implementation operates on fixed-length arrays, so it does not establish a reduction in rollout generation cost.
 
 ```mermaid
 flowchart TD
-    P["风险序列 0.1,0.8,0.1；阈值 0.5"] --> H["H=1；第一次拒绝后不再接纳"]
-    H --> V["截断状态保留 V(b_H)"]
-    V --> G["仅在可信前缀反推 lambda return"]
-    G --> M["只为有效前缀构造策略/价值样本"]
-    Z["H=0"] --> N["跳过该起点的想象更新"]
+    P["Risk sequence 0.1,0.8,0.1; threshold 0.5"] --> H["H=1; accept no steps after the first rejection"]
+    H --> V["Retain V(b_H) at the truncation state"]
+    V --> G["Recurse backward for lambda returns only within the trusted prefix"]
+    G --> M["Construct policy/value samples only for the valid prefix"]
+    Z["H=0"] --> N["Skip imagination updates from this starting state"]
 ```
 
-若两步奖励都是 1，gamma=0.99，lambda=1，末端 V=10：
+For two rewards of 1, gamma=0.99, lambda=1, and endpoint bootstrap value V=10:
 
 $$G_1=1+0.99(10)=10.9,\quad G_0=1+0.99(10.9)=11.791.$$
 
-截断不等于环境终止。拒绝的尾部不参与前缀 return 递推；真实 continuation=0 才清除该 transition 的后续价值。
+Truncation is not environment termination. The rejected tail does not enter the prefix return recursion; an actual continuation=0 removes the subsequent value for that transition.
 
-## 暂缓实现的部分
+## Deferred Implementation
 
-- 完整 actor/critic 优化和 replay/environment 循环、像素 CNN、checkpoint 及训练恢复。
-- 作者 DreamerV3 固定版本的适配、与开关关闭路径的一致性检查。
-- 受限的 context residual：`F_base(c,a) + DeltaF(c,a,xi)`，需处理分解不可辨识性。
-- 主动采样：综合任务价值、信息增益、可达性与真实交互成本。
+- Full actor/critic optimization, replay and environment loops, pixel CNNs, checkpoints, and training recovery.
+- Adaptation of a pinned version of the authors' DreamerV3 implementation, with consistency checks against the path with HelixWM disabled.
+- A constrained context residual: `F_base(c,a) + DeltaF(c,a,xi)`, requiring attention to the non-identifiability of the decomposition.
+- Active sampling that combines task value, information gain, reachability, and real interaction cost.
 
-这些项目仍属于研究设计，当前模块测试通过也不能代替正式训练验收。
+These items remain part of the research design. Passing the current module tests does not replace formal training acceptance checks.

@@ -1,15 +1,15 @@
-# v0.1 验证记录
+# v0.1 Validation Record
 
-日期：2026-10-13。范围：本地 CPU 数学参考代码；没有启动环境实验或远端训练。
+Date: 2026-10-13. Scope: the mathematical reference implementation on a local CPU. No environment experiments or remote training were started.
 
-## 实测环境
+## Tested Environment
 
-- Windows x64，Python 3.12.14。
-- PyTorch 2.6.0+cpu，NumPy 2.2.6。
-- editable package 构建与安装成功。
-- GitHub Actions 本次未配置或执行；其他 Python/PyTorch、GPU/CUDA 组合没有据此验收。
+- Windows x64, Python 3.12.14.
+- PyTorch 2.6.0+cpu, NumPy 2.2.6.
+- Editable package build and installation succeeded.
+- GitHub Actions was not configured or run for this validation. Other Python/PyTorch and GPU/CUDA combinations have not been validated by these checks.
 
-## 执行结果
+## Execution Results
 
 ```text
 python -m unittest discover -s tests -v
@@ -24,20 +24,20 @@ example_valid_mask: [[true, true, false]]
 optimizer_steps: 0
 ```
 
-上述耗时是这一次本地测试记录，不是性能基准或运行时间承诺。合成演示也核对了各模型损失、辅助监督和梯度连接；未训练网络的 loss 与风险概率不作为算法效果证据。
+The elapsed time above records this particular local test run; it is neither a performance benchmark nor a runtime guarantee. The synthetic demonstration also checked model losses, auxiliary supervision, and gradient connections. Losses and risk probabilities from untrained networks are not evidence of algorithmic effectiveness.
 
-| 测试文件 | 数量 | 独立核对内容 |
+| Test File | Count | Independent Checks |
 |---|---:|---|
-| test_distributions.py | 3 | KL/JS 手算值、分组归约、ST 解析梯度 |
-| test_rssm_losses.py | 9 | Real/Dream 时间索引、reset、teacher/start 断梯度、padding |
-| test_reliability.py | 9 | 历史因果性、前缀最大误差标签、未知标签屏蔽、辅助梯度隔离 |
-| test_reliability_precision.py | 4 | 极端 fp16 logits 与奖励的溢出回归 |
-| test_returns.py | 5 | 连续前缀、H=0、bootstrap、终止/折扣边界、拒绝尾部无影响 |
+| test_distributions.py | 3 | Hand-calculated KL/JS values, grouped reductions, analytical ST gradients |
+| test_rssm_losses.py | 9 | Real/Dream time indexing, resets, detached teacher/starting state, padding |
+| test_reliability.py | 9 | History causality, prefix maximum-error labels, unknown-label masking, auxiliary gradient isolation |
+| test_reliability_precision.py | 4 | Overflow regressions for extreme fp16 logits and rewards |
+| test_returns.py | 5 | Contiguous prefixes, H=0, bootstrapping, termination/discount boundaries, independence from the rejected tail |
 
-独立复查发现并修复了两类低精度问题：有限 fp16 logits 在分布差异计算中溢出；奖励先相减再归一化时溢出。相关操作在运算前提升到 float32，新增回归测试通过。这不代表完整模型已完成混合精度训练验证。
+An independent review identified and fixed two low-precision issues: overflow from finite fp16 logits during distribution discrepancy calculations, and overflow when subtracting rewards before normalization. The relevant operands are now promoted to float32 before computation, and the added regression tests passed. This does not establish that the full model has been validated for mixed-precision training.
 
-## 仍需实验验证
+## Remaining Experimental Validation
 
-当前证据只能说明这些数学接口与边界测试通过，不能证明 HelixWM 提升了环境回报、样本效率、校准质量或泛化。没有生成学习曲线、环境视频、训练 checkpoint 或多 seed 结果。
+The current evidence establishes only that these mathematical interfaces and boundary tests passed. It does not demonstrate that HelixWM improves environment returns, sample efficiency, calibration quality, or generalization. No learning curves, environment videos, training checkpoints, or multi-seed results were produced.
 
-下一阶段应先讨论冻结模型的诊断设计，再决定如何适配作者维护的 DreamerV3。完整训练循环、checkpoint/replay/RNG 恢复和正式验收仍属于后续工作。
+The next stage should first address the design of frozen-model diagnostics, then decide how to adapt the authors' maintained DreamerV3 implementation. The complete training loop, checkpoint/replay/RNG recovery, and formal acceptance checks remain future work.
