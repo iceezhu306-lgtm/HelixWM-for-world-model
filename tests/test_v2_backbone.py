@@ -133,6 +133,19 @@ class OfficialJaxSmokeTests(unittest.TestCase):
                 "consec": np.zeros((1, 6), np.int32),
                 "stepid": np.zeros((1, 6, 20), np.uint8),
             }
+            # Exercise Ninjax's recurrent scan without allowing parameter or
+            # training-RNG-counter mutation before the actual learner update.
+            policy_params = {key: backbone.agent.params[key] for key in backbone.agent.policy_keys}
+            prefix_args = (backbone.initial(), np.zeros((1, 6), np.float32),
+                           batch["image"][:, :2], batch["action"][:, :2], batch["is_first"][:, :2])
+            prefix_key = backbone.agent._seeds(0, backbone.agent.train_mirrored)
+            prefix = backbone._host(backbone._prefix(policy_params, prefix_key, *backbone._device(prefix_args)))
+            again = backbone._host(backbone._prefix(policy_params, prefix_key, *backbone._device(prefix_args)))
+            self.assertEqual(array_tree_hash(prefix), array_tree_hash(again))
+            self.assertTrue(all(np.isfinite(value).all() for value in prefix.values()))
+            self.assertEqual(before, backbone.parameter_hash())
+            self.assertEqual(int(backbone.agent.n_batches), 0)
+            self.assertEqual(int(backbone.agent.n_updates), 0)
             metrics = backbone.train(batch)
             self.assertTrue(all(np.isfinite(v) for v in metrics.values()))
             self.assertNotEqual(before, backbone.parameter_hash())
