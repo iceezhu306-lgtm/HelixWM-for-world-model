@@ -1,0 +1,13 @@
+{
+  "resource_samples": 999,
+  "cgroup_event_maxima": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0
+  },
+  "sampled_peak_cgroup_memory_gib": 17.24447250366211,
+  "cgroup_memory_limit_gib": 90.0,
+  "note": "Sampled maximum, not continuously observed peak. No infrastructure identifiers included."
+}

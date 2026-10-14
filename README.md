@@ -2,13 +2,15 @@
 
 **Real-Dream Double-Helix World Model**
 
-HelixWM is a world model research concept built around two interacting paths: real observations and model imagination. This repository contains the initial design, mathematical formulation, flowcharts, PyTorch reference implementation, and correctness tests.
+HelixWM is a world model research concept built around replicable, aligned Real and Dream trajectories. The clarified research target is **bidirectional, local segment repair**: reliable observations correct imagined predictions; model predictions help estimate state when observations are damaged; the corrected state supports further branching and future action selection. This DNA-inspired analogy describes computational branching and repair, not literal biological replication.
 
-> Current stage: v0.1 principles, a mathematical reference core, and a first pixel Walker training pipeline. No performance improvement has been established. The vector reference remains independently tested; the new controller is our initial research implementation, not DreamerV3 reproduction code.
+> Status, 2026-10-14: the first custom Walker seed0 pilot completed its budget but suffered a large performance regression. Final frozen evaluation: **69.38 mean return over 20 episodes**; best periodic mean: **570.98 over 5 episodes at 520k actions**. These are one training seed, not evidence of efficacy. The clarified bidirectional repair architecture is a **proposal, not implemented or validated functionality**.
 
-The [first experiment protocol](docs/first_experiment_protocol.md) fixes Walker Walk, seed 0, **1,000,000 action decisions**, action repeat 2 (**2,000,000 DMC calls**). It specifies the smoke gates, immutable checkpoints, frozen evaluation, one stage video, learning curves, and six-hour monitoring. Runtime status and measured results belong in the experiment evidence, not in this design claim.
+The [frozen first experiment protocol](docs/first_experiment_protocol.md) specifies Walker Walk, seed 0, **1,000,000 action decisions**, action repeat 2 (**2,000,000 DMC calls**). Read the [results and failure analysis](docs/experiments/2026-10-13-walker-seed0.md) for the learning curve, compact numerical evidence, verified observations, unresolved causes, and design limitations. Its custom controller is not an official DreamerV3 baseline, and that run did not test the complete clarified repair architecture.
 
-Suggested reading order: [Core equations](#2-time-indexing-and-the-two-paths) → [Detailed design and flowcharts](docs/DESIGN.md) → [Synthetic formula demonstration](examples/synthetic_trace.py) → [Validation record](docs/VALIDATION.md).
+Suggested reading order: [Clarified dual-chain design and feasible alternatives](docs/DUAL_CHAIN_DESIGN.md) → [First experiment postmortem](docs/experiments/2026-10-13-walker-seed0.md) → [Implemented v0.1 equations](#2-time-indexing-and-the-two-paths) → [Historical reference design](docs/DESIGN.md) → [Validation record](docs/VALIDATION.md).
+
+The sections below describe the implemented v0.1 mathematical core and pilot, rather than claiming that the newer repair proposal already exists. Raw observations remain immutable evidence; repaired beliefs and reconstructed images must retain their predictive provenance. A genuine physical failure changes future control and learning, not the recorded past.
 
 ## 1. Research objective and minimal core
 
@@ -182,7 +184,7 @@ Construct actor/critic targets only within the valid prefix. Computing returns f
 
 When $H=0$, the starting point produces no imagined policy-update samples. Skip the update if the entire batch has no valid samples.
 
-The proposed initial actor update uses a score-function surrogate on fixed gated samples. Sampled actions, states, gate weights, and advantages are detached along the required gradient paths. This is not claimed to be an unbiased gradient of the full adaptive-stopping objective. Complete actor/critic optimizers have not yet been implemented.
+The initial actor update uses a score-function surrogate on fixed gated samples. Sampled actions, states, gate weights, and advantages are detached along the required gradient paths. This is not claimed to be an unbiased gradient of the full adaptive-stopping objective. The pilot's actor/critic optimizers are implemented in [control.py](helixwm/control.py); their existence and finite gradients did not establish stable learning. See the [failure analysis](docs/experiments/2026-10-13-walker-seed0.md).
 
 ## 6. Overall workflow
 
@@ -212,7 +214,7 @@ This diagram describes the learning cycle. Future data required for training lab
 
 ## 7. Mapping equations to code
 
-The files below implement the mathematical core. Formal environment integration, replay, complete actor/critic optimization, and training recovery are not yet connected.
+The files below implement the mathematical core. The first pilot additionally connected pixel observations, environment interaction, replay, actor/critic optimization, checkpoints and frozen evaluation. These engineering capabilities are separate from the proposed bidirectional segment-repair mechanism.
 
 | Module | Code | Responsibility |
 |---|---|---|
@@ -221,10 +223,12 @@ The files below implement the mathematical core. Formal environment integration,
 | Model losses | [losses.py](helixwm/losses.py) | Base losses, multistep correction, and gradient isolation |
 | Reliability | [reliability.py](helixwm/reliability.py) | Observed error history, bootstrap ensemble, causal risk head, and labels |
 | Value targets | [returns.py](helixwm/returns.py) | Consecutive prefixes, lambda returns, and bootstrapping |
+| Pixel model and controller | [pixels.py](helixwm/pixels.py), [control.py](helixwm/control.py) | Custom pilot architecture and imagined policy/value updates |
+| Experiment pipeline | [train.py](helixwm/train.py), [replay.py](helixwm/replay.py), [checkpoint.py](helixwm/checkpoint.py), [evaluation.py](helixwm/evaluation.py) | Collection, replay, saved training state and frozen evaluation |
 | Formula demonstration | [synthetic_trace.py](examples/synthetic_trace.py) | Synthetic inputs, backward-pass checks, and hand-computed return checks; zero optimizer steps |
 | Correctness tests | [tests](tests/) | Causal timing, gradients, masks, return boundaries, and half-precision regressions |
 
-The reference implementation uses Gaussian losses with fixed unit variance for observation/reward heads and a Bernoulli loss for continuation. It does not reproduce DreamerV3's distributional heads, free bits, normalization, or other training details. All network dimensions and example thresholds are chosen only for mathematical verification.
+The reference implementation uses Gaussian losses with fixed unit variance for observation/reward heads and a Bernoulli loss for continuation. It does not reproduce DreamerV3's distributional heads, free bits, normalization, or other training details. The synthetic examples verify mathematical behavior; the pilot's dimensions and thresholds are explicit, untuned first-run choices recorded in its protocol.
 
 ### Running locally
 
@@ -262,12 +266,13 @@ The first version establishes the basic model, equations, and correctness tests 
 
 | Stage | Status |
 |---|---|
-| Basic design and equations | Initial draft, open to further discussion |
+| Clarified dual-chain design | Replication, bidirectional local repair, replaceable modules and staged feasibility plan documented; not implemented |
 | Reference implementation | v0.1 mathematical core, synthetic demonstration, and tests implemented |
-| Local tests | 30 unit tests and the synthetic demonstration passed; see the validation record |
+| Historical reference tests | 30 CPU unit tests and the synthetic demonstration passed at the reference-validation stage; see its dated record |
 | RTX 5090 environment | Isolated GPU environment and bounded CUDA/Walker smoke checks passed; see the environment runbook |
 | CI | GitHub Actions was not configured or run for this version |
-| Formal Walker training | Not started |
+| First Walker pilot | Budget complete; final mean 69.38, substantial regression; single-seed artifact acceptance passed, efficacy not established |
+| Bidirectional segment-repair experiments | Not started |
 | Multiple seeds and publication-level comparisons | Not started |
 
 Future experiments must follow these requirements:
@@ -275,12 +280,12 @@ Future experiments must follow these requirements:
 - Record the source revision, dependencies, configuration, hardware, random seeds, and complete launch commands. Distinguish environment frames from control steps and document action repeat.
 - Preserve each baseline author's original algorithm, budget, and evaluation protocol. Do not describe HelixWM modifications as an unmodified reproduction of an author's method.
 - Start formal training only after environment compatibility, smoke tests, checkpoint reload, and frozen evaluation with zero parameter updates have passed.
-- Use tmux for remote runs. Check every six hours as requested, and notify only for meaningful changes, completion, failure, or required user action. This is a requirement for future runs; it does not mean that monitoring or training has already started.
+- Use tmux for remote runs. Check every six hours as requested, and notify only for meaningful changes, completion, failure, or required user action. The completed pilot's monitoring is paused; this documentation does not start another run.
 - Do not interrupt training, alter running source code or budgets, switch seeds, launch duplicate runs, or release instances without authorization.
 - Document the model, optimizer, and other states included in each checkpoint. If replay, RNG, or environment state is missing, do not claim exact restoration of the complete training process.
 - Archive results on the D drive according to the retained acceptance specification: models, raw data, logs, source/configuration, metadata, learning curves, and SHA256 checksums. Save one video and one learning curve for each actual experiment stage.
 - Distinguish smoke checks, completion of a single seed, and publication-level evidence from multiple seeds. Synthetic demonstrations do not replace environment experiments.
-- Keep code and documentation on GitHub; store large models and experimental data in the experiment archive. SSH passwords, private keys, and other credentials must not enter the repository.
+- Keep code, documentation, small figures and reviewed numerical evidence on GitHub; store large checkpoints, replay and full logs in the experiment archive. SSH passwords, private keys, private machine paths and other credentials must not enter the repository.
 
 ## 10. Sources and research positioning
 
@@ -293,4 +298,4 @@ Foundational references:
 - [Perceiving the Knowledge Boundary](https://ojs.aaai.org/index.php/AAAI/article/view/39576): related work on uncertainty-guided exploration and imagination.
 - [dm_control](https://github.com/google-deepmind/dm_control): implementation of the candidate control environment.
 
-Combining and renaming existing components does not establish novelty. The central questions are whether previously observed prediction errors add information beyond model disagreement, and whether combining correction with trusted prefixes improves model learning and control performance.
+Combining and renaming existing components does not establish novelty. The clarified questions are whether replicated, aligned trajectories can support evidence-anchored bidirectional segment repair, whether this improves state estimation and control over ordinary filtering and simpler alternatives, and whether the benefit survives matched data and compute budgets. The earlier error-calibration hypothesis remains a component-level question rather than the whole architecture.

@@ -1,5 +1,7 @@
 # HelixWM v0.1: From Principles to Inspectable Code
 
+> Historical design for the v0.1 mathematical reference. Its deferred-implementation list records that stage, not the current repository status. A custom Walker pilot was subsequently completed; see the [experiment postmortem](experiments/2026-10-13-walker-seed0.md). The [clarified dual-chain proposal](DUAL_CHAIN_DESIGN.md) now defines the intended replication and bidirectional segment repair, which the pilot did not implement.
+
 ## Research Question
 
 Model ensembles can agree on incorrect predictions because they share gaps in the data or biases in their representations. HelixWM asks: **Can previously observed prediction errors provide information beyond ensemble disagreement when deciding which upcoming imagined segments to use for policy learning?**

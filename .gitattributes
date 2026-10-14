@@ -1,0 +1,3 @@
+# Preserve archived evidence bytes, including original CRLF line endings.
+# Keep normal whitespace checks while recognizing the archived CRLF endings.
+docs/experiments/evidence/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

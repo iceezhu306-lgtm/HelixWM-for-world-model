@@ -1,5 +1,7 @@
 # v0.1 Validation Record
 
+> Historical record of the reference-only checks below. It is not a current inventory of all repository capabilities. The later completed custom pilot and its unsuccessful control outcome are documented in the [first experiment postmortem](experiments/2026-10-13-walker-seed0.md); the newer [dual-chain repair proposal](DUAL_CHAIN_DESIGN.md) remains unimplemented.
+
 Date: 2026-10-13. Scope: the mathematical reference implementation on a local CPU. No environment experiments or remote training were started.
 
 The later [RTX 5090 environment verification](ENVIRONMENT_RTX5090.md) has a separate record for CUDA operators, RSSM gradients, initialized checkpoint reload, and bounded Walker EGL rendering. It does not constitute formal training.
@@ -40,6 +42,6 @@ An independent review identified and fixed two low-precision issues: overflow fr
 
 ## Remaining Experimental Validation
 
-The current evidence establishes only that these mathematical interfaces and boundary tests passed. It does not demonstrate that HelixWM improves environment returns, sample efficiency, calibration quality, or generalization. No learning curves, environment videos, training checkpoints, or multi-seed results were produced.
+This reference-validation stage established only that these mathematical interfaces and boundary tests passed. It did not demonstrate that HelixWM improves environment returns, sample efficiency, calibration quality, or generalization. These specific reference checks produced no learning curves, environment videos, training checkpoints, or multi-seed results.
 
-The next stage should first address the design of frozen-model diagnostics, then decide how to adapt the authors' maintained DreamerV3 implementation. The complete training loop, checkpoint/replay/RNG recovery, and formal acceptance checks remain future work.
+At that stage, the proposed next work was frozen-model diagnostics followed by adaptation of the authors' maintained DreamerV3 implementation. The later custom pilot implemented a training loop and checkpoint/replay/RNG storage and passed single-run artifact acceptance, but it did not implement that official-backbone comparison or establish effective bidirectional repair. Consult the dated experiment report for those distinctions.

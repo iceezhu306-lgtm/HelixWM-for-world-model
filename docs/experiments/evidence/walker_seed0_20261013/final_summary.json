@@ -1,0 +1,30 @@
+{
+  "experiment": "HelixWM v1 Walker Walk",
+  "training_seed": 0,
+  "stage": "clean_training",
+  "agent_steps": 1000000,
+  "env_steps": 2000000,
+  "action_repeat": 2,
+  "learner_updates": 199001,
+  "training_wall_time_seconds": 60215.56709411368,
+  "completed_utc": "2026-10-14T03:53:30.068657+00:00",
+  "final_evaluation": {
+    "n": 20,
+    "mean": 69.3799635563811,
+    "population_std": 16.999053033160163,
+    "median": 72.39041395014627,
+    "min": 34.31760988929037,
+    "max": 104.79513605236639,
+    "std_scope": "fixed environment evaluation episodes of one training seed; ddof=0"
+  },
+  "final_checkpoint": "checkpoint_001000000.pt",
+  "best_periodic_checkpoint": "checkpoint_000520000.pt",
+  "best_periodic_mean": 570.9786526980813,
+  "best_periodic_eval_episode_count": 5,
+  "all_checkpoints_preserved": true,
+  "performance_regression_observed": true,
+  "regression_cause": "not determined",
+  "experiment_class": "single_seed_pilot",
+  "paper_level_complete": false,
+  "efficacy_demonstrated": false
+}

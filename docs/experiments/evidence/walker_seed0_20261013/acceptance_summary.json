@@ -1,0 +1,22 @@
+{
+  "record_type": "allowlisted_extract_of_recorded_acceptance",
+  "recorded_acceptance_utc": "2026-10-14T05:35:49.882036+00:00",
+  "scope": "single-seed execution, frozen evaluation and D-drive preservation; not an efficacy or paper-level claim",
+  "training_source_commit": "ac07404f14c2a115140666bce43bc07e2d8c6bf0",
+  "single_seed_artifact_acceptance_passed": true,
+  "archive": {
+    "archive_bytes": 6664310316,
+    "archive_sha256": "55be76fd2688b536af1a6453595c3291a4b5beaca1d288eb39a7b324afeab5fe",
+    "zip_crc_check": "PASS",
+    "exact_member_set": "PASS",
+    "extracted_sha256_check": "PASS",
+    "verified_files": 2360,
+    "payload_bytes": 7233987032,
+    "formal_mp4_count": 1,
+    "checkpoint_payloads": 100,
+    "replay_episodes": 2000
+  },
+  "efficacy_demonstrated": false,
+  "paper_level_complete": false,
+  "publication_note": "This is a compact extract of a previously recorded acceptance, not a fresh full archive re-verification. Large checkpoints, replay and video remain in the local experiment archive; private machine paths and infrastructure identifiers are omitted."
+}

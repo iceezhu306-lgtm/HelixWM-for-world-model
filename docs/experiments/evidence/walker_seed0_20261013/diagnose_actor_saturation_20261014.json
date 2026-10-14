@@ -1,0 +1,139 @@
+{
+  "method": "Fixed 4 archived replay observation/action sequences, 33 observations each, first 8 discarded as recurrent burnin. Each checkpoint independently infers its own latent states; fixed Torch seed. No environment calls, no backward, no optimizer step. 100 action samples per state. Rates count action coordinates, not timesteps. This is offline diagnostic evidence, not a new return evaluation.",
+  "episode_ids": [
+    900,
+    950,
+    999,
+    1039
+  ],
+  "observation_indices": [
+    200,
+    232
+  ],
+  "checkpoints": [
+    {
+      "checkpoint_agent_steps": 520000,
+      "feature_count": 100,
+      "mean_abs_pre_tanh_mu": 4.871556282043457,
+      "max_abs_pre_tanh_mu": 33.18894577026367,
+      "mean_std": 0.577954888343811,
+      "min_std": 0.0067379469983279705,
+      "raw_log_std_at_or_below_minus5_fraction": 0.05166666582226753,
+      "raw_log_std_at_or_above2_fraction": 0.0033333334140479565,
+      "deterministic_abs_action_gt099_fraction": 0.6783333420753479,
+      "deterministic_abs_action_eq1_fraction": 0.0949999988079071,
+      "sampled_abs_action_gt099_fraction": 0.669783353805542,
+      "sampled_abs_action_eq1_fraction": 0.10939999669790268,
+      "entropy_mean": -50.512569427490234,
+      "mean_mu_per_dimension": [
+        -2.4158825874328613,
+        -2.848498821258545,
+        -3.8558218479156494,
+        -3.9581046104431152,
+        -1.5842018127441406,
+        5.184337139129639
+      ],
+      "mean_std_per_dimension": [
+        0.587529718875885,
+        0.1541791707277298,
+        0.9794213771820068,
+        0.5960025787353516,
+        0.24277590215206146,
+        0.9078203439712524
+      ]
+    },
+    {
+      "checkpoint_agent_steps": 600000,
+      "feature_count": 100,
+      "mean_abs_pre_tanh_mu": 5.3049211502075195,
+      "max_abs_pre_tanh_mu": 48.88208770751953,
+      "mean_std": 0.3518657684326172,
+      "min_std": 0.0067379469983279705,
+      "raw_log_std_at_or_below_minus5_fraction": 0.11666666716337204,
+      "raw_log_std_at_or_above2_fraction": 0.0,
+      "deterministic_abs_action_gt099_fraction": 0.6733333468437195,
+      "deterministic_abs_action_eq1_fraction": 0.0949999988079071,
+      "sampled_abs_action_gt099_fraction": 0.6692833304405212,
+      "sampled_abs_action_eq1_fraction": 0.09969999641180038,
+      "entropy_mean": -58.191951751708984,
+      "mean_mu_per_dimension": [
+        -0.8839771151542664,
+        -1.3101767301559448,
+        -3.5185086727142334,
+        -1.2427464723587036,
+        -3.3662819862365723,
+        5.441623687744141
+      ],
+      "mean_std_per_dimension": [
+        0.3214176595211029,
+        0.2032863199710846,
+        0.6491413712501526,
+        0.15682867169380188,
+        0.20004120469093323,
+        0.5804794430732727
+      ]
+    },
+    {
+      "checkpoint_agent_steps": 620000,
+      "feature_count": 100,
+      "mean_abs_pre_tanh_mu": 9.010905265808105,
+      "max_abs_pre_tanh_mu": 89.2907943725586,
+      "mean_std": 0.49640214443206787,
+      "min_std": 0.0067379469983279705,
+      "raw_log_std_at_or_below_minus5_fraction": 0.21833333373069763,
+      "raw_log_std_at_or_above2_fraction": 0.03500000014901161,
+      "deterministic_abs_action_gt099_fraction": 0.8533333539962769,
+      "deterministic_abs_action_eq1_fraction": 0.2783333361148834,
+      "sampled_abs_action_gt099_fraction": 0.8478166460990906,
+      "sampled_abs_action_eq1_fraction": 0.27578333020210266,
+      "entropy_mean": -106.8265609741211,
+      "mean_mu_per_dimension": [
+        -1.3337997198104858,
+        -9.084096908569336,
+        -5.956928253173828,
+        1.418264627456665,
+        -5.898919582366943,
+        15.4721040725708
+      ],
+      "mean_std_per_dimension": [
+        0.16694994270801544,
+        0.08531634509563446,
+        2.30717396736145,
+        0.14103220403194427,
+        0.08464771509170532,
+        0.19329269230365753
+      ]
+    },
+    {
+      "checkpoint_agent_steps": 1000000,
+      "feature_count": 100,
+      "mean_abs_pre_tanh_mu": 21.19109344482422,
+      "max_abs_pre_tanh_mu": 108.9654541015625,
+      "mean_std": 3.7689266204833984,
+      "min_std": 0.0067379469983279705,
+      "raw_log_std_at_or_below_minus5_fraction": 0.2783333361148834,
+      "raw_log_std_at_or_above2_fraction": 0.47833332419395447,
+      "deterministic_abs_action_gt099_fraction": 0.8799999952316284,
+      "deterministic_abs_action_eq1_fraction": 0.6783333420753479,
+      "sampled_abs_action_gt099_fraction": 0.8725500106811523,
+      "sampled_abs_action_eq1_fraction": 0.6770166754722595,
+      "entropy_mean": -245.39002990722656,
+      "mean_mu_per_dimension": [
+        -6.263041973114014,
+        21.87409210205078,
+        -2.162485361099243,
+        -13.918513298034668,
+        -6.980067253112793,
+        -14.4806547164917
+      ],
+      "mean_std_per_dimension": [
+        5.663524627685547,
+        7.216310501098633,
+        1.0253551006317139,
+        1.4841759204864502,
+        1.5935090780258179,
+        5.630683422088623
+      ]
+    }
+  ]
+}

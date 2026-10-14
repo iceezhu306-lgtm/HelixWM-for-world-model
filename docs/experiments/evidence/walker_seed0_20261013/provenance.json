@@ -1,0 +1,35 @@
+{
+  "run_name": "walker_seed0_1m_actions_20261013",
+  "training_source_commit": "ac07404f14c2a115140666bce43bc07e2d8c6bf0",
+  "copied_file_hashes": {
+    "final_summary.json": {
+      "sha256": "c015326bcfe46449888585dece4db86ed706f2c04b5576e0893d308d0d8e1b80",
+      "bytes": 1017
+    },
+    "eval_raw.csv": {
+      "sha256": "40dca36c6da7994af8a801846ac5a06134744c1bb8f0fcc7af8f75c3269ca882",
+      "bytes": 51073
+    },
+    "diagnostic_windows.csv": {
+      "sha256": "5b929ae501c1536b34a4208683b070b1cc08807ca3d00079655ebac077390b4a",
+      "bytes": 3451
+    },
+    "matched_evaluation_curve.csv": {
+      "sha256": "94764077816a99dbeb6c1cf845be6890d5ce9faeae0175fabbb3bc4076bd4768",
+      "bytes": 3324
+    },
+    "diagnose_actor_saturation_20261014.json": {
+      "sha256": "ec3e0402c210aa3fb419ab2631ad6ca62c6fcb7166f286c5e5a17afe7217bc27",
+      "bytes": 5114
+    }
+  },
+  "learning_curve_sha256": "6431964af2b48ed4a6e0ec5f0ca7d1c41c62fecc577fb4f473625aa4633d6558",
+  "evidence_scope": "One training seed; diagnostic association is not unique causal identification. Compact evidence does not replace the full local archive.",
+  "verification": {
+    "raw_eval_rows": 265,
+    "final_eval_rows": 20,
+    "matched_five_seed_groups": 50,
+    "final_statistics_recomputed": true,
+    "matched_group_statistics_recomputed": true
+  }
+}
