@@ -152,14 +152,22 @@ class StorageV2Tests(unittest.TestCase):
     def test_jax_array_and_typed_key_roundtrip(self):
         import jax
         import jax.numpy as jnp
-        payload = self.payload()
-        payload["backbone"]["weight"] = jnp.arange(6, dtype=jnp.bfloat16).reshape(2, 3)
-        payload["dualchain"]["key"] = jax.random.key(42)
-        checkpoint = save_checkpoint(self.path / "CHECKPOINTS", payload)
-        restored = load_checkpoint(checkpoint)
-        self.assertEqual(tree_hash(restored), tree_hash(payload))
-        np.testing.assert_array_equal(jax.random.key_data(restored["dualchain"]["key"]),
-                                      jax.random.key_data(payload["dualchain"]["key"]))
+        previous_guard = jax.config.jax_transfer_guard
+        # Official-backbone tests can leave the process-wide transfer guard
+        # at "disallow". This test intentionally creates device fixtures,
+        # materializes them on the host, and reconstructs a typed device key.
+        # Its contract is value/dtype preservation, not transfer scheduling.
+        # Keep that policy local and restore the preceding test's guard.
+        with jax.transfer_guard("allow"):
+            payload = self.payload()
+            payload["backbone"]["weight"] = jnp.arange(6, dtype=jnp.bfloat16).reshape(2, 3)
+            payload["dualchain"]["key"] = jax.random.key(42)
+            checkpoint = save_checkpoint(self.path / "CHECKPOINTS", payload)
+            restored = load_checkpoint(checkpoint)
+            self.assertEqual(tree_hash(restored), tree_hash(payload))
+            np.testing.assert_array_equal(jax.random.key_data(restored["dualchain"]["key"]),
+                                          jax.random.key_data(payload["dualchain"]["key"]))
+        self.assertEqual(jax.config.jax_transfer_guard, previous_guard)
 
 
 if __name__ == "__main__":

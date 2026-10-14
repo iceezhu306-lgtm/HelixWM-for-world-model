@@ -193,12 +193,22 @@ class OfficialDreamerBackbone:
                                            training=False)
             return state
 
-        def wrap(fn, static=(), foldin=None):
+        def wrap(fn, static=(), foldin=None, scan_bookkeeping=False):
             pure = nj.pure(fn)
             def call(params, key, *args):
                 if foldin is not None:
                     key = jax.random.fold_in(key, foldin)
-                _, output = pure(params, *args, seed=key, create=False, modify=False)
+                if scan_bookkeeping:
+                    # Ninjax 3.5.1 _prerun returns one set with modify=False,
+                    # but scan requires (accessed, modified). Permit its scan
+                    # bookkeeping, then reject ANY actual state write while
+                    # tracing. No parameter updates escape this pure call.
+                    _, output, _, modified, created = pure(
+                        params, *args, seed=key, create=False, modify=True, track=True)
+                    if modified or created:
+                        raise RuntimeError("Read-only prefix attempted to modify model state")
+                else:
+                    _, output = pure(params, *args, seed=key, create=False, modify=False)
                 return output
             return jax.jit(call, static_argnums=static)
 
@@ -206,7 +216,7 @@ class OfficialDreamerBackbone:
         self._prior = wrap(prior)
         self._score = wrap(score)
         self._act = wrap(act, static=(3,))
-        self._prefix = wrap(prefix, foldin=0x48454C49)
+        self._prefix = wrap(prefix, foldin=0x48454C49, scan_bookkeeping=True)
 
     def initial(self, batch=1):
         if not isinstance(batch, int) or batch < 1:
