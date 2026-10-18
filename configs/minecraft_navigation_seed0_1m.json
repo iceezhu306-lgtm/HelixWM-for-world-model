@@ -1,0 +1,40 @@
+{
+  "experiment_class": "single_seed_custom_real_minecraft_navigation",
+  "task_namespace": "helixwm_minecraft_visible_navigation_v1",
+  "task_id": "HelixWMVisibleNavigation-v0",
+  "seed": 0,
+  "budget_agent_steps": 1000000,
+  "environment": {
+    "action_repeat": 2,
+    "image_size": 64,
+    "episode_env_steps": 1000,
+    "worker_python": "/root/helixwm_minecraft/env_py39/bin/python",
+    "timeout_seconds": 180
+  },
+  "backbone": {
+    "seed": 0,
+    "platform": "cuda",
+    "compute_dtype": "bfloat16",
+    "size": "size12m",
+    "batch_size": 16,
+    "batch_length": 64,
+    "burnin": 32
+  },
+  "train_ratio": 256,
+  "prefill_agent_steps": 5000,
+  "replay_capacity_steps": 1000000,
+  "replay_cache_episodes": 4,
+  "checkpoint_every": 10000,
+  "eval_every": 20000,
+  "periodic_eval_episodes": 5,
+  "final_eval_episodes": 20,
+  "eval_seed_start": 10000,
+  "final_arms": ["clean", "black_frame", "prior_only", "v2_exact", "locked_ancestor", "posterior_return_once"],
+  "final_gap_lengths": [1, 5, 10, 20, 50],
+  "final_gap_start": 10,
+  "final_video": {"arm": "v2_exact", "seed": 10000, "gap_length": 20},
+  "dual_chain": {"max_candidates": 8, "max_missing": 5, "score_temperature": 0.01},
+  "observation_dropout": {"start_probability": 0.02, "min_length": 1, "max_length": 5},
+  "video_fps": 20,
+  "notes": "One newly initialized seed0 task; no Walker transfer. Explicit V2 RGB64 continuous-six-action adapter with unchanged official Dreamer learner. env_steps counts acknowledged native synchronous MineRL calls, at most two per action; this is not the total Java world-tick count and reset/warm-up calls are outside the action budget. Nominal 0.05 seconds per native call is not measured wall time. Checkpoints/evaluations wait for the next episode boundary; final training budget truncates exactly. Real observed images are immutable learner targets even under known collector masking. Final 520-case frozen evaluation uses this single checkpoint, fixed seeds 10000..10019 and gap start10; these are development seeds, not an untouched seed or map-generalization claim. All real-engine/GPU/smoke/recovery/60-second throughput/capacity gates must pass before formal launch. A four-episode replay memory cache changes only storage IO, not sampling membership or the preserved archive. Minecraft sampling explicitly concatenates complete real episodes with original reset/end flags so short successes are not excluded; no invented padding rewards."
+}

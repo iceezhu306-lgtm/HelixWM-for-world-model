@@ -1,0 +1,40 @@
+{
+  "experiment_class": "minecraft_integration_smoke_not_formal",
+  "task_namespace": "helixwm_minecraft_visible_navigation_v1",
+  "task_id": "HelixWMVisibleNavigation-v0",
+  "seed": 0,
+  "budget_agent_steps": 1000,
+  "environment": {
+    "action_repeat": 2,
+    "image_size": 64,
+    "episode_env_steps": 1000,
+    "worker_python": "/root/helixwm_minecraft/env_py39/bin/python",
+    "timeout_seconds": 180
+  },
+  "backbone": {
+    "seed": 0,
+    "platform": "cuda",
+    "compute_dtype": "bfloat16",
+    "size": "size12m",
+    "batch_size": 16,
+    "batch_length": 64,
+    "burnin": 32
+  },
+  "train_ratio": 256,
+  "prefill_agent_steps": 500,
+  "replay_capacity_steps": 1000000,
+  "replay_cache_episodes": 4,
+  "checkpoint_every": 500,
+  "eval_every": 1000,
+  "periodic_eval_episodes": 1,
+  "final_eval_episodes": 1,
+  "eval_seed_start": 10000,
+  "final_arms": ["clean", "black_frame", "prior_only", "v2_exact", "locked_ancestor", "posterior_return_once"],
+  "final_gap_lengths": [1, 5, 10, 20, 50],
+  "final_gap_start": 10,
+  "final_video": {"arm": "v2_exact", "seed": 10000, "gap_length": 20},
+  "dual_chain": {"max_candidates": 8, "max_missing": 5, "score_temperature": 0.01},
+  "observation_dropout": {"start_probability": 0.02, "min_length": 1, "max_length": 5},
+  "video_fps": 20,
+  "notes": "Independent disposable smoke, not formal training or accepted results. Same model, batch, sequence, dtype, learner, task, action mapping and masking as formal; only action/prefill/checkpoint/eval counts differ. One clean and one known-dropout evaluation with a smoke-only MP4 and plots in SMOKE_ARTIFACTS. Never load this trained smoke checkpoint as the initialization of formal training."
+}
