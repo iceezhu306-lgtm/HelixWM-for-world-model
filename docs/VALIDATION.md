@@ -1,6 +1,6 @@
 # v0.1 Validation Record
 
-> Historical record of the reference-only checks below. It is not a current inventory of all repository capabilities. The later completed custom pilot and its unsuccessful control outcome are documented in the [first experiment postmortem](experiments/2026-10-13-walker-seed0.md); the newer [dual-chain repair proposal](DUAL_CHAIN_DESIGN.md) remains unimplemented.
+> Historical record of the reference-only checks below. It is not a current inventory of all repository capabilities. The custom pilot's unsuccessful outcome is documented in the [first experiment postmortem](experiments/2026-10-13-walker-seed0.md). The bounded subset of the [dual-chain proposal](DUAL_CHAIN_DESIGN.md) subsequently completed a separate [second experiment](experiments/2026-10-14-dual-chain-walker-seed0.md); the broader proposal remains unvalidated.
 
 Date: 2026-10-13. Scope: the mathematical reference implementation on a local CPU. No environment experiments or remote training were started.
 

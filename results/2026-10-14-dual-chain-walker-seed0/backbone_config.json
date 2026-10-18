@@ -1,0 +1,231 @@
+{
+  "agent": {
+    "ac_grads": false,
+    "advnorm": {
+      "impl": "none",
+      "limit": 1e-08,
+      "rate": 0.01
+    },
+    "conhead": {
+      "act": "silu",
+      "layers": 1,
+      "norm": "rms",
+      "output": "binary",
+      "outscale": 1.0,
+      "units": 256,
+      "winit": "trunc_normal_in"
+    },
+    "contdisc": true,
+    "dec": {
+      "simple": {
+        "act": "silu",
+        "bspace": 8,
+        "depth": 16,
+        "kernel": 5,
+        "layers": 3,
+        "mults": [
+          2,
+          3,
+          4,
+          4
+        ],
+        "norm": "rms",
+        "outer": false,
+        "outscale": 1.0,
+        "strided": false,
+        "units": 256,
+        "winit": "trunc_normal_in"
+      },
+      "typ": "simple"
+    },
+    "dyn": {
+      "rssm": {
+        "absolute": false,
+        "act": "silu",
+        "blocks": 8,
+        "classes": 16,
+        "deter": 2048,
+        "dynlayers": 1,
+        "free_nats": 1.0,
+        "hidden": 256,
+        "imglayers": 2,
+        "norm": "rms",
+        "obslayers": 1,
+        "outscale": 1.0,
+        "stoch": 32,
+        "unimix": 0.01,
+        "winit": "trunc_normal_in"
+      },
+      "typ": "rssm"
+    },
+    "enc": {
+      "simple": {
+        "act": "silu",
+        "depth": 16,
+        "kernel": 5,
+        "layers": 3,
+        "mults": [
+          2,
+          3,
+          4,
+          4
+        ],
+        "norm": "rms",
+        "outer": false,
+        "strided": false,
+        "symlog": true,
+        "units": 256,
+        "winit": "trunc_normal_in"
+      },
+      "typ": "simple"
+    },
+    "horizon": 333,
+    "imag_last": 0,
+    "imag_length": 15,
+    "imag_loss": {
+      "actent": 0.0003,
+      "lam": 0.95,
+      "slowreg": 1.0,
+      "slowtar": false
+    },
+    "loss_scales": {
+      "con": 1.0,
+      "dyn": 1.0,
+      "policy": 1.0,
+      "rec": 1.0,
+      "rep": 0.1,
+      "repval": 0.3,
+      "rew": 1.0,
+      "value": 1.0
+    },
+    "opt": {
+      "agc": 0.3,
+      "anneal": 0,
+      "beta1": 0.9,
+      "beta2": 0.999,
+      "eps": 1e-20,
+      "lr": 4e-05,
+      "momentum": true,
+      "schedule": "const",
+      "warmup": 1000,
+      "wd": 0.0
+    },
+    "policy": {
+      "act": "silu",
+      "layers": 3,
+      "maxstd": 1.0,
+      "minstd": 0.1,
+      "norm": "rms",
+      "outscale": 0.01,
+      "unimix": 0.01,
+      "units": 256,
+      "winit": "trunc_normal_in"
+    },
+    "policy_dist_cont": "bounded_normal",
+    "policy_dist_disc": "categorical",
+    "repl_loss": {
+      "lam": 0.95,
+      "slowreg": 1.0,
+      "slowtar": false
+    },
+    "report": true,
+    "report_gradnorms": false,
+    "repval_grad": true,
+    "repval_loss": true,
+    "retnorm": {
+      "debias": false,
+      "impl": "perc",
+      "limit": 1.0,
+      "perchi": 95.0,
+      "perclo": 5.0,
+      "rate": 0.01
+    },
+    "reward_grad": true,
+    "rewhead": {
+      "act": "silu",
+      "bins": 255,
+      "layers": 1,
+      "norm": "rms",
+      "output": "symexp_twohot",
+      "outscale": 0.0,
+      "units": 256,
+      "winit": "trunc_normal_in"
+    },
+    "slowvalue": {
+      "every": 1,
+      "rate": 0.02
+    },
+    "valnorm": {
+      "impl": "none",
+      "limit": 1e-08,
+      "rate": 0.01
+    },
+    "value": {
+      "act": "silu",
+      "bins": 255,
+      "layers": 3,
+      "norm": "rms",
+      "output": "symexp_twohot",
+      "outscale": 0.0,
+      "units": 256,
+      "winit": "trunc_normal_in"
+    }
+  },
+  "batch_length": 64,
+  "batch_size": 16,
+  "consec_report": 1,
+  "consec_train": 1,
+  "env": {
+    "dmc": {
+      "camera": -1,
+      "image": true,
+      "proprio": false,
+      "repeat": 2,
+      "size": [
+        64,
+        64
+      ]
+    }
+  },
+  "jax": {
+    "compute_dtype": "bfloat16",
+    "debug": false,
+    "enable_policy": false,
+    "expect_devices": 0,
+    "jit": true,
+    "mock_devices": 0,
+    "platform": "cuda",
+    "policy_devices": [
+      0
+    ],
+    "prealloc": false,
+    "precompile": false,
+    "profiler": false,
+    "train_devices": [
+      0
+    ]
+  },
+  "projection_note": "Algorithm and compute fields from resolved backbone config. Unused task presets, logger/network/path settings and upstream run-loop defaults omitted. The actual custom driver's action budget and environment settings are config.json, not the upstream run-loop defaults.",
+  "replay": {
+    "chunksize": 1024,
+    "fracs": {
+      "priority": 0.0,
+      "recency": 0.0,
+      "uniform": 1.0
+    },
+    "online": true,
+    "prio": {
+      "exponent": 0.8,
+      "initial": "inf",
+      "maxfrac": 0.5,
+      "zero_on_sample": true
+    },
+    "priosignal": "model",
+    "recexp": 1.0,
+    "size": 5000000.0
+  },
+  "replay_context": 0,
+  "report_length": 32,
+  "seed": 0,
+  "task": "dmc_walker_walk"
+}

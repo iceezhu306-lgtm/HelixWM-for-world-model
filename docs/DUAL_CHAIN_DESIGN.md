@@ -1,6 +1,6 @@
 # HelixWM: Replicable Dual Chains and Evidence-Guided Repair
 
-**Design clarification: October 14, 2026. Status: proposed, not implemented or experimentally validated.**
+**Design clarification: October 14, 2026. Broader research proposal; partially implemented.** As of October 18, the bounded shared-model candidate mechanism has completed one experiment; see the [second-run report](experiments/2026-10-14-dual-chain-walker-seed0.md). The full reliability/adaptation/repair-learning architecture below has not been established. The [next comparison framework](experiments/2026-10-18-continuity-framework.md) is design only.
 
 This document records the clarified research intent. It extends the earlier [v0.1 design](DESIGN.md), whose main mechanisms were multistep prediction correction and reliability-gated imagination. The first Walker experiment did not implement or isolate the complete structure proposed here. Its poor final performance is therefore evidence about that implementation and configuration, not a test that can settle this new proposal.
 

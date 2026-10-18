@@ -1,0 +1,254 @@
+{
+  "analysis_generator": {
+    "repository_relative_path": "scripts/analyze_second_experiment.py",
+    "sha256": "1c198f63017cfafb341641965ecad86b6049eb4daecef8cb646c55117120416e"
+  },
+  "exports": {
+    "README.md": {
+      "bytes": 6889,
+      "sha256": "680754ed783f573e04fa62103c2c103e35eb2f2aadd73ad1504e03f7a6cf0668",
+      "source_labels": [
+        "P2/RUN/RESULTS/eval.csv",
+        "P1/RESULTS/eval_raw.csv",
+        "P2/RUN/RESULTS/evaluation_events.jsonl",
+        "P2/RUN/dual_chain_events.jsonl"
+      ]
+    },
+    "backbone_config.json": {
+      "bytes": 4935,
+      "sha256": "77df56ffa162d12dc84060cdd40b6b0d48167faf47af7afcc0e1553426c81824",
+      "source_labels": [
+        "P2/RUN/resolved_backbone_config.json"
+      ]
+    },
+    "config.json": {
+      "bytes": 1158,
+      "sha256": "d0aa955b8a54c6509cef4853b855ef7f7eec9d03ecfb19f159307850509f61ae",
+      "source_labels": [
+        "P2/RUN/config.json"
+      ]
+    },
+    "eval.csv": {
+      "bytes": 164490,
+      "sha256": "64de9f746497d3167c1420d7377edacae98aa162601252ed3eab96473494dad6",
+      "source_labels": [
+        "P2/RUN/RESULTS/eval.csv"
+      ]
+    },
+    "learning_curve.csv": {
+      "bytes": 14520,
+      "sha256": "4cbfa22aedd4813f807ad134530e38fe892b23a6ec0435205f388690593d0c68",
+      "source_labels": [
+        "P2/RUN/RESULTS/eval.csv",
+        "P1/RESULTS/eval_raw.csv",
+        "P2/RUN/RESULTS/evaluation_events.jsonl",
+        "P2/RUN/dual_chain_events.jsonl"
+      ]
+    },
+    "metadata.json": {
+      "bytes": 4929,
+      "sha256": "e34bfb47d40a101b80aafea7546f6719772568f55daf2e3c898a942b3cc0172f",
+      "source_labels": [
+        "P2/RUN/metadata.json",
+        "P2/RUN/completion.json",
+        "P2/RUN/RESULTS/final_summary.json",
+        "P1/METADATA/metadata.json"
+      ]
+    },
+    "plots/learning_curve.pdf": {
+      "bytes": 20353,
+      "sha256": "75ccb993980f584029f51cd3f730e8232355c71f0b577de1e65f34babccdfc7b",
+      "source_labels": [
+        "P2/RUN/PLOTS/learning_curve.pdf"
+      ]
+    },
+    "plots/learning_curve.png": {
+      "bytes": 139399,
+      "sha256": "ad3c722a877bacb8c35f3fc00de1f539ad7d967dd187238a9667cae540ba58f9",
+      "source_labels": [
+        "P2/RUN/PLOTS/learning_curve.png"
+      ]
+    },
+    "plots/training_diagnostics.pdf": {
+      "bytes": 588744,
+      "sha256": "85db79445f2123f2a4e3ae416be6c8afdceae501da0bf40022e7e7c13a61d9d8",
+      "source_labels": [
+        "P2/DIAGNOSTICS/training_diagnostics.pdf"
+      ]
+    },
+    "plots/training_diagnostics.png": {
+      "bytes": 521290,
+      "sha256": "f0a3e1bcabfa4a67483e34f8fcd5759b54cb58063c027dc107821cb28ba83a2e",
+      "source_labels": [
+        "P2/DIAGNOSTICS/training_diagnostics.png"
+      ]
+    },
+    "repair_events.jsonl": {
+      "bytes": 180641,
+      "sha256": "ee8008e5da181a10ed49000ae452f7cd879cc92d57b63744cefea03d64a8a3b1",
+      "source_labels": [
+        "P2/RUN/RESULTS/evaluation_events.jsonl"
+      ]
+    },
+    "resource_samples.csv": {
+      "bytes": 125560,
+      "sha256": "6ae14c9b29ff626e23d501139b34bcee7570792a4d95320d7b032250905cde64",
+      "source_labels": [
+        "P2/RUN/resources.jsonl"
+      ]
+    },
+    "summary.json": {
+      "bytes": 11284,
+      "sha256": "2f6c773381140ceaf97a7cf144e1fd15b5d28df006735047d502bf5375fc597e",
+      "source_labels": [
+        "P2/RUN/RESULTS/eval.csv",
+        "P1/RESULTS/eval_raw.csv",
+        "P2/RUN/RESULTS/evaluation_events.jsonl",
+        "P2/RUN/dual_chain_events.jsonl"
+      ]
+    },
+    "training_metrics.csv": {
+      "bytes": 2858779,
+      "sha256": "59bf4699857276eb30b040da2e1aad390aaad701173d645353b364339788ff9f",
+      "source_labels": [
+        "P2/RUN/metrics.jsonl"
+      ]
+    },
+    "training_repair_weights.csv": {
+      "bytes": 4054154,
+      "sha256": "607954e85e5cccd6391a1bff758faca466d4464373851692192fd19121eb8314",
+      "source_labels": [
+        "P2/RUN/dual_chain_events.jsonl"
+      ]
+    },
+    "v1_config.json": {
+      "bytes": 1744,
+      "sha256": "90d27d239833f70eb6db8311d1a1b9c14ec193f9447e76477a651a768dcf5eab",
+      "source_labels": [
+        "P1/CONFIG/config.json"
+      ]
+    },
+    "v1_eval.csv": {
+      "bytes": 51073,
+      "sha256": "40dca36c6da7994af8a801846ac5a06134744c1bb8f0fcc7af8f75c3269ca882",
+      "source_labels": [
+        "P1/RESULTS/eval_raw.csv"
+      ]
+    },
+    "videos/clean_training_final.mp4": {
+      "bytes": 1138981,
+      "sha256": "2da3ef1e582c8af0ec0d6762e45bf14f2d56dc63f95c37c34969820d7483a9d2",
+      "source_labels": [
+        "P2/VIDEOS/clean_training_final.mp4"
+      ]
+    }
+  },
+  "omitted": [
+    "model checkpoints",
+    "replay",
+    "Conda environments and caches",
+    "full logs",
+    "SSH credentials and private keys",
+    "physical hosts and absolute machine paths",
+    "periodic evaluation repair-event details"
+  ],
+  "schema_version": 1,
+  "source_labels": {
+    "P1": "Retained first-experiment final package",
+    "P2": "Retained second-experiment final package"
+  },
+  "sources": {
+    "P1/CONFIG/config.json": {
+      "bytes": 1744,
+      "sha256": "90d27d239833f70eb6db8311d1a1b9c14ec193f9447e76477a651a768dcf5eab"
+    },
+    "P1/METADATA/metadata.json": {
+      "bytes": 928,
+      "sha256": "799f2fe26df42d349f1ba99b2c14a4a78a9e920b8af2296baa522199f36d308b"
+    },
+    "P1/RESULTS/eval_raw.csv": {
+      "bytes": 51073,
+      "sha256": "40dca36c6da7994af8a801846ac5a06134744c1bb8f0fcc7af8f75c3269ca882"
+    },
+    "P2/DIAGNOSTICS/training_diagnostics.pdf": {
+      "bytes": 588744,
+      "sha256": "85db79445f2123f2a4e3ae416be6c8afdceae501da0bf40022e7e7c13a61d9d8"
+    },
+    "P2/DIAGNOSTICS/training_diagnostics.png": {
+      "bytes": 521290,
+      "sha256": "f0a3e1bcabfa4a67483e34f8fcd5759b54cb58063c027dc107821cb28ba83a2e"
+    },
+    "P2/RUN/PLOTS/learning_curve.pdf": {
+      "bytes": 20353,
+      "sha256": "75ccb993980f584029f51cd3f730e8232355c71f0b577de1e65f34babccdfc7b"
+    },
+    "P2/RUN/PLOTS/learning_curve.png": {
+      "bytes": 139399,
+      "sha256": "ad3c722a877bacb8c35f3fc00de1f539ad7d967dd187238a9667cae540ba58f9"
+    },
+    "P2/RUN/RESULTS/eval.csv": {
+      "bytes": 164490,
+      "sha256": "64de9f746497d3167c1420d7377edacae98aa162601252ed3eab96473494dad6"
+    },
+    "P2/RUN/RESULTS/evaluation_events.jsonl": {
+      "bytes": 5150865,
+      "sha256": "402bf3f0ab5c06e43853d33aee08735b33c19ee883988e705818599d1d8eaa1f"
+    },
+    "P2/RUN/RESULTS/final_summary.json": {
+      "bytes": 7767,
+      "sha256": "85837a3554c50ea91c116bf84f57709f4d56ca7674571ead85b3e8d0993833d4"
+    },
+    "P2/RUN/completion.json": {
+      "bytes": 9702,
+      "sha256": "b85cb6ed889ddb1532a9c3595d26018a36fc07d26b56354b4c7a5ee2b963fb91"
+    },
+    "P2/RUN/config.json": {
+      "bytes": 1158,
+      "sha256": "d0aa955b8a54c6509cef4853b855ef7f7eec9d03ecfb19f159307850509f61ae"
+    },
+    "P2/RUN/dual_chain_events.jsonl": {
+      "bytes": 40134897,
+      "sha256": "ab36ba9784d0155d31b041721f4a822595252151b8e96c9209b622af368acdba"
+    },
+    "P2/RUN/metadata.json": {
+      "bytes": 9593,
+      "sha256": "29490477c57e7fe60cfff96d78e75e718b8eb08a0644b8c27a6826929d482ab3"
+    },
+    "P2/RUN/metrics.jsonl": {
+      "bytes": 12524021,
+      "sha256": "2b3a81bc9d96ade6eebf3c30140b3dc78bcacc2acc937447308f699370bf02c6"
+    },
+    "P2/RUN/resolved_backbone_config.json": {
+      "bytes": 6757,
+      "sha256": "802636b0458dfc894f5a842da5291b45d7e4d1765203b3ff8bf897cc8d78ebb8"
+    },
+    "P2/RUN/resources.jsonl": {
+      "bytes": 806604,
+      "sha256": "72bc39c07636fcf1f1e49971391e7348486bcb6ff42cea3a80be8bb888ed3bae"
+    },
+    "P2/VIDEOS/clean_training_final.mp4": {
+      "bytes": 1138981,
+      "sha256": "2da3ef1e582c8af0ec0d6762e45bf14f2d56dc63f95c37c34969820d7483a9d2"
+    }
+  },
+  "transformations": {
+    "README.md": "Authored data dictionary and scope disclosures, reviewed against recomputed statistics.",
+    "backbone_config.json": "Algorithm and compute fields from resolved backbone config. Unused task presets, logger/network/path settings and upstream run-loop defaults omitted. The actual custom driver's action budget and environment settings are config.json, not the upstream run-loop defaults.",
+    "config.json": "Byte-for-byte copy; inspected for public-safe content. No numeric changes.",
+    "eval.csv": "Byte-for-byte copy; inspected for public-safe content. No numeric changes.",
+    "learning_curve.csv": "Deterministically recomputed by scripts/analyze_second_experiment.py; seed, resampling method and limitations in summary.json.",
+    "metadata.json": "Explicit allowed-key projection. Filesystem roots, internal addresses, full commands, and unrelated platform configuration are omitted. Hashes of original private files are provenance identifiers, not hashes of this projection.",
+    "plots/learning_curve.pdf": "Byte-for-byte copy; inspected for public-safe content. No numeric changes.",
+    "plots/learning_curve.png": "Byte-for-byte copy; inspected for public-safe content. No numeric changes.",
+    "plots/training_diagnostics.pdf": "Byte-for-byte copy; inspected for public-safe content. No numeric changes.",
+    "plots/training_diagnostics.png": "Byte-for-byte copy; inspected for public-safe content. No numeric changes.",
+    "repair_events.jsonl": "All final-evaluation repair and abstention events; explicit field projection. Periodic events and redundant latent/image/path hashes omitted. Candidate scores and weights unchanged.",
+    "resource_samples.csv": "All sampled rows; numeric public-safe projection with explicit units. No process IDs, hosts, environment variables, or machine paths.",
+    "summary.json": "Deterministically recomputed by scripts/analyze_second_experiment.py; seed, resampling method and limitations in summary.json.",
+    "training_metrics.csv": "All stored metric rows; selected scalar fields only. Loss/gradient values are original interval means, not individual update traces. Missing fields are empty.",
+    "training_repair_weights.csv": "Every training repair/abstention event; retained action/episode/event/version identifiers, stored ESS and all eight weights. Other fields omitted.",
+    "v1_config.json": "Byte-for-byte copy; inspected for public-safe content. No numeric changes.",
+    "v1_eval.csv": "Byte-for-byte copy; inspected for public-safe content. No numeric changes.",
+    "videos/clean_training_final.mp4": "Byte-for-byte copy; inspected for public-safe content. No numeric changes."
+  }
+}

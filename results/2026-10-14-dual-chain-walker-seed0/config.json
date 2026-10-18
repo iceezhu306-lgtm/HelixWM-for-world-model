@@ -1,0 +1,41 @@
+{
+  "backbone": {
+    "batch_length": 64,
+    "batch_size": 16,
+    "burnin": 32,
+    "compute_dtype": "bfloat16",
+    "platform": "cuda",
+    "seed": 0,
+    "size": "size12m"
+  },
+  "budget_agent_steps": 1000000,
+  "checkpoint_every": 10000,
+  "dual_chain": {
+    "max_candidates": 8,
+    "max_missing": 5,
+    "score_temperature": 0.01
+  },
+  "environment": {
+    "action_repeat": 2,
+    "camera_id": 0,
+    "episode_env_steps": 1000,
+    "image_size": 64
+  },
+  "eval_every": 20000,
+  "eval_seed_start": 10000,
+  "experiment_class": "single_seed_dual_chain_development_experiment",
+  "final_eval_episodes": 20,
+  "notes": "One new run only. Historical proprio/repeat1 Dreamer results are not a matched pixel/repeat2 control. Known synthetic missingness, no learned anomaly detection. Learner uses immutable real frames; collector sees the explicitly masked stream.",
+  "observation_dropout": {
+    "max_length": 5,
+    "min_length": 1,
+    "start_probability": 0.02
+  },
+  "periodic_eval_episodes": 5,
+  "prefill_agent_steps": 5000,
+  "replay_cache_episodes": 32,
+  "replay_capacity_steps": 1000000,
+  "seed": 0,
+  "train_ratio": 256,
+  "video_fps": 20
+}

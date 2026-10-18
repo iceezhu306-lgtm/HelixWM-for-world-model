@@ -1,0 +1,356 @@
+{
+  "analysis": {
+    "bootstrap_generator": "NumPy PCG64",
+    "bootstrap_samples": 50000,
+    "bootstrap_seed": 20261017,
+    "interval": "95% percentile bootstrap over evaluation episodes; conditional on this single trained seed",
+    "multiple_comparison_adjustment": "none; exploratory contrasts",
+    "rng_reset_policy": "A new PCG64 generator with seed 20261017 is initialized for every interval, matching the prior retained comparison analysis.",
+    "training_seeds": [
+      0
+    ]
+  },
+  "clean_return_retention_under_dropout_percent": 99.27723245949683,
+  "dropout_schedule_audit": {
+    "all_availability_hashes_match": true,
+    "contiguous_gap_histogram": {
+      "1": 45,
+      "2": 34,
+      "3": 33,
+      "4": 38,
+      "5": 34,
+      "7": 3,
+      "8": 1
+    },
+    "episodes": [
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10000,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 23
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10001,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 26
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10002,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 29
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10003,
+        "maximum_contiguous_missing": 4,
+        "missing_observations": 29
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [
+          7,
+          7
+        ],
+        "evaluation_seed": 10004,
+        "maximum_contiguous_missing": 7,
+        "missing_observations": 34
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10005,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 23
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10006,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 35
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [
+          7
+        ],
+        "evaluation_seed": 10007,
+        "maximum_contiguous_missing": 7,
+        "missing_observations": 39
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10008,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 18
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10009,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 34
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10010,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 29
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10011,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 30
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10012,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 20
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10013,
+        "maximum_contiguous_missing": 4,
+        "missing_observations": 27
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [
+          8
+        ],
+        "evaluation_seed": 10014,
+        "maximum_contiguous_missing": 8,
+        "missing_observations": 31
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10015,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 28
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10016,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 20
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10017,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 27
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10018,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 38
+      },
+      {
+        "contiguous_gaps_over_repair_budget": [],
+        "evaluation_seed": 10019,
+        "maximum_contiguous_missing": 5,
+        "missing_observations": 23
+      }
+    ],
+    "episodes_checked": 20,
+    "maximum_realized_contiguous_gap": 8,
+    "sampled_burst_maximum": 5,
+    "sampled_burst_minimum": 1,
+    "scope": "Final 20 paired dropout episodes only. Adjacent sampled bursts can join; abstention at missing_length=6 is a trigger, not the realized gap length."
+  },
+  "final_conditions": {
+    "clean": {
+      "abstention_count": 0,
+      "episode_bootstrap_mean_ci95": [
+        936.8199881280343,
+        956.8660453419035
+      ],
+      "maximum": 992.3720987471036,
+      "mean": 946.882214250284,
+      "median": 946.3054853878923,
+      "minimum": 908.3413039944617,
+      "missing_observations": 0,
+      "n": 20,
+      "population_sd": 22.836384849324556,
+      "repair_count": 0,
+      "sample_sd": 23.42963649529239
+    },
+    "dropout": {
+      "abstention_count": 4,
+      "episode_bootstrap_mean_ci95": [
+        928.5292250359971,
+        950.7318785350036
+      ],
+      "maximum": 973.2210955425271,
+      "mean": 940.0384569588854,
+      "median": 940.2682928128769,
+      "minimum": 872.3642402189105,
+      "missing_observations": 563,
+      "n": 20,
+      "population_sd": 25.325634285916934,
+      "repair_count": 184,
+      "sample_sd": 25.983552530176333
+    },
+    "dropout_disabled": {
+      "abstention_count": 0,
+      "episode_bootstrap_mean_ci95": [
+        923.5577070086385,
+        949.9390098727671
+      ],
+      "maximum": 979.3482475299988,
+      "mean": 937.4552030869603,
+      "median": 938.9677949233835,
+      "minimum": 867.4508734004283,
+      "missing_observations": 563,
+      "n": 20,
+      "population_sd": 30.13822056224017,
+      "repair_count": 0,
+      "sample_sd": 30.921161867226076
+    },
+    "dropout_prior_only": {
+      "abstention_count": 0,
+      "episode_bootstrap_mean_ci95": [
+        937.5650427889018,
+        954.2048541292378
+      ],
+      "maximum": 981.8252582880991,
+      "mean": 946.0649988929384,
+      "median": 948.2035977931895,
+      "minimum": 905.2201046594445,
+      "missing_observations": 563,
+      "n": 20,
+      "population_sd": 18.924830738630984,
+      "repair_count": 0,
+      "sample_sd": 19.416466654711087
+    }
+  },
+  "final_repair_diagnostics": {
+    "abstention_reasons": {
+      "missing_segment_budget_exceeded": 4
+    },
+    "abstention_trigger_missing_lengths": [
+      6,
+      6,
+      6,
+      6
+    ],
+    "ess": {
+      "maximum": 7.999907983311999,
+      "mean": 7.94783952140903,
+      "median": 7.9829235807509225,
+      "minimum": 7.335158667083209,
+      "n": 184,
+      "population_sd": 0.0912567921544058,
+      "sample_sd": 0.09150578795732638
+    },
+    "ess_above_7_9_count": 158,
+    "event_counts": {
+      "repair_abstained": 4,
+      "repair_reconnected": 184
+    },
+    "interpretation": "ESS near 8 means weights near uniform across 8 candidates; not proof of correct uncertainty, calibration, or successful causal repair.",
+    "max_candidate_weight": {
+      "maximum": 0.20303526794469803,
+      "mean": 0.13697067432012294,
+      "median": 0.13324469948630852,
+      "minimum": 0.12556142620189742,
+      "n": 184,
+      "population_sd": 0.011906610810047962,
+      "sample_sd": 0.0119390982123412
+    }
+  },
+  "learning_curve_rows": 102,
+  "limits": [
+    "One training seed; evaluation episodes are not independent training seeds.",
+    "Conditions are inference interventions on one trained policy, not independently trained algorithm ablations.",
+    "No matched clean-trained or corrupted-target Dreamer baseline was run.",
+    "Synthetic missingness is known; this does not test learned anomaly detection or general domain shift.",
+    "ESS is weight diversity, not calibration accuracy.",
+    "No models or replay are published in this compact evidence bundle; full originals remain archived separately."
+  ],
+  "paired_intervention_differences": {
+    "dropout_minus_clean": {
+      "maximum": 18.47245722263665,
+      "mean": -6.843757291398828,
+      "median": -1.2134180524048475,
+      "minimum": -51.376667040393954,
+      "n": 20,
+      "negative_pairs": 14,
+      "paired_episode_bootstrap_mean_ci95": [
+        -14.678356140742657,
+        0.03090306221500123
+      ],
+      "population_sd": 16.85012751864729,
+      "positive_pairs": 6,
+      "sample_sd": 17.28786606400645
+    },
+    "dropout_minus_dropout_disabled": {
+      "maximum": 54.71382374809093,
+      "mean": 2.5832538719249043,
+      "median": 1.616129216542788,
+      "minimum": -74.4938611756628,
+      "n": 20,
+      "negative_pairs": 7,
+      "paired_episode_bootstrap_mean_ci95": [
+        -8.763622465075603,
+        12.979861523148129
+      ],
+      "population_sd": 24.596689513896035,
+      "positive_pairs": 13,
+      "sample_sd": 25.235670974217243
+    },
+    "dropout_minus_dropout_prior_only": {
+      "maximum": 28.827606559488572,
+      "mean": -6.026541934053052,
+      "median": -0.9037020652736487,
+      "minimum": -62.89891881815254,
+      "n": 20,
+      "negative_pairs": 12,
+      "paired_episode_bootstrap_mean_ci95": [
+        -15.153797801025785,
+        1.8600367233817272
+      ],
+      "population_sd": 19.44189203821195,
+      "positive_pairs": 8,
+      "sample_sd": 19.946960354782174
+    }
+  },
+  "schema_version": 1,
+  "training_repair_diagnostics": {
+    "ess": {
+      "maximum": 7.999905251835157,
+      "mean": 7.910885401534565,
+      "median": 7.960549827357189,
+      "minimum": 3.323746566476058,
+      "n": 18509,
+      "population_sd": 0.17935553568326526,
+      "sample_sd": 0.1793603809694408
+    },
+    "event_counts": {
+      "repair_abstained": 224,
+      "repair_reconnected": 18509
+    }
+  },
+  "v1_descriptive_comparison": {
+    "percent_change_of_means": 1264.7776183693254,
+    "ratio_of_means": 13.647776183693253,
+    "scope": "Descriptive version comparison only; no inferential interval reported. Shared environment seeds do not control changed backbone, optimization, replay, policy sampling, or training missingness. Not an estimate of dual-chain causal benefit.",
+    "v1_final": {
+      "maximum": 104.79513605236639,
+      "mean": 69.37996355638111,
+      "median": 72.39041395014627,
+      "minimum": 34.31760988929037,
+      "n": 20,
+      "population_sd": 16.999053033160163,
+      "sample_sd": 17.440660417969806
+    },
+    "v2_clean_minus_v1_final": {
+      "maximum": 936.3016950872327,
+      "mean": 877.5022506939031,
+      "median": 878.9123530078296,
+      "minimum": 825.0054708650733,
+      "n": 20,
+      "population_sd": 30.764312383342283,
+      "sample_sd": 31.563518522094412
+    }
+  }
+}

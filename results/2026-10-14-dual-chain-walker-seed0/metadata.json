@@ -1,0 +1,118 @@
+{
+  "baseline_rerun": false,
+  "completion": {
+    "agent_steps": 1000000,
+    "budget_complete": true,
+    "checkpoint_reload_equal": true,
+    "checkpoint_sha256": "8aba0d3c6a1e9116850f34d24caf2fcdc0c68232d849d5bebbb9ec6239c8816e",
+    "completed_utc": "2026-10-15T16:31:15.464790+00:00",
+    "efficacy_demonstrated": false,
+    "env_steps": 2000000,
+    "episodes": 2000,
+    "masked_observations": 57038,
+    "single_seed_only": true,
+    "update_steps": 248750,
+    "wall_time_s": 105603.72417726368
+  },
+  "created_utc": "2026-10-14T11:06:32.729854+00:00",
+  "experiment_class": "single_seed_dual_chain_development_experiment",
+  "frozen_evaluation": {
+    "actor_sampling": "original_stochastic_policy_with_fixed_private_rng",
+    "checkpoint_reload_checked_here": false,
+    "condition_definitions": {
+      "clean": "actual valid observations through the ordinary backbone filter",
+      "dropout": "known missing frames use bounded candidates and returning-evidence ancestral repair",
+      "dropout_disabled": "known missing frames are black images encoded by the ordinary filter",
+      "dropout_prior_only": "known missing frames skip encoding; one prior state propagates without candidate repair"
+    },
+    "conditions_are_one_policy_interventions": true,
+    "evaluation_id": "final_001000000_dd15043b2f3b",
+    "evaluation_interactions_in_training_budget": false,
+    "hash_gate": {
+      "after": {
+        "all_parameter_optimizer_state_sha256": "330c376f3c00b3781d1230aaea91640f42e47205de5c2345dc31b7b345cdf156",
+        "counters": {
+          "n_actions": 0,
+          "n_batches": 248750,
+          "n_updates": 248750
+        },
+        "inference_parameter_sha256": "5c0a3a8d16df7891ac06a854e455f7a95b25b3549930a56f96db61a1d0d8f8b5"
+      },
+      "before": {
+        "all_parameter_optimizer_state_sha256": "330c376f3c00b3781d1230aaea91640f42e47205de5c2345dc31b7b345cdf156",
+        "counters": {
+          "n_actions": 0,
+          "n_batches": 248750,
+          "n_updates": 248750
+        },
+        "inference_parameter_sha256": "5c0a3a8d16df7891ac06a854e455f7a95b25b3549930a56f96db61a1d0d8f8b5"
+      },
+      "passed": true,
+      "scope": "all official training params including optimizer/EMA plus inference params and counters"
+    },
+    "inference_version": 248750,
+    "score_kind": "negative_official_pixel_mse_energy"
+  },
+  "gpu": "NVIDIA GeForce RTX 5090, 580.105.08, 32607 MiB",
+  "identity": {
+    "config_file_sha256": "1d1223bc97213104331388ec146f32014c51017059d8f1da061ee88aa5c6820b",
+    "config_relative_path": "configs/dual_chain_walker_seed0_1m.json",
+    "config_sha256": "a2a6c0597c1343165c67da14a84b71e5ab0c5caa52667d62fd4ce5756b058d95",
+    "helix_commit": "80cb3555586d01e0e7b0e8d362c27e540032d901",
+    "helix_tracked_clean": true,
+    "helix_tree": "f40be6131fe22e05bdaae9b418b8616dc175a9a0",
+    "upstream_commit": "e3f02248693a79dc8b0ebd62c93683888ddaccfe",
+    "upstream_tracked_clean": true
+  },
+  "observation_protocol": "known synthetic collector missingness; immutable real-frame model targets",
+  "packages": {
+    "dm-control": "1.0.28",
+    "elements": "3.19.1",
+    "imageio": "2.37.0",
+    "imageio-ffmpeg": "0.6.0",
+    "jax": "0.6.2",
+    "jaxlib": "0.6.2",
+    "matplotlib": "3.10.3",
+    "mujoco": "3.3.0",
+    "ninjax": "3.5.1",
+    "numpy": "1.26.4"
+  },
+  "paper_level_complete": false,
+  "projection_note": "Explicit allowed-key projection. Filesystem roots, internal addresses, full commands, and unrelated platform configuration are omitted. Hashes of original private files are provenance identifiers, not hashes of this projection.",
+  "python": "3.12.12 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 20:16:04) [GCC 11.2.0]",
+  "source_commit": "80cb3555586d01e0e7b0e8d362c27e540032d901",
+  "units": {
+    "action_repeat": 2,
+    "agent_steps": "executed actions, excluding reset and evaluation",
+    "env_steps": "DMC calls, not MuJoCo integration substeps"
+  },
+  "upstream_commit": "e3f02248693a79dc8b0ebd62c93683888ddaccfe",
+  "v1": {
+    "experiment_class": "single_seed_pilot",
+    "packages": {
+      "dm-control": "1.0.28",
+      "imageio": "2.37.0",
+      "imageio-ffmpeg": "0.6.0",
+      "matplotlib": "3.10.3",
+      "mujoco": "3.3.0",
+      "numpy": "2.2.6",
+      "torch": "2.7.1+cu128"
+    },
+    "source_commit": "ac07404f14c2a115140666bce43bc07e2d8c6bf0",
+    "units": {
+      "action_repeat": 2,
+      "agent_steps": "action decisions",
+      "env_steps": "actual DMC step calls, not MuJoCo integration substeps",
+      "evaluation_interactions_in_training_budget": false
+    }
+  },
+  "video": {
+    "bytes": 1138981,
+    "fps": 20.0,
+    "frames": 501,
+    "full_decode_pass": true,
+    "height": 256,
+    "sha256": "2da3ef1e582c8af0ec0d6762e45bf14f2d56dc63f95c37c34969820d7483a9d2",
+    "width": 256
+  }
+}

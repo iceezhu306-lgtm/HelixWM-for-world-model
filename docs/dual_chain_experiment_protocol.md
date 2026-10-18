@@ -1,6 +1,6 @@
 # Replicated dual-chain Walker experiment
 
-Status: implementation and preflight preparation. A formal run is not launched until the recorded gates pass.
+Status update, 2026-10-18: this protocol's single formal run completed on 2026-10-15 at source `80cb3555586d01e0e7b0e8d362c27e540032d901`, after its recorded preflight/smoke gates passed. See the [results and evidence boundaries](experiments/2026-10-14-dual-chain-walker-seed0.md). The protocol below preserves the executed design; it does not authorize or launch a new run.
 
 ## Scope and units
 

@@ -4,13 +4,26 @@
 
 HelixWM is a world model research concept built around replicable, aligned Real and Dream trajectories. The clarified research target is **bidirectional, local segment repair**: reliable observations correct imagined predictions; model predictions help estimate state when observations are damaged; the corrected state supports further branching and future action selection. This DNA-inspired analogy describes computational branching and repair, not literal biological replication.
 
-> Status, 2026-10-14: the first custom Walker seed0 pilot completed its budget but suffered a large performance regression. Final frozen evaluation: **69.38 mean return over 20 episodes**; best periodic mean: **570.98 over 5 episodes at 520k actions**. These are one training seed, not evidence of efficacy. The bounded replicated-chain mechanism now has a separate implementation in `helixwm_v2`; actual GPU, recovery and end-to-end launch gates are required before its single new experiment. There is no demonstrated performance improvement yet.
+> Status, 2026-10-18: the second, bounded dual-chain Walker seed0 run completed **1,000,000 actions / 2,000,000 DMC calls**. Final means: **946.88 clean**, **940.04 candidate repair**, **937.46 black-frame filtering**, and **946.06 single-prior propagation**, each over 20 frozen evaluation episodes. This is a large whole-system improvement over the first custom pilot's 69.38, but changes in learner, capacity and compute prevent attribution to repair. The frozen interventions do **not** establish a repair advantage over the simpler prior-only control. Read the [second-run results and limitations](docs/experiments/2026-10-14-dual-chain-walker-seed0.md).
 
-The [new experiment protocol](docs/dual_chain_experiment_protocol.md) pins the official DreamerV3 learner and explicitly adapts collection/replay for eight prior-proposed candidate histories, known missing-frame bursts, returning-evidence segment repair, and episode-boundary parameter synchronization. It runs **one HelixWM training seed only**; existing local DreamerV3 runs are not rerun or presented as matched pixel controls. The broader design remains a research proposal beyond the bounded mechanism described in that protocol.
+The [completed experiment protocol](docs/dual_chain_experiment_protocol.md) pins the official DreamerV3 learner and explicitly adapts collection/replay for eight prior-proposed candidate histories, known missing-frame bursts, returning-evidence segment repair, and episode-boundary parameter synchronization. It ran **one HelixWM training seed only**; existing local DreamerV3 runs were not rerun or presented as matched pixel controls. The broader design remains a research proposal beyond the bounded mechanism described in that protocol.
+
+The [next continuity comparison framework](docs/experiments/2026-10-18-continuity-framework.md) and [design manifest](configs/continuity_study_v3.json) specify frozen-checkpoint fault stress tests and one-component changes before any further training. **Design only: no new stress evaluation, remote run, or training experiment has been launched.** Unknown sensor faults, long-gap reliability, physical dynamics changes and fault-time adaptation remain unproven.
+
+Published second-run evidence: [raw data and summary](results/2026-10-14-dual-chain-walker-seed0/), [learning curve](results/2026-10-14-dual-chain-walker-seed0/plots/learning_curve.png), [one formal clean video](results/2026-10-14-dual-chain-walker-seed0/videos/clean_training_final.mp4), and [recomputation code](scripts/analyze_second_experiment.py). Large checkpoints, replay and the complete verified archive remain in the separate local archive; the public repository contains a reviewed compact subset with provenance.
+
+To recompute the published statistics (Python with NumPy) or validate the next design (Python standard library only), run from the repository root:
+
+```bash
+python scripts/analyze_second_experiment.py
+python scripts/plan_continuity_study.py
+```
+
+The second command validates the design and counts planned cases; it does not load a model or execute evaluation. See the [planner](scripts/plan_continuity_study.py) and its [boundary tests](tests/test_continuity_plan.py). Full planned scope is 520 design episodes and 1,040 held-out episodes, with at most 780,000 evaluation actions and zero training updates. Actual wall time is unmeasured.
 
 The [frozen first experiment protocol](docs/first_experiment_protocol.md) specifies Walker Walk, seed 0, **1,000,000 action decisions**, action repeat 2 (**2,000,000 DMC calls**). Read the [results and failure analysis](docs/experiments/2026-10-13-walker-seed0.md) for the learning curve, compact numerical evidence, verified observations, unresolved causes, and design limitations. Its custom controller is not an official DreamerV3 baseline, and that run did not test the complete clarified repair architecture.
 
-Suggested reading order: [Clarified dual-chain design and feasible alternatives](docs/DUAL_CHAIN_DESIGN.md) → [First experiment postmortem](docs/experiments/2026-10-13-walker-seed0.md) → [Implemented v0.1 equations](#2-time-indexing-and-the-two-paths) → [Historical reference design](docs/DESIGN.md) → [Validation record](docs/VALIDATION.md).
+Suggested reading order: [Second-run results](docs/experiments/2026-10-14-dual-chain-walker-seed0.md) → [Next comparison framework](docs/experiments/2026-10-18-continuity-framework.md) → [Clarified dual-chain design](docs/DUAL_CHAIN_DESIGN.md) → [First experiment postmortem](docs/experiments/2026-10-13-walker-seed0.md) → [Historical v0.1 equations](#2-time-indexing-and-the-two-paths).
 
 The sections below retain the historical v0.1 mathematical core and pilot. For the new implementation, use the separate experiment protocol above. Raw observations remain immutable evidence; repaired beliefs and reconstructed images must retain their predictive provenance. A genuine physical failure changes future control and learning, not the recorded past.
 
@@ -268,13 +281,14 @@ The first version establishes the basic model, equations, and correctness tests 
 
 | Stage | Status |
 |---|---|
-| Clarified dual-chain design | Replication, bidirectional local repair, replaceable modules and staged feasibility plan documented; not implemented |
+| Clarified dual-chain design | Bounded shared-model candidate inference implemented and tested; broader reliability, adaptation and repair-learning proposals remain unvalidated |
 | Reference implementation | v0.1 mathematical core, synthetic demonstration, and tests implemented |
 | Historical reference tests | 30 CPU unit tests and the synthetic demonstration passed at the reference-validation stage; see its dated record |
 | RTX 5090 environment | Isolated GPU environment and bounded CUDA/Walker smoke checks passed; see the environment runbook |
 | CI | GitHub Actions was not configured or run for this version |
 | First Walker pilot | Budget complete; final mean 69.38, substantial regression; single-seed artifact acceptance passed, efficacy not established |
-| Bidirectional segment-repair experiments | Not started |
+| Second bounded dual-chain experiment | One seed completed and locally archived; clean 946.88, short-gap repair 940.04; incremental repair benefit not established |
+| Further continuity comparisons | Design manifest and isolated comparison framework prepared; no new experimental results |
 | Multiple seeds and publication-level comparisons | Not started |
 
 Future experiments must follow these requirements:
