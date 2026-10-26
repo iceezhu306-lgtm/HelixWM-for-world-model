@@ -1,0 +1,431 @@
+{
+  "schema_version": 1,
+  "protocol_id": "dreamerv3_vs_helixwm_walker_20261026",
+  "status": "DESIGN_ONLY",
+  "scope_confirmed_by_user": true,
+  "runner_implemented": false,
+  "launched": false,
+  "performance_result": "UNKNOWN",
+  "launch_command": null,
+  "scope": "two_independent_training_runs_with_matched_camera_gaps_and_visible_learner_data",
+  "official_core": {
+    "repository": "https://github.com/danijar/dreamerv3",
+    "commit": "e3f02248693a79dc8b0ebd62c93683888ddaccfe",
+    "presets": [
+      "defaults",
+      "dmc_vision",
+      "size12m"
+    ],
+    "declared_model_size": "official_size12m_preset",
+    "actual_parameter_count": null,
+    "unmodified_default_size_correspondence": "size200m_RSSM_dimensions",
+    "claims_default_configuration_reproduction": false,
+    "claims_verified_original_paper_release": false,
+    "modify_loss_optimizer_actor_or_critic_formula": false
+  },
+  "environment": {
+    "domain": "walker",
+    "task": "walk",
+    "observation": "RGB_only",
+    "image_size": 64,
+    "camera_id": 0,
+    "action_dimensions": 6,
+    "action_repeat": 2,
+    "episode_action_decisions": 500,
+    "episode_dmc_calls": 1000,
+    "env_steps_unit": "acknowledged_DMC_step_calls_not_MuJoCo_substeps",
+    "dynamics_changed": false,
+    "runtime_version_binding": "REQUIRED_BEFORE_LAUNCH",
+    "privileged_current_state_to_policy": false,
+    "identical_environment_contract": {
+      "required_by_user": true,
+      "single_shared_environment_factory": true,
+      "single_shared_fault_wrapper": true,
+      "same_frozen_source_interpreter_dependencies_and_GPU": true,
+      "environment_lock_filename": "environment_lock.json",
+      "environment_lock_sha256": null,
+      "bind_fields": [
+        "source_files",
+        "Python",
+        "dm_control",
+        "MuJoCo",
+        "task_assets",
+        "rendering_libraries",
+        "GPU_driver_EGL",
+        "camera",
+        "RGB_shape_dtype_preprocessing",
+        "observation_keys",
+        "action_bounds_clip_repeat",
+        "reward_aggregation",
+        "discounts",
+        "terminal_time_limit",
+        "episode_horizon",
+        "RNG_reset_derivation"
+      ],
+      "run_manifests_must_share_lock_reset_seed_and_mask_hashes": true,
+      "training_episode_reset_seeds": {
+        "start": 100000,
+        "count": 2000,
+        "step": 1
+      },
+      "fixed_action_gate": {
+        "fresh_processes": 2,
+        "seeds": [
+          72000,
+          72001
+        ],
+        "actions_per_episode": 500,
+        "action_dimensions": 6,
+        "wrappers": [
+          "clean",
+          "registered_faults"
+        ],
+        "exact_comparisons": [
+          "reset_RGB",
+          "visible_RGB",
+          "clipped_actions",
+          "availability",
+          "reward",
+          "DMC_calls",
+          "discount",
+          "terminal_flags",
+          "physics_state_diagnostic_hash"
+        ],
+        "tolerance_relaxation_allowed": false,
+        "physics_state_is_policy_input": false,
+        "passed": false
+      },
+      "mismatch_blocks_launch": true,
+      "revalidate_after_source_or_runtime_change": true,
+      "lock_rechecked_before_each_arm": true,
+      "different_policy_actions_may_produce_different_trajectories": true
+    }
+  },
+  "training": {
+    "arms": [
+      {
+        "id": "D",
+        "name": "native_image_DreamerV3",
+        "controller": "black_frame_native",
+        "consumes_availability_flag": false
+      },
+      {
+        "id": "H",
+        "name": "HelixWM_V2",
+        "controller": "helix_v2",
+        "consumes_availability_flag": true
+      }
+    ],
+    "independent_runs": true,
+    "paired_training_seeds": [
+      0
+    ],
+    "training_seed_count_per_arm": 1,
+    "actions_per_arm": 1000000,
+    "dmc_calls_per_arm": 2000000,
+    "combined_training_actions": 2000000,
+    "combined_training_dmc_calls": 4000000,
+    "episodes_per_arm": 2000,
+    "batch_size": 16,
+    "batch_length": 64,
+    "replay_context": 1,
+    "custom_burnin": 0,
+    "replay_capacity_transitions": 1000000,
+    "train_ratio_positions_per_decision": 256,
+    "prefill_actions": 5000,
+    "prefill_included_in_budget": true,
+    "prefill_action_rule": "shared_seeded_bounded_random",
+    "prefill_rule_is_shared_harness_override": true,
+    "nominal_update_target": "floor(max(0,actions-5000)*256/(16*64))",
+    "nominal_updates_at_budget": 248750,
+    "native_scheduler_count_gate_required": true,
+    "environments_per_arm": 1,
+    "compute_dtype": "bfloat16",
+    "checkpoint_every_actions": 10000,
+    "policy_parameter_sync": {
+      "rule": "copy_at_each_episode_boundary_then_hold_for_500_actions",
+      "shared_by_both_arms": true,
+      "official_core_untouched": true,
+      "is_native_author_sync_schedule": false,
+      "reason": "keep_each_Helix_candidate_segment_on_one_inference_version"
+    },
+    "learner_image_source": "corrupted_visible_RGB_only_for_both_arms",
+    "learner_missing_image": "uint8_zeros",
+    "learner_hidden_clean_targets_allowed": false,
+    "arm_specific_masked_loss_removal_allowed": false,
+    "synthetic_candidate_images_to_learner_allowed": false,
+    "same_visibility_does_not_mean_same_collected_trajectories": true,
+    "training_missingness": {
+      "mask_seed": 710000,
+      "generate_before_both_training_runs": true,
+      "start_probability_at_eligible_timestamp": 0.02,
+      "burst_length_uniform_inclusive": [
+        1,
+        5
+      ],
+      "minimum_valid_observations_between_bursts": 1,
+      "actual_contiguous_gap_max": 5,
+      "burst_must_fit_before_final_observation": true,
+      "initial_and_final_observations_valid": true,
+      "same_mask_per_paired_episode": true,
+      "masks_apply_during_prefill": true,
+      "policy_reward_dependent": false,
+      "save_full_masks_and_sha256": true
+    },
+    "development_evaluation": {
+      "every_training_actions": 20000,
+      "environment_seeds": {
+        "start": 50000,
+        "count": 5
+      },
+      "conditions": [
+        "clean_native",
+        "training_controller_fixed_gap20_at150"
+      ],
+      "episodes_per_round": 10,
+      "rounds_per_arm": 50,
+      "episodes_per_arm": 500,
+      "actions_per_arm": 250000,
+      "included_in_training_budget": false,
+      "checkpoint_or_hyperparameter_selection_allowed": false
+    },
+    "consec_train": 1,
+    "replay_sample_positions": 65,
+    "context_positions_removed_before_loss": 1,
+    "learning_positions_per_sequence": 64,
+    "native_replay_stepid_consec_and_update_writeback_required": true
+  },
+  "helix": {
+    "version": "preserved_V2_inference_mechanism",
+    "max_candidates": 8,
+    "max_missing": 5,
+    "score_normalization": 12288,
+    "score_temperature": 0.01,
+    "score_semantics": "negative_pixel_error_energy_not_calibrated_likelihood",
+    "long_gap_behavior": "record_abstention_discard_candidates_continue_single_prior",
+    "new_variant_or_extended_repair_horizon": false,
+    "known_availability_required": true,
+    "automatic_fault_detector": false
+  },
+  "final_evaluation": {
+    "checkpoints": [
+      "D_final_1000000",
+      "H_final_1000000"
+    ],
+    "historical_checkpoint_in_confirmatory_matrix": false,
+    "controllers": [
+      "clean_native",
+      "black_frame_native",
+      "prior_only",
+      "helix_v2"
+    ],
+    "prior_only_is_native_unmodified_policy": false,
+    "environment_seeds": {
+      "start": 60000,
+      "count": 40
+    },
+    "seed_collision_gate_passed": false,
+    "exclude_previously_used_confirmatory_seeds": true,
+    "excluded_known_seed_ranges": [
+      [
+        10000,
+        10019
+      ],
+      [
+        20000,
+        20019
+      ],
+      [
+        30000,
+        30039
+      ]
+    ],
+    "excluded_known_smoke_seeds": [
+      40000
+    ],
+    "smoke_seeds": [
+      72000,
+      72001
+    ],
+    "policy_sampling": "stochastic_original_actor_for_all_controllers",
+    "private_rng_semantics": "implementation_must_bind_official_latent_actor_and_Helix_streams_before_launch",
+    "pre_gap_and_no_gap_native_parity_required": true,
+    "events_per_episode": 1,
+    "missing_observation_start": 150,
+    "missing_lengths_actions": [
+      1,
+      5,
+      10,
+      20,
+      50
+    ],
+    "indexing": "x_t_available_before_a_t",
+    "clean_episodes_per_seed_per_checkpoint": 1,
+    "gapped_episodes_per_seed_per_checkpoint": 15,
+    "episodes_per_checkpoint": 640,
+    "total_episodes": 1280,
+    "total_actions": 640000,
+    "total_dmc_calls": 1280000,
+    "training_updates": 0,
+    "training_rng_unchanged": true,
+    "model_optimizer_normalizer_target_counters_unchanged": true,
+    "unavailable_clean_frame_access_allowed": false,
+    "evaluation_time_adaptation_allowed": false
+  },
+  "planned_interaction_accounting": {
+    "training_actions": 2000000,
+    "development_evaluation_actions": 500000,
+    "final_evaluation_actions": 640000,
+    "total_actions_excluding_smoke_and_failed_attempts": 3140000,
+    "total_dmc_calls_excluding_smoke_and_failed_attempts": 6280000,
+    "smoke_and_failed_attempts_require_separate_actual_counts": true
+  },
+  "metrics": {
+    "normalized_reward": "action_reward_sum/actual_DMC_call_count",
+    "primary_absolute_score": "mean(arm_u) over [150,150+gap+100), then equal mean over five gaps per seed",
+    "primary_direction": "higher_is_better",
+    "secondary_clean_relative_deficit": "mean(checkpoint_matched_clean_u-arm_u) over [150,150+gap+100), then equal mean over five gaps per seed",
+    "lower_deficit_better": true,
+    "deficit_improvement_alone_can_establish_primary_claim": false,
+    "absolute_fault_and_recovery_reward_required": true,
+    "raw_episode_return_required": true,
+    "functional_failure": {
+      "normalized_reward_below": 0.2,
+      "consecutive_actions": 20,
+      "window": "gap_plus_100_recovery_actions",
+      "certifies_fall_or_safety": false
+    },
+    "recovery": {
+      "pre_fault_actions": 50,
+      "minimum_pre_fault_mean": 0.75,
+      "trailing_mean_actions": 10,
+      "fraction_of_own_pre_fault_mean": 0.9,
+      "consecutive_successful_checks": 10,
+      "censor_after_return_actions": 100
+    },
+    "time_limit_completion_equals_survival": false,
+    "technical_failures_kept_in_results": true,
+    "technical_primary_tail_imputation": "keep_finite_observed_prefix_then_zero_unobserved_reward_to_scheduled_horizon_plus_complete_case_sensitivity",
+    "normalized_reward_bounds": [
+      0.0,
+      1.0
+    ],
+    "unresolved_technical_or_hash_failure_blocks_positive_acceptance": true,
+    "unknown_functional_outcomes_imputed_as_success": false
+  },
+  "analysis": {
+    "primary_system_comparisons": [
+      {
+        "proposal": "H/helix_v2",
+        "comparator": "D/black_frame_native",
+        "scope": "total_system_effect_including_availability_use_and_training_trajectory_distribution"
+      },
+      {
+        "proposal": "H/helix_v2",
+        "comparator": "D/prior_only",
+        "scope": "availability_aware_stronger_control"
+      }
+    ],
+    "secondary_attribution": [
+      "helix_v2_vs_prior_only_within_each_checkpoint",
+      "D_vs_H_under_same_controller"
+    ],
+    "holm_primary_tests": 2,
+    "primary_test_direction": "one_sided_H_minus_comparator_absolute_score_greater_than_zero",
+    "both_primary_tests_required_for_superiority_over_both_controls": true,
+    "each_primary_seed_cluster_ci95_lower_bound_must_exceed": 0.0,
+    "alpha": 0.05,
+    "bootstrap_unit": "whole_environment_seed_cluster_all_cells_and_gaps",
+    "bootstrap_replicates": 10000,
+    "paired_sign_randomization_draws": 100000,
+    "sign_randomization_assumption": "within_pair_exchangeability_under_null",
+    "failure_uncertainty": "exact_one_sided_Clopper_Pearson_for_any_failure_across_five_gaps_per_seed_cluster",
+    "functional_failure_descriptive_guard": "no_observed_aggregate_count_increase_against_either_primary_comparator; unknown_outcomes_make_guard_inconclusive",
+    "clean_performance_guard": {
+      "metric": "mean_clean_full_episode_return",
+      "rule": "H_mean >= 0.95 * D_mean",
+      "ratio_minimum": 0.95,
+      "margin_source": "predeclared_engineering_choice_not_paper_threshold",
+      "nonpositive_D_mean": "INCONCLUSIVE",
+      "report_all_violated_or_inconclusive_guards": true
+    },
+    "zero_events_40clusters_95percent_upper": 0.0722,
+    "claim_multi_training_seed_generalization": false,
+    "claim_safety_or_five_percent_risk_bound": false
+  },
+  "gates": {
+    "implementation_complete": false,
+    "resolved_configuration_frozen": false,
+    "mask_bank_frozen": false,
+    "environment_fixed_action_trace_fidelity": false,
+    "native_replay_and_action_alignment": false,
+    "native_core_unchanged": false,
+    "no_hidden_clean_frame_access": false,
+    "finite_GPU_update": false,
+    "strict_checkpoint_reload": false,
+    "fresh_process_episode_boundary_recovery": false,
+    "controller_parity_and_return_fallback": false,
+    "capacity_and_throughput": false,
+    "smoke_video_and_curve_full_validation": false,
+    "identical_environment_lock_and_two_process_exact_trace": false
+  },
+  "operations": {
+    "intended_hardware": "rented_RTX5090_identity_and_capacity_to_verify",
+    "tmux_required": true,
+    "distinct_arm_run_directories": true,
+    "GPU_execution": "sequential_arms_one_active_learner_at_a_time",
+    "inspection_interval_hours": 6,
+    "continuous_polling": false,
+    "auto_restart_or_resume": false,
+    "local_output_drive": "E:",
+    "output_run_name": "dreamerv3_vs_helixwm_walker_20261026",
+    "overwrite_historical_experiments": false,
+    "all_checkpoints_and_required_replay_preserved": true,
+    "capacity_gate": {
+      "historical_checkpoint_bytes": 135933472,
+      "planned_checkpoint_count": 200,
+      "new_checkpoint_size_must_be_measured": true,
+      "smoke_extrapolation_includes": [
+        "both_runs",
+        "all_checkpoints",
+        "all_replay",
+        "logs",
+        "evaluation",
+        "temporary_write_peak"
+      ],
+      "additional_reserve_bytes": 2147483648,
+      "historical_free_space_is_launch_pass": false,
+      "automatic_cleanup_or_expansion": false
+    },
+    "stable_file_remote_pre_post_and_local_SHA256": true,
+    "formal_video_count_per_actual_stage": 1,
+    "final_video_selection": {
+      "single_file": true,
+      "layout": "three_panel_comparison",
+      "panels": [
+        "D_final_1000000/black_frame_native",
+        "H_final_1000000/helix_v2",
+        "D_final_1000000/prior_only"
+      ],
+      "environment_seed": 60000,
+      "gap_actions": 20,
+      "synchronize_by": "action_timestamp_not_identical_trajectory",
+      "additional_evaluation_episodes_required": false
+    },
+    "final_video_full_decode": true,
+    "curves_png_and_pdf": true,
+    "full_archive_and_extracted_data_verification": true,
+    "auto_shutdown_release_or_next_seed": false,
+    "contains_credentials": false
+  },
+  "historical_reference": {
+    "training_run": "dual_chain_walker_seed0_1m_20261014",
+    "checkpoint_sha256": "8aba0d3c6a1e9116850f34d24caf2fcdc0c68232d849d5bebbb9ec6239c8816e",
+    "completed_continuity_study": "continuity_walker_v3_20261018",
+    "held_out_results_already_inspected": true,
+    "historical_training_replay_contained_clean_images": true,
+    "historical_replay_context": 0,
+    "historical_custom_burnin": 32,
+    "used_as_new_baseline_or_resume_source": false
+  }
+}

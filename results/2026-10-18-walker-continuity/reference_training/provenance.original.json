@@ -1,0 +1,7 @@
+{
+  "source_run": "dual_chain_walker_seed0_1m_20261014",
+  "scope": "Historical input-model curve, not new training.",
+  "training_actions": 1000000,
+  "dmc_calls": 2000000,
+  "source_checkpoint_sha256": "8aba0d3c6a1e9116850f34d24caf2fcdc0c68232d849d5bebbb9ec6239c8816e"
+}

@@ -1,0 +1,54 @@
+{
+  "utc": "2026-10-20T08:15:49.833146+00:00",
+  "passed": true,
+  "source_commit": "22b93cdb2b5a8643e8e14931dc2ffc5eae32a361",
+  "stages": {
+    "design": {
+      "cases": 520,
+      "zero_updates": true,
+      "matrix_complete": true
+    },
+    "held_out": {
+      "cases": 1040,
+      "zero_updates": true,
+      "matrix_complete": true
+    }
+  },
+  "evaluation_actions": 780000,
+  "dmc_calls": 1560000,
+  "cases": 1560,
+  "training_updates": 0,
+  "single_formal_video": "RUN/held_out/cases/held_out-seed30000-v2_exact-gap20/formal.mp4",
+  "video_full_decode": true,
+  "video_frames": 501,
+  "video_fps": 20.0,
+  "strict_reload_and_freeze_gate": {
+    "passed": true,
+    "source_commit": "22b93cdb2b5a8643e8e14931dc2ffc5eae32a361",
+    "identity_sha256": "b66b32e725b83535e20f2c05a6680f24247edf2657dd20fc1e790f2778a7d41f",
+    "input_checkpoint_sha256": "8aba0d3c6a1e9116850f34d24caf2fcdc0c68232d849d5bebbb9ec6239c8816e",
+    "formal_training_started": false,
+    "checks": {
+      "12_complete_cases": true,
+      "masks_and_raw_images": true,
+      "finite_trace": true,
+      "pre_gap_parity_all_arms": true,
+      "no_received_hidden_images": true,
+      "short_gap_encoder_score_counts": true,
+      "smoke_video_full_decode_and_hash": true,
+      "fresh_process_strict_reload": true,
+      "fresh_process_reference_episode_exact": true,
+      "model_optimizer_counters_host_rng_unchanged": true
+    }
+  },
+  "final_snapshot": "20261020T080036Z_417678",
+  "limitations": [
+    "One trained seed; paired inference interventions only.",
+    "Synthetic explicitly signalled camera gaps, not unknown sensor corruption.",
+    "No new training updates; the historical learning curve is separately labelled.",
+    "No certified safety or real-world autonomous-driving claim.",
+    "Replay remains in the original full archive. Included checkpoint and sidecar support frozen evaluation.",
+    "Historical source MP4 assets are retained inside SOURCE_FULL.tar.gz, not expanded among formal outputs.",
+    "PNG decoding and PDF envelope checks are automated; final figure interpretation requires human review."
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "arithmetic_recheck": {
+    "case_rows": 1560,
+    "duration_groups_including_clean": 52,
+    "no_simulator_or_training_run": true,
+    "paired_contrasts": 8,
+    "passed": true,
+    "technical_failure_cases": 0
+  },
+  "format": "publication_media_review_v1",
+  "limitations": [
+    "Only public-selected artifact hashes were rechecked, not the entire private archive.",
+    "CSV arithmetic was independently recalculated; original per-step extraction and hypothesis-test simulations were not rerun.",
+    "No independent DreamerV3 training baseline is part of this experiment."
+  ],
+  "negative_tests": [
+    {
+      "rejected": true,
+      "test": "duplicate_case"
+    },
+    {
+      "rejected": true,
+      "test": "unknown_failure"
+    },
+    {
+      "rejected": true,
+      "test": "tampered_file_hash"
+    }
+  ],
+  "original_files_modified": false,
+  "passed": true,
+  "pdf": {
+    "plots/design_robustness_recovery.pdf": {
+      "no_private_paths_in_text_or_metadata": true,
+      "pages": 1,
+      "render_succeeded": true,
+      "text_characters": 759
+    },
+    "plots/held_out_robustness_recovery.pdf": {
+      "no_private_paths_in_text_or_metadata": true,
+      "pages": 1,
+      "render_succeeded": true,
+      "text_characters": 761
+    },
+    "reference_training/historical_learning_curve.pdf": {
+      "no_private_paths_in_text_or_metadata": true,
+      "pages": 1,
+      "render_succeeded": true,
+      "text_characters": 421
+    }
+  },
+  "png": {
+    "plots/design_robustness_recovery.png": {
+      "decoded": true,
+      "height": 1404,
+      "width": 1980
+    },
+    "plots/held_out_robustness_recovery.png": {
+      "decoded": true,
+      "height": 1404,
+      "width": 1980
+    },
+    "reference_training/historical_learning_curve.png": {
+      "decoded": true,
+      "height": 1028,
+      "width": 1640
+    }
+  },
+  "source_artifact_sha256_verification": "All 20 selected source artifacts checked against original archive manifest; 18 byte-identical copies and 2 explicitly sanitized summaries.",
+  "text_privacy_scan_passed": true,
+  "video": {
+    "fps": 20.0,
+    "frames": 501,
+    "full_decode_passed": true,
+    "height": 256,
+    "path": "videos/held_out_seed30000_v2_exact_gap20.mp4",
+    "sha256": "7acfbf645c37dbc6b60e3d0bad5aa42019f7fb6ac4ff8281e3f61762ebf98935",
+    "width": 256
+  },
+  "visual_review": {
+    "observations": "Axes, legends, units and split labels are legible. Historical curve is labeled separately. Video shows Walker and explicit availability/controller annotations; rendered raw frames are not policy inputs during the missing interval.",
+    "passed": true,
+    "pdf_render_pages_reviewed": 3,
+    "video_frames_reviewed": [
+      150,
+      170,
+      500
+    ]
+  }
+}

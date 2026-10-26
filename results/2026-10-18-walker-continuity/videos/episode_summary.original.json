@@ -1,0 +1,71 @@
+{
+  "actual_eval_agent_steps": 500,
+  "actual_eval_dmc_calls": 1000,
+  "actual_interaction_counters_complete": true,
+  "arm": "v2_exact",
+  "availability_sha256": "f861c6b78023293769716e41bd925849d5b198bc4d34f479c37532c5d6f7e9a3",
+  "backend_calls": {
+    "act": 500,
+    "observe": 481,
+    "prior": 555,
+    "score": 0
+  },
+  "case_id": "held_out-seed30000-v2_exact-gap20",
+  "chain_root_seed": 2030000,
+  "elapsed_s": 6.805917367339134,
+  "environment_seed": 30000,
+  "episode_return": 859.9601499088758,
+  "error": null,
+  "hash_gate": {
+    "after": {
+      "counters": {
+        "n_actions": 0,
+        "n_batches": 248750,
+        "n_updates": 248750
+      },
+      "host_numpy_rng_sha256": "9e70f6ebb5700a638356e00a989000614d7aa01f9508194719563645a1e9bd29",
+      "host_python_rng_sha256": "002ef1a8088efbcdad402210548996c850190ea1cbf7745d46fcd28cd50df390",
+      "inference_sha256": "5c0a3a8d16df7891ac06a854e455f7a95b25b3549930a56f96db61a1d0d8f8b5",
+      "inference_version": 248750,
+      "model_optimizer_sha256": "330c376f3c00b3781d1230aaea91640f42e47205de5c2345dc31b7b345cdf156"
+    },
+    "before": {
+      "counters": {
+        "n_actions": 0,
+        "n_batches": 248750,
+        "n_updates": 248750
+      },
+      "host_numpy_rng_sha256": "9e70f6ebb5700a638356e00a989000614d7aa01f9508194719563645a1e9bd29",
+      "host_python_rng_sha256": "002ef1a8088efbcdad402210548996c850190ea1cbf7745d46fcd28cd50df390",
+      "inference_sha256": "5c0a3a8d16df7891ac06a854e455f7a95b25b3549930a56f96db61a1d0d8f8b5",
+      "inference_version": 248750,
+      "model_optimizer_sha256": "330c376f3c00b3781d1230aaea91640f42e47205de5c2345dc31b7b345cdf156"
+    },
+    "passed": true
+  },
+  "inference_version": 248750,
+  "missing_length": 20,
+  "missing_start": 150,
+  "observation_storage": "evaluator_only_raw_RGB_never_available_to_policy_on_masked_steps",
+  "posture_accessors": [
+    "env._env.physics.torso_height()",
+    "env._env.physics.torso_upright()"
+  ],
+  "raw_observations_saved": true,
+  "split": "held_out",
+  "stage": "held_out",
+  "status": "complete",
+  "valid_reward_rows": 500,
+  "video": {
+    "bytes": 1845846,
+    "fps": 20.0,
+    "frames": 501,
+    "full_decode_pass": true,
+    "height": 256,
+    "path": "formal.mp4",
+    "path_semantics": "relative_to_case_directory",
+    "purpose": "formal_stage_video",
+    "sha256": "7acfbf645c37dbc6b60e3d0bad5aa42019f7fb6ac4ff8281e3f61762ebf98935",
+    "width": 256
+  }
+}

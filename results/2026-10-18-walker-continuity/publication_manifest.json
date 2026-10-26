@@ -1,0 +1,111 @@
+{
+  "files": {
+    "DATA_DICTIONARY.md": {
+      "bytes": 4683,
+      "sha256": "68f51f345f3c2c7233782b54fa225e41744b505952b4ce6ad0a40c90d3467b2a"
+    },
+    "README.md": {
+      "bytes": 4680,
+      "sha256": "26e8f797207072aa8c6a220b8530b5a39e83b2d41fa6be2653858d851806fe3d"
+    },
+    "REPORT.md": {
+      "bytes": 10644,
+      "sha256": "4bb89d8875fce09159f51b1f99e934e574e8c7971cebe1f1c128709623898765"
+    },
+    "VERIFICATION.json": {
+      "bytes": 2820,
+      "sha256": "cb865e1e5ee24c54afe1a34d53a714e0c749484312d320b70a5f20b8bbab70ed"
+    },
+    "data/acceptance.original.json": {
+      "bytes": 2170,
+      "sha256": "9b95ac36fd87cd5e69c744deb2f6b282791ed58c0ee1e13dd7d1c06b87a621f3"
+    },
+    "data/design/case_metrics.csv": {
+      "bytes": 248850,
+      "sha256": "f12afec86312ffcd41bee60b8d26f97b4558649bc07764940421e87698bcdcde"
+    },
+    "data/design/duration_metrics.csv": {
+      "bytes": 2327,
+      "sha256": "85f888278967738a12daf9e43ef828701f961debaf54db292179cf05e6c86cac"
+    },
+    "data/design/paired_comparisons.csv": {
+      "bytes": 3033,
+      "sha256": "6773d09aa15e800324221d49f6447bf5f5be97e15e0036ba3c44b22ab4464de3"
+    },
+    "data/design/seed_cluster_metrics.csv": {
+      "bytes": 6560,
+      "sha256": "d15c1e4d0d361c77dc75a0c233aa90d18640b1b0d01d989c0037a44c1b397e62"
+    },
+    "data/design/summary.public.json": {
+      "bytes": 56613,
+      "sha256": "64309ddd73901f84b7c454aaa561de03a177fadaa09a3d44c255506aa5831056"
+    },
+    "data/held_out/case_metrics.csv": {
+      "bytes": 500930,
+      "sha256": "821faa4bc2b3b9c29357df96aad62a4f291d5729ebc7044db9d03100863e2a95"
+    },
+    "data/held_out/duration_metrics.csv": {
+      "bytes": 2386,
+      "sha256": "6887a322d7f99ecb2b1ed10f8aebe7b9e89308c814c1825ec605a724ea3897c4"
+    },
+    "data/held_out/paired_comparisons.csv": {
+      "bytes": 4171,
+      "sha256": "5a154747a72a7d254a4594cec51e54e211ff6217727e92a21399f361d15968d3"
+    },
+    "data/held_out/seed_cluster_metrics.csv": {
+      "bytes": 13341,
+      "sha256": "2966c5022298e34be4dfa4141b00159e8e7a848757ab8e95a57f0bb30c90e63b"
+    },
+    "data/held_out/summary.public.json": {
+      "bytes": 94964,
+      "sha256": "fb9fff82ecd1f4754596ed0f652fe73ca7f8a6e1a51be9a383a8f62144a07027"
+    },
+    "plots/design_robustness_recovery.pdf": {
+      "bytes": 27177,
+      "sha256": "e13772b673295c298792e5de4523f48c044cd7e7b10950dc01a1c9246f49fb2f"
+    },
+    "plots/design_robustness_recovery.png": {
+      "bytes": 338327,
+      "sha256": "203c37a2b83d4244e98b020c85619e108200bd6a74375d57a52584c88771eaa0"
+    },
+    "plots/held_out_robustness_recovery.pdf": {
+      "bytes": 27205,
+      "sha256": "471d6873e62dbc9f4e6da643a6c34f9b431d3b4c11cb28ee958b5fedf0a4fa9f"
+    },
+    "plots/held_out_robustness_recovery.png": {
+      "bytes": 320477,
+      "sha256": "eb5af863ab2318bb9f94a1c658cae7536662b4b93f83bf8a9321fdd930e7a33c"
+    },
+    "publication_provenance.json": {
+      "bytes": 7913,
+      "sha256": "a6a3e3e7f7a9058bdac79bc437408ed7f7312ea1cb46ad3e906f2a8a53ede167"
+    },
+    "recompute.py": {
+      "bytes": 7388,
+      "sha256": "cb005db984c28c344b2bb7048403eccd78b68afa8fb56bb708a122680d97268c"
+    },
+    "reference_training/historical_learning_curve.pdf": {
+      "bytes": 20353,
+      "sha256": "75ccb993980f584029f51cd3f730e8232355c71f0b577de1e65f34babccdfc7b"
+    },
+    "reference_training/historical_learning_curve.png": {
+      "bytes": 139399,
+      "sha256": "ad3c722a877bacb8c35f3fc00de1f539ad7d967dd187238a9667cae540ba58f9"
+    },
+    "reference_training/provenance.original.json": {
+      "bytes": 280,
+      "sha256": "26a1cfc3e31dc32067a986e57f49feeb420ed93bc5256fe6fe4863807f6ce40d"
+    },
+    "videos/episode_summary.original.json": {
+      "bytes": 2437,
+      "sha256": "8cb6d40860984f001dc942f7f124e0f5f455cc3c8a1a6b1daf35f062db444fec"
+    },
+    "videos/held_out_seed30000_v2_exact_gap20.mp4": {
+      "bytes": 1845846,
+      "sha256": "7acfbf645c37dbc6b60e3d0bad5aa42019f7fb6ac4ff8281e3f61762ebf98935"
+    }
+  },
+  "format": "helixwm_publication_manifest_v1",
+  "manifest_self_excluded": true,
+  "scope": "Publish only these files plus this manifest; _review is local QA material and excluded."
+}
