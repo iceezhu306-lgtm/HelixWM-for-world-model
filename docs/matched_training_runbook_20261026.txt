@@ -1,0 +1,79 @@
+Matched Walker comparison: execution addendum, 2026-10-26
+
+Scope
+Two independently initialized seed-0 systems are trained sequentially on one
+RTX 5090: official DreamerV3 core (D), then HelixWM V2 controller (H).
+Each receives exactly 1,000,000 action decisions, repeat 2, 2,000 episodes,
+and 248,750 native learner updates after 5,000 random-prefill decisions.
+The registered configuration is configs/dreamerv3_helixwm_matched_20261026.json.
+Its DESIGN_ONLY field records the original registration, not live execution.
+Execution status is recorded separately; do not rewrite the registration.
+
+Matching and limits
+Both arms use the same author size12m preset, official core e3f0224, software,
+RGB64 camera, action wrapper, reset-seed schedule, corruption mask bank,
+training budget, native replay context/writeback, and evaluation cases.
+This uses the original architecture at the author size12m preset; it does not
+claim reproduction of the much larger default model or paper aggregate score.
+Only corrupted visible images enter either learner's replay. No clean teacher
+images are supplied during training. D consumes black frames through its
+ordinary posterior; H uses the registered V2 missing-frame controller.
+Both pin inference parameters at episode boundaries in the shared harness.
+Different learned actions lead to different trajectories. Environment and
+exogenous schedules are matched; observed formal trajectories are not promised
+identical. Native replay snapshots preserve mutable context versions exactly.
+
+Completed engineering gates
+46 runtime unit tests and 22 archival tests passed. The environment probe
+matched all 4,000 actions / 8,000 DMC calls in two fresh processes exactly.
+Both discarded GPU smokes completed 6,000 actions, 12,000 DMC calls, 250 updates,
+and frozen GPU/host evaluation checks. Two fresh processes per arm loaded the
+checkpoint and produced exactly matching next replay sample, update, mutable
+writeback, model/optimizer/carry/RNG states. This is same-hardware fresh-process
+parity, not a guarantee of cross-hardware or uninterrupted bitwise equivalence.
+Media checks decoded all 501 frames and inspected camera views, labels and
+smoke curves. Engineering probe seeds were 72000/72001; the discarded training
+smokes additionally exercised the first 12 registered training reset seeds and
+mask prefix to validate the actual runner. Final seeds 60000..60039 remain held
+out. No smoke weights or replay initialize the formal runs.
+Earlier failed engineering attempts remain preserved with their failure logs.
+
+Storage authorization and backpressure
+The user explicitly approved archiving every checkpoint and its complete replay
+dependencies on E, then deleting only verified historical duplicate objects
+belonging to this new comparison from the remote instance. Older experiments
+are outside scope. The remote latest checkpoint and all its dependencies stay.
+The standalone local archive_service.py checks remote-before, remote-after and
+local SHA256, saves a receipt, prunes only the proven old duplicate objects,
+then writes an ACK bound to the current checkpoint SHA. Training waits at that
+episode boundary until ACK. Network/computer/E-drive unavailability therefore
+pauses further interaction at the next checkpoint; it never silently drops
+data or automatically restarts training. A live wait/ACK/continue/prune gate
+passed before formal launch. The local service requests system wakefulness
+only while its process lives; screen settings are unchanged.
+
+Measured capacity forecast is approximately 342 GiB for all versioned training
+artifacts across both arms. This is an estimate, not a guarantee. The launch
+gate reserves E space for that data, one final ZIP, and 32 GiB temporary/log
+space. Remote space uses a rolling latest-dependency estimate with 1.5 margin.
+The trainer additionally waits if measured checkpoint write-peak space is low.
+No automatic deletion of unique E data, paid expansion, or old experiment
+cleanup is permitted. Final packaging must avoid a third full copy: hardlink
+immutable verified data where appropriate and verify ZIP extraction one file
+at a time, while preserving source files.
+
+Execution and acceptance
+One tmux supervisor executes D, verifies exit0 and exact counters, executes H,
+then runs only the registered 1,280-case frozen final evaluation. Any failure
+stops the sequence; no retry or implicit recovery occurs. Each arm archives
+100 checkpoints on E, even though only the latest remains remotely.
+Final conditions are clean_native once and black_frame_native/prior_only/
+helix_v2 at gaps 1,5,10,20,50, with the same 40 held-out environment seeds.
+Freeze evidence covers model/optimizer/counters and host RNG. One predeclared
+three-panel video uses seed60000 gap20; no extra outcome-selected episode.
+Learning/comparison/diagnostic PNG and PDF, raw data, predeclared paired
+statistics, provenance, strict reload evidence, stable final backup, file
+SHA256, ZIP64 CRC/member equality/independent decompression hashes are required.
+Training completion alone is not final acceptance. One training seed per arm
+does not establish multi-seed superiority. Codex checks once every six hours;
+the independent transfer daemon uses no continuous Codex session.
