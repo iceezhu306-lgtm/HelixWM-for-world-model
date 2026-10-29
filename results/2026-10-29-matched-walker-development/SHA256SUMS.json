@@ -7,6 +7,11 @@
       "sha256": "8388097544e7b39f509fccdee02606290bbb896878efdfcc4a34988f438b54ad"
     },
     {
+      "path": "code/diagnose_final_return.py",
+      "bytes": 1664,
+      "sha256": "1cd89ea5717a621496aeacc645201022217871a4fc5706c9d1f309bc77381336"
+    },
+    {
       "path": "code/recompute.py",
       "bytes": 7939,
       "sha256": "974316925d280d810325970a9d5c5fe1f0b3519e0e3c3df0e1ff9d0d59b86193"
@@ -35,6 +40,16 @@
       "path": "data/development_summary.json",
       "bytes": 31965,
       "sha256": "ecb8bb53b49a539438bcaf7e2280701cc54c2afb73761242fe1a633c43b2e977"
+    },
+    {
+      "path": "data/failed_final_case.zip",
+      "bytes": 12862,
+      "sha256": "8e642676ca55f764fb001b7a17384006c65b1547f06b245225ee3777f8dc9a08"
+    },
+    {
+      "path": "data/final_evaluation_blocker.json",
+      "bytes": 5798,
+      "sha256": "ffa937e39735a2fd1bcabdfb464297e7aa5d37eb2fbf7541b8f33fb00d8ce525"
     },
     {
       "path": "data/H_development_eval.jsonl",
@@ -103,13 +118,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 2476,
-      "sha256": "74f4f070561949fc4c5b075f26846da3bd6f294068163cb38e75a2d0d931a438"
+      "bytes": 2758,
+      "sha256": "e8d71bcecc9f78e84ca15557ee399e16ddfa2a51da49f023b5164f54aa551c79"
     },
     {
       "path": "REPORT.md",
-      "bytes": 6643,
-      "sha256": "bb7c8e5a9ffecc3907995f22cd9bea5600114fe35270f1f738719488430410ea"
+      "bytes": 8050,
+      "sha256": "3ce6218443736cbb4df53dd4cca2922ce00593abcca11640790a82c6bed98c44"
     }
   ]
 }

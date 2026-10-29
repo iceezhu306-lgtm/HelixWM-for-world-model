@@ -2,7 +2,7 @@
 
 **[Read the comparison report](REPORT.md)** | [Learning curves](figures/development_learning_curves.png) | [Endpoint comparison](figures/latest_paired_returns.png) | [Fault-window traces](figures/latest_fault_recovery_trajectories.png)
 
-Both independent trainings completed their 1M-action budgets. This folder publishes all 50 rounds of development evaluation per arm, not the pending 1,280-case held-out confirmatory matrix. H has higher mean gap20 episode return at 1M, but more reward-defined functional failures (2/5 versus 1/5). The report states these limits explicitly.
+Both independent trainings completed their 1M-action budgets. This folder publishes all 50 rounds of development evaluation per arm. The 1,280-case held-out confirmatory evaluation is blocked by a first-case return-consistency gate error (`evaluation.exit=1`); it was not automatically restarted. H has higher mean development gap20 episode return at 1M, but more reward-defined functional failures (2/5 versus 1/5). The report states these limits explicitly.
 
 ## Files and recomputation
 
@@ -15,6 +15,7 @@ Both independent trainings completed their 1M-action budgets. This folder publis
 - `data/latest_traces_manifest.json`, `source_manifest_sha256.json`, `analysis_provenance.json`: provenance and integrity.
 - `data/development_summary.json`: descriptive metrics and freeze/budget checks; final-case count used is zero.
 - `data/registered_protocol.json`: unchanged registration; its DESIGN_ONLY flag is historical and does not describe today's execution status.
+- `data/final_evaluation_blocker.json`: the separate failed final-evaluation gate and numerical evidence; this case is not mixed into the development statistics.
 - `figures/`: three figures, each in PNG and PDF.
 - `code/recompute.py`: reproduce statistics and figures from this public subset, without model weights or a server.
 - `code/analyze_development.py`: full-evidence extraction/validation used to create the subset; it requires the separate full local evidence tree.

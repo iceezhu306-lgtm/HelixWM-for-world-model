@@ -1,6 +1,6 @@
 # Matched Walker: DreamerV3 vs HelixWM V2
 
-**Development-evaluation report, 29 October 2026. Both trainings completed; confirmatory final evaluation and full acceptance remain pending.**
+**Development-evaluation report, 29 October 2026. Both trainings completed; confirmatory final evaluation is blocked by a first-case return-consistency gate failure. Full acceptance is not complete.**
 
 At the pre-specified 1M-action endpoint, H exceeds D by **15.07 raw episode-return points on clean observations** and **25.39 raw episode-return points in the gap20 condition**. H wins 4 of the 5 paired development seeds in each condition. However, the registered reward-based functional-failure definition flags **2/5 H cases versus 1/5 D cases** in the gap20 window. Mean return improves while this failure count worsens; the evidence does not support an across-the-board robustness or superiority claim.
 
@@ -43,7 +43,13 @@ For the gap20 plus 100-action recovery window, a functional failure means normal
 
 V2 keeps candidate branches for at most five consecutive missing observations; it falls back to a single prior from the sixth. Therefore a gap20 result cannot be attributed to candidate repair throughout all 20 steps. Model/training differences, availability use, and inference control all differ in the system-level comparison. Causal attribution requires the registered cross-controller final matrix.
 
-No superiority test is presented on these reused five development seeds. The planned final evaluation uses 40 held-out environment seeds 60000–60039, clean once plus three controllers across gaps 1/5/10/20/50: 640 cases per model, 1,280 total. Its two pre-registered paired comparisons use seed-cluster bootstrap, positive-direction sign randomization, Holm correction, clean-performance and functional-failure guards. Missing final cases are pending, not zero-valued failures. One training seed per arm remains a limitation even after final evaluation.
+No superiority test is presented on these reused five development seeds. The planned final evaluation uses 40 held-out environment seeds 60000–60039, clean once plus three controllers across gaps 1/5/10/20/50: 640 cases per model, 1,280 total. Its two pre-registered paired comparisons use seed-cluster bootstrap, positive-direction sign randomization, Holm correction, clean-performance and functional-failure guards. Missing final cases are not silently converted to completed zero-valued cases. One training seed per arm remains a limitation even after final evaluation.
+
+### Final-evaluation blocker
+
+At **2026-10-29 12:01:24 UTC**, the first final case, `D_clean_native_seed60000_gap00`, stopped at `check_episode` with `ValueError('Episode return does not equal retained raw rewards')`. Its 500 actions / 1,000 DMC calls were retained, but zero final cases passed validation; `evaluation.exit=1`, 1,279 cases were unstarted, and all 1,280 remain unaccepted. The supervisor stopped as designed. No retry, recovery, model update, or runtime edit was performed for this report. The independent closed development dataset is unaffected. See [numeric diagnosis and preserved evidence](data/final_evaluation_blocker.json).
+
+Read-only recomputation identifies a **6.821210263296962e-13 difference (six ULPs)**: the stored return, Python float-list sum, NumPy sum, `math.fsum`, and correctly rounded exact sum all equal `989.9474279803866`; built-in sum over the NumPy scalar array yields `989.9474279803873`. The strict-equality gate therefore rejects this summation-path rounding difference. This is a numerical validation defect, not a policy functional failure. The subsequent freeze check was not reached, so the case is still not accepted. [The original failed-case trace and JSON records](data/failed_final_case.zip) are preserved separately and were not used to tune any algorithm or metric.
 
 ## Integrity and provenance
 

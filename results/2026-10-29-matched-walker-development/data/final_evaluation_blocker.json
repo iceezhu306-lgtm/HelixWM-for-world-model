@@ -1,0 +1,143 @@
+{
+  "diagnostic_type": "independent_local_read_only_numerical_recomputation",
+  "created_utc": "2026-10-29T12:20:28.688806+00:00",
+  "case_id": "D_clean_native_seed60000_gap00",
+  "local_runtime": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "numpy": "2.2.6"
+  },
+  "failure_utc": "2026-10-29T12:01:24.076245+00:00",
+  "failure_error": "ValueError('Episode return does not equal retained raw rewards')",
+  "evidence": {
+    "final_evaluation/CASES/D_clean_native_seed60000_gap00/planned.json": {
+      "bytes": 314,
+      "sha256": "b9136aca5795c0e47e66a86662b6b3c7d79ead479658910cd97ed91e26ec6364"
+    },
+    "final_evaluation/CASES/D_clean_native_seed60000_gap00/observed.json": {
+      "bytes": 258,
+      "sha256": "e3efac6ca806aea81d7e1abd285aac62d69672ebee88d3bf306bbd70994daba9"
+    },
+    "final_evaluation/CASES/D_clean_native_seed60000_gap00/trace.npz": {
+      "bytes": 12600,
+      "sha256": "2231a51d47919ba4467bfbff1f335328cc4d9891f4272a3e0466e81371d908ae"
+    },
+    "final_evaluation/failure.json": {
+      "bytes": 1046,
+      "sha256": "81b0912939437a60990b01bceab04d7a6f9ea50bd6b16ac119f458b38ea5edf4"
+    },
+    "final_evaluation/interaction_ledger.json": {
+      "bytes": 1046,
+      "sha256": "81b0912939437a60990b01bceab04d7a6f9ea50bd6b16ac119f458b38ea5edf4"
+    },
+    "final_evaluation/evaluation.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "runtime/helixwm_matched/evaluation.py": {
+      "bytes": 6176,
+      "sha256": "5184e99c9bdda868da52fb53bbac634f6e6d9a9f84c7809fb202e180a2a23df7"
+    },
+    "runtime/helixwm_matched/final_eval.py": {
+      "bytes": 27778,
+      "sha256": "1cec6d07656803bcfc988d386f70c31875eea1e5739a7a017e312ad630c24568"
+    }
+  },
+  "sums": {
+    "recorded_episode_return": {
+      "value": 989.9474279803866,
+      "hex": "0x1.eef94551ef89bp+9",
+      "delta_from_recorded": 0.0,
+      "ulps_from_recorded": 0.0
+    },
+    "python_builtin_sum_float_list": {
+      "value": 989.9474279803866,
+      "hex": "0x1.eef94551ef89bp+9",
+      "delta_from_recorded": 0.0,
+      "ulps_from_recorded": 0.0
+    },
+    "python_builtin_sum_numpy_scalars": {
+      "value": 989.9474279803873,
+      "hex": "0x1.eef94551ef8a1p+9",
+      "delta_from_recorded": 6.821210263296962e-13,
+      "ulps_from_recorded": 6.0
+    },
+    "numpy_sum": {
+      "value": 989.9474279803866,
+      "hex": "0x1.eef94551ef89bp+9",
+      "delta_from_recorded": 0.0,
+      "ulps_from_recorded": 0.0
+    },
+    "math_fsum": {
+      "value": 989.9474279803866,
+      "hex": "0x1.eef94551ef89bp+9",
+      "delta_from_recorded": 0.0,
+      "ulps_from_recorded": 0.0
+    },
+    "sequential_python_float_add": {
+      "value": 989.9474279803873,
+      "hex": "0x1.eef94551ef8a1p+9",
+      "delta_from_recorded": 6.821210263296962e-13,
+      "ulps_from_recorded": 6.0
+    },
+    "correctly_rounded_exact_sum_of_retained_binary64_values": {
+      "value": 989.9474279803866,
+      "hex": "0x1.eef94551ef89bp+9",
+      "delta_from_recorded": 0.0,
+      "ulps_from_recorded": 0.0
+    }
+  },
+  "scalar_path_absolute_difference": 6.821210263296962e-13,
+  "scalar_path_relative_difference": 6.89047728242808e-16,
+  "trace_checks": {
+    "identity_fields_equal_planned": true,
+    "schema_exact": true,
+    "all_arrays_finite": true,
+    "actions_within_bounds": true,
+    "rewards_within_0_2": true,
+    "dmc_calls_each_2": true,
+    "clean_availability_all_true": true,
+    "original_strict_return_equality_passes": false
+  },
+  "execution_status": {
+    "completed_episodes": 0,
+    "acknowledged_actions": 500,
+    "acknowledged_dmc_calls": 1000,
+    "actual_interaction_counts_complete": true,
+    "remaining_cases_uncompleted": 1280,
+    "unstarted_cases": 1279,
+    "automatic_retry_or_resume": false
+  },
+  "evaluation_exit": 1,
+  "interpretation": "The retained float64 reward values reproduce the saved return with Python float-list sum, np.sum, math.fsum, and correctly rounded exact binary64 summation. Built-in sum over NumPy scalars reproduces the strict-check failure with a six-ULP difference. This identifies a summation-path equality defect for this retained case, not a nonfinite-reward or count failure.",
+  "limits": [
+    "The failed case executed a full 500-action/1000-DMC episode but accepted cases remain zero.",
+    "The subsequent per-case frozen-state/environment-lock gates were not reached, so this diagnostic does not certify the case as accepted or frozen.",
+    "No model, simulator, checkpoint, remote service, or training/runtime helper was executed or modified.",
+    "No retry/resume or runtime patch was performed; original evidence files were read only.",
+    "This diagnostic does not replace the blocked 1280-case final evaluation."
+  ],
+  "source_locations": {
+    "evaluation.py": [
+      "29: rewards appended as Python float",
+      "39: float(sum(rewards))",
+      "42: retained rewards converted to float64 ndarray"
+    ],
+    "final_eval.py": [
+      "165-166: strict equality against float(sum(trace[reward]))",
+      "319-325: acknowledge interactions and preserve trace/observed before check",
+      "327-331: later frozen-state and environment-lock checks not reached",
+      "346: accepted-episode increment not reached"
+    ]
+  },
+  "compact_raw_archive": {
+    "path": "failed_final_case.zip",
+    "sha256": "8e642676ca55f764fb001b7a17384006c65b1547f06b245225ee3777f8dc9a08",
+    "members": [
+      "planned.json",
+      "observed.json",
+      "trace.npz"
+    ],
+    "crc_and_extracted_bytes_verified": true
+  },
+  "runtime_commit": "97e049941bd755fab68e85e8bb1171911fa6cac8"
+}
