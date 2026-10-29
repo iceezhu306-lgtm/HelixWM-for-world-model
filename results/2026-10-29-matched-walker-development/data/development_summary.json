@@ -1,0 +1,1279 @@
+{
+  "all_1000_traces_checked_for_finite_rewards_budget_mask_alignment_and_reward_sum": true,
+  "all_100_round_freeze_host_rng_and_ledger_checks_passed": true,
+  "analysis_cutoff_actions": 1000000,
+  "analysis_type": "descriptive_development_snapshot",
+  "confirmatory_final_evaluation_included": false,
+  "confirmatory_significance_or_superiority_claim": false,
+  "environment_seeds": [
+    50000,
+    50001,
+    50002,
+    50003,
+    50004
+  ],
+  "evaluation_actions_total": 500000,
+  "evaluation_dmc_calls_total": 1000000,
+  "evaluation_episodes_total": 1000,
+  "evaluation_rounds_per_arm": 50,
+  "figure_outputs": [
+    "figures/development_learning_curves.png",
+    "figures/development_learning_curves.pdf",
+    "figures/latest_paired_returns.png",
+    "figures/latest_paired_returns.pdf",
+    "figures/latest_fault_recovery_trajectories.png",
+    "figures/latest_fault_recovery_trajectories.pdf"
+  ],
+  "final_matrix_cases_used": 0,
+  "final_matrix_expected_cases": 1280,
+  "fixed_source_snapshots": {
+    "D": "runs/D",
+    "H": "runs/H"
+  },
+  "important_limits": [
+    "Five reused development environment seeds, one independently trained model per arm.",
+    "No D/prior_only development evaluation; stronger-control claim unavailable.",
+    "The final 40-seed matrix and its two Holm-corrected primary tests are not analyzed here.",
+    "Matched environment/masks do not imply identical model trajectories.",
+    "Helix uses known availability; this is not automatic anomaly detection.",
+    "Candidate repair is capped at five missing observations; long gaps use prior fallback.",
+    "Functional failure is a reward-based proxy, not certified falling or safety.",
+    "Both training budgets are complete; the held-out confirmatory final matrix is not included."
+  ],
+  "latest": {
+    "D": {
+      "clean_minus_gap20": {
+        "maximum": 79.37355932537639,
+        "mean": 47.21876057739864,
+        "minimum": 3.1303775680275976,
+        "n": 5,
+        "sample_sd": 34.95518663868631
+      },
+      "clean_return": {
+        "maximum": 989.499541668973,
+        "mean": 970.5001124685489,
+        "minimum": 937.5329143627974,
+        "n": 5,
+        "sample_sd": 21.636888511949184
+      },
+      "functional_failures_gap20_window": 1,
+      "gap20_return": {
+        "maximum": 962.8371522853286,
+        "mean": 923.2813518911502,
+        "minimum": 880.8583799837588,
+        "n": 5,
+        "sample_sd": 29.703410342531157
+      },
+      "gap_window_own_clean_deficit": {
+        "maximum": 0.33201086545942293,
+        "mean": 0.1946026690210993,
+        "minimum": 0.012578636184025375,
+        "n": 5,
+        "sample_sd": 0.13675253554956787
+      },
+      "gap_window_score": {
+        "maximum": 0.9846701457181785,
+        "mean": 0.803534389874806,
+        "minimum": 0.665564631413713,
+        "n": 5,
+        "sample_sd": 0.13637204401607536
+      },
+      "recovered_by_100_actions": 5,
+      "recovery_eligible": 5
+    },
+    "H": {
+      "clean_minus_gap20": {
+        "maximum": 64.92058345652231,
+        "mean": 36.89778439293966,
+        "minimum": 0.5176941385079772,
+        "n": 5,
+        "sample_sd": 26.6386227072319
+      },
+      "clean_return": {
+        "maximum": 990.5943131932677,
+        "mean": 985.5674240423812,
+        "minimum": 975.7349180517991,
+        "n": 5,
+        "sample_sd": 6.07058026851455
+      },
+      "functional_failures_gap20_window": 2,
+      "gap20_return": {
+        "maximum": 988.1106482344424,
+        "mean": 948.6696396494415,
+        "minimum": 910.8143345952768,
+        "n": 5,
+        "sample_sd": 29.64888756743902
+      },
+      "gap_window_own_clean_deficit": {
+        "maximum": 0.27055150954025237,
+        "mean": 0.1548969546284658,
+        "minimum": 0.002682293197608823,
+        "n": 5,
+        "sample_sd": 0.11172143577391513
+      },
+      "gap_window_score": {
+        "maximum": 0.9962400988115253,
+        "mean": 0.8439896638984916,
+        "minimum": 0.7283348070973269,
+        "n": 5,
+        "sample_sd": 0.11174184187507637
+      },
+      "recovered_by_100_actions": 5,
+      "recovery_eligible": 5
+    },
+    "H_gap20_wins_out_of_5": 4,
+    "H_minus_D": {
+      "clean_minus_gap20": {
+        "maximum": 44.99396824352846,
+        "mean": -10.320976184458981,
+        "minimum": -64.65109526069136,
+        "n": 5,
+        "sample_sd": 44.96529846038402
+      },
+      "clean_return": {
+        "maximum": 46.20789773347235,
+        "mean": 15.067311573832331,
+        "minimum": -0.3608071713542813,
+        "n": 5,
+        "sample_sd": 18.57441160146453
+      },
+      "gap20_return": {
+        "maximum": 67.07809492399588,
+        "mean": 25.388287758291312,
+        "minimum": -33.4344793424533,
+        "n": 5,
+        "sample_sd": 36.91721207322322
+      },
+      "gap_window_own_clean_deficit": {
+        "maximum": 0.17097161029362629,
+        "mean": -0.039705714392633484,
+        "minimum": -0.2617971226071349,
+        "n": 5,
+        "sample_sd": 0.1761306592597665
+      },
+      "gap_window_score": {
+        "maximum": 0.26180805552486763,
+        "mean": 0.04045527402368552,
+        "minimum": -0.17016981191797642,
+        "n": 5,
+        "sample_sd": 0.1756042109757126
+      }
+    },
+    "clean_return_H_over_D": 1.015525306365506,
+    "gap20_relative_return_change_percent": 2.7497888597325915
+  },
+  "reward_window": {
+    "gap": 20,
+    "recovery": 100,
+    "start": 150,
+    "stop_exclusive": 270
+  },
+  "sample_sd_definition": "ddof=1 across five environment seeds; not a confidence interval",
+  "selection_rule": "All 50 development rounds 20,000..1,000,000, step 20,000; final training checkpoint, no best-checkpoint selection",
+  "source_round_verification": [
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 20000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 40000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 60000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 80000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 100000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 120000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 140000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 160000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 180000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 200000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 220000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 240000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 260000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 280000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 300000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 320000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 340000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 360000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 380000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 400000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 420000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 440000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 460000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 480000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 500000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 520000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 540000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 560000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 580000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 600000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 620000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 640000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 660000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 680000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 700000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 720000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 740000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 760000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 780000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 800000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 820000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 840000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 860000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 880000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 900000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 920000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 940000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 960000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 980000
+    },
+    {
+      "actions": 5000,
+      "arm": "D",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 1000000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 20000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 40000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 60000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 80000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 100000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 120000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 140000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 160000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 180000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 200000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 220000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 240000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 260000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 280000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 300000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 320000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 340000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 360000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 380000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 400000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 420000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 440000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 460000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 480000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 500000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 520000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 540000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 560000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 580000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 600000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 620000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 640000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 660000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 680000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 700000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 720000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 740000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 760000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 780000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 800000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 820000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 840000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 860000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 880000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 900000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 920000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 940000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 960000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 980000
+    },
+    {
+      "actions": 5000,
+      "arm": "H",
+      "dmc_calls": 10000,
+      "episodes": 10,
+      "freeze_hash_equal": true,
+      "host_zero_update_verified": true,
+      "ledger_complete": true,
+      "passed": true,
+      "training_actions": 1000000
+    }
+  ],
+  "training_seed_per_arm": 1,
+  "training_seeds": [
+    0
+  ]
+}

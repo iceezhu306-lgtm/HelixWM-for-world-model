@@ -1,0 +1,167 @@
+{
+  "archive_sha256": "03e1df517023d7e0b842126044adce94a1fa2dbfd9f4cbb171f260ccfdaa3e9e",
+  "cases": 20,
+  "files": {
+    "D/black_frame_native_seed50000_gap20.json": {
+      "bytes": 265,
+      "sha256": "eec431d59000c67595f3b39d2b30202a9a16b92cc7f55d3a9313d8bd92a619ef"
+    },
+    "D/black_frame_native_seed50000_gap20.npz": {
+      "bytes": 12750,
+      "sha256": "cfc770f4f79d676a0e09ae27c20befb3ce508ddbc14a34729c2c79e07402eae8"
+    },
+    "D/black_frame_native_seed50001_gap20.json": {
+      "bytes": 265,
+      "sha256": "e34255811607a36704eb77bf8282ba4a4b04b1b787304e4c9fe6bd7939338ac0"
+    },
+    "D/black_frame_native_seed50001_gap20.npz": {
+      "bytes": 12853,
+      "sha256": "64ff5625fcb94160480916f882ca184dfe99520a28f495ada728a1519137635a"
+    },
+    "D/black_frame_native_seed50002_gap20.json": {
+      "bytes": 265,
+      "sha256": "b144af0d4af78fc169a9e9188d6b3654965d91aa7a80cc03b7c5c98535da3033"
+    },
+    "D/black_frame_native_seed50002_gap20.npz": {
+      "bytes": 12833,
+      "sha256": "2a83ec89f794b809d22b5a68ce21f5e95945746fc53686bbb775eac5ffc451db"
+    },
+    "D/black_frame_native_seed50003_gap20.json": {
+      "bytes": 265,
+      "sha256": "2beffeca5c24338eb634920d5847351f021c3791303d10c8580b2f46b9954c8d"
+    },
+    "D/black_frame_native_seed50003_gap20.npz": {
+      "bytes": 12864,
+      "sha256": "60268d1e890949ace682cd06b57fbdfdcd996ec3861592b8d33d7f369b74db06"
+    },
+    "D/black_frame_native_seed50004_gap20.json": {
+      "bytes": 265,
+      "sha256": "8812733d384e8dd2316d95f7334038ebbd0b80928c47df8b4ace7cc9a33c3862"
+    },
+    "D/black_frame_native_seed50004_gap20.npz": {
+      "bytes": 12751,
+      "sha256": "1b791dde785bb21b93bad1406f204af802c0f9a392576703b374526e4bd21cd8"
+    },
+    "D/clean_native_seed50000_gap0.json": {
+      "bytes": 258,
+      "sha256": "347fc5ab1fe6b2ec05a127194974221361d353149f32393cad321251a6395b04"
+    },
+    "D/clean_native_seed50000_gap0.npz": {
+      "bytes": 12767,
+      "sha256": "63b132ced559f61444125fdfd44ce32356860ac6e33ccaa06b557af87d965b49"
+    },
+    "D/clean_native_seed50001_gap0.json": {
+      "bytes": 258,
+      "sha256": "217d1ed02c5dd35c12781155457596b83cdd793cfc34dd1b289f3542fd232b75"
+    },
+    "D/clean_native_seed50001_gap0.npz": {
+      "bytes": 12723,
+      "sha256": "8f9e892126c53ceb2d598b455864099a2c0b76ffe21dfc06aca4cc44f51db8ea"
+    },
+    "D/clean_native_seed50002_gap0.json": {
+      "bytes": 258,
+      "sha256": "dd39108ce13e54b560f2ffe2e2032435137edd0d8d18bb94b606cd1b0f124082"
+    },
+    "D/clean_native_seed50002_gap0.npz": {
+      "bytes": 12735,
+      "sha256": "9fbf4fe2bd1904b81b5831481f2cc58c6253a9f2049619ed109fee94d285d8f8"
+    },
+    "D/clean_native_seed50003_gap0.json": {
+      "bytes": 257,
+      "sha256": "5ae4a0b2eef4649d6c6cf375d6182f0e6997f2120b7a27466e039c0a3e1aee53"
+    },
+    "D/clean_native_seed50003_gap0.npz": {
+      "bytes": 12605,
+      "sha256": "eba6bc6b92bc233a92f0c7e97656d828207e3de72d2e8ba99ba1601b1b074175"
+    },
+    "D/clean_native_seed50004_gap0.json": {
+      "bytes": 258,
+      "sha256": "c309417f2d20d33434f0cdb0f275f231a2529a63187c6d42754b93231a7c3a96"
+    },
+    "D/clean_native_seed50004_gap0.npz": {
+      "bytes": 12525,
+      "sha256": "2d34e009ad2603c39b78bc9d9782497c802cb2a4f843e3c000610c79e4198491"
+    },
+    "H/clean_native_seed50000_gap0.json": {
+      "bytes": 258,
+      "sha256": "9753ef396c19c7bb59725b523a38e4a91ceb8292c8b7936cd9523c02f3c9676f"
+    },
+    "H/clean_native_seed50000_gap0.npz": {
+      "bytes": 12762,
+      "sha256": "70e8dd0f5741b6aa301857e065bd582bced74d05ea305e11162b7e4eea6e6d5e"
+    },
+    "H/clean_native_seed50001_gap0.json": {
+      "bytes": 257,
+      "sha256": "d8948173e7ee7da835fbc18d43d8eb983780c261793512c710982a37e5761071"
+    },
+    "H/clean_native_seed50001_gap0.npz": {
+      "bytes": 12716,
+      "sha256": "c4da051920c2fc9e6afcf18c58d1c8bc3a572f3009fa55bdc7603e664667bc94"
+    },
+    "H/clean_native_seed50002_gap0.json": {
+      "bytes": 258,
+      "sha256": "909fa71a89abd617ffed928b78506e687cb192129865acb810d12eadd1246bbd"
+    },
+    "H/clean_native_seed50002_gap0.npz": {
+      "bytes": 12654,
+      "sha256": "ec9ce05ded6a9bd2bfdef818a2f6f075dd56daff0f46a9b3d514ae1272f9ce77"
+    },
+    "H/clean_native_seed50003_gap0.json": {
+      "bytes": 258,
+      "sha256": "9b19429a5383e1db6b7e3101707066be2f62180a58b19df9f39056f74392b49c"
+    },
+    "H/clean_native_seed50003_gap0.npz": {
+      "bytes": 12754,
+      "sha256": "2409efb8db28419d28fb26bd2b8b13e6ce7d343fc150f5725062dc8eb2549796"
+    },
+    "H/clean_native_seed50004_gap0.json": {
+      "bytes": 258,
+      "sha256": "2658d98387fcaaaa70bc542c0d034584c26b7abb5c27fbc24b18011edd3c336d"
+    },
+    "H/clean_native_seed50004_gap0.npz": {
+      "bytes": 12594,
+      "sha256": "95654810f9fc20d8985debe7a3a037abcd2692c5952f76f0b7fc3b7c634cca04"
+    },
+    "H/helix_v2_seed50000_gap20.json": {
+      "bytes": 517,
+      "sha256": "43ba8e3d7a30b755c140273d5fcd59fdec499b8ce91439f98b5b78186120a6f5"
+    },
+    "H/helix_v2_seed50000_gap20.npz": {
+      "bytes": 12874,
+      "sha256": "e1bbf9af64673b45393d8616bd3abd536715465ccbba0108e12b1793d2eb1ea0"
+    },
+    "H/helix_v2_seed50001_gap20.json": {
+      "bytes": 517,
+      "sha256": "163f4c7a1c0f1e7542d12ad53d25216edbd2128be88ba1ffd8cd40b3f8c1bab9"
+    },
+    "H/helix_v2_seed50001_gap20.npz": {
+      "bytes": 12879,
+      "sha256": "44482ded504de52ec2283b5e0f22a3b20c9065270fe4c660057275aa1e94ba7c"
+    },
+    "H/helix_v2_seed50002_gap20.json": {
+      "bytes": 517,
+      "sha256": "92eec064786cc9a0e9762357fad3a0e37c27ac30ec4614fc197776c659791dae"
+    },
+    "H/helix_v2_seed50002_gap20.npz": {
+      "bytes": 12834,
+      "sha256": "cd629579c2fb68e4930bf0f0371994c30fcb8a20e2ae90d9958a8d5e4cb8e04d"
+    },
+    "H/helix_v2_seed50003_gap20.json": {
+      "bytes": 517,
+      "sha256": "0f858f04a4a3c2d8a825fc2d023cde83836ceafe25e75650c8ceab6f289488ba"
+    },
+    "H/helix_v2_seed50003_gap20.npz": {
+      "bytes": 12891,
+      "sha256": "4e2d958f82bdb3fde74a19f8db34723e79faf6cc2729ff0305508b66b7524658"
+    },
+    "H/helix_v2_seed50004_gap20.json": {
+      "bytes": 517,
+      "sha256": "2076680c007a9682c77b775e9a424c2aac1798fd0f68378938ee647f5a7cb126"
+    },
+    "H/helix_v2_seed50004_gap20.npz": {
+      "bytes": 12759,
+      "sha256": "54952f55dd776c07e0a90a50c36de514f00a4a00cd38a0d7b32f9516493afea9"
+    }
+  },
+  "training_actions": 1000000
+}
