@@ -1,0 +1,18 @@
+{
+  "file": "minecraft_checkpoint_000190037.pkl",
+  "format": "helixwm_minecraft_episode_boundary_v1",
+  "bytes": 129571084,
+  "sha256": "c7ab1cdb2bd03b88d155fad9790074b0f19544266c46c47d1518364c8089c9aa",
+  "counters": {
+    "agent_steps": 190037,
+    "env_steps": 379585,
+    "episodes": 932,
+    "masked_observations": 10503,
+    "update_steps": 46259,
+    "wall_time_s": 74642.20338182524
+  },
+  "engine_state_serialized": false,
+  "mid_episode_restore_supported": false,
+  "replay_archive_entries": 932,
+  "verification_scope": "Original checkpoint sidecar values only; checkpoint payload was not rehashed during this publication task."
+}

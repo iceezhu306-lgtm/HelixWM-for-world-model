@@ -1,0 +1,52 @@
+{
+  "evidence_cutoff_utc": "2026-11-05T09:38:48.657672+00:00",
+  "runtime_commit": "97e049941bd755fab68e85e8bb1171911fa6cac8",
+  "existing_publication_parent": "c231b4ede67e24a11f4aa61e0e9c7927e64ffd16",
+  "source_requirement_sha256": "f9e10ee52c88d2594fdc0b3fe3abfd41f918084232a4d84f7e02c622401507e6",
+  "final_acceptance_passed": false,
+  "runtime_modified_by_publication": false,
+  "original_local_archive_preserved": true,
+  "reports": [
+    {
+      "destination": "docs/helixwm_final_20261105/user_requirements_original_zh.md",
+      "sha256": "f9e10ee52c88d2594fdc0b3fe3abfd41f918084232a4d84f7e02c622401507e6",
+      "original_bytes_preserved": true
+    },
+    {
+      "destination": "results/2026-11-05-defect-review/HelixWM_defect_report_full_zh.docx",
+      "sha256": "f4cd682296c5af75b11f78c2591c49ee3ffc7ff6813fe6c3c796c150dc4a7b3d",
+      "original_bytes_preserved": true
+    },
+    {
+      "destination": "results/2026-11-05-defect-review/HelixWM_defect_report_full_zh.pdf",
+      "sha256": "f2cbfb25d1875b44707474c5fbdcf4ccbc339a6a23c2c8beccedb07fec912659",
+      "original_bytes_preserved": true
+    },
+    {
+      "destination": "results/2026-11-05-defect-review/full_report_text_zh.txt",
+      "sha256": "4cd602e039c95b5b5b268d0c3696e895ea1b7db907655d99b807260ba8847054",
+      "original_bytes_preserved": true
+    },
+    {
+      "destination": "results/2026-10-29-matched-walker-development/HelixWM_DreamerV3_comparison_zh.pdf",
+      "sha256": "4c6677a1d4ad3d518d0f903c5b30dc1b558924fd161bc754fd58f2d4d247afd7",
+      "original_bytes_preserved": true
+    },
+    {
+      "destination": "results/2026-11-05-defect-review/HelixWM_defect_report_initial_zh_public.pdf",
+      "original_sha256": "935fe773bb5e8d9595118ebd8df7dcd1434da4485c0243d5b548c89b1fcfe000",
+      "sha256": "a9e8f3d45f7b8e4e70fd4f4cb062244cd852b34693fbe6796ac16965ef7cf35b",
+      "original_bytes_preserved": false,
+      "edits": [
+        {
+          "page": 5,
+          "kind": "local machine path omitted"
+        },
+        {
+          "page": 5,
+          "kind": "local machine path omitted"
+        }
+      ]
+    }
+  ]
+}

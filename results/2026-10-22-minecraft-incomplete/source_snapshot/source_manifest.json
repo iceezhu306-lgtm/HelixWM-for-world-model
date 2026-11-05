@@ -1,0 +1,203 @@
+{
+  "source_commit": "d570bee97717838c8c90f3b4754ad534e906e7b8",
+  "source_tree": "6d47c7ca68e1279d3d19101d80448bc4c448108c",
+  "export_method": "git show COMMIT:path; original blob bytes preserved, no working-tree normalization",
+  "generated_utc": "2026-11-05T10:34:57.515562+00:00",
+  "source_files": [
+    {
+      "path": "configs/minecraft_navigation_seed0_1m.json",
+      "git_mode": "100644",
+      "git_blob": "cdf0e48c24b597e28c3633f54979e9773cadc9d4",
+      "sha256": "dde361627f186e9c36d5d44e8ea2c3a8ff8e10d1326a844f79b820cfd897cf8b",
+      "bytes": 2466
+    },
+    {
+      "path": "configs/minecraft_navigation_seed0_smoke.json",
+      "git_mode": "100644",
+      "git_blob": "5f1c105ac63561476a5e55202dc7e2bcbc506f60",
+      "sha256": "c3ac49bd0580acd81a443aeef6d18879c7cd3e65ace2888f7e7217cf11d3997b",
+      "bytes": 1701
+    },
+    {
+      "path": "helixwm_minecraft/backbone.py",
+      "git_mode": "100644",
+      "git_blob": "c4e0b37c4ecaf1d67c3ce19c311d9aeb91771865",
+      "sha256": "f56282de8e7d20e86f9fe649f61273c01378d08f7b18cfa0d0d21dd8d5ba8b3a",
+      "bytes": 1968
+    },
+    {
+      "path": "helixwm_minecraft/bridge.py",
+      "git_mode": "100644",
+      "git_blob": "c542cb1c7a53fd365de5eba12823fd8f6a4f2bcf",
+      "sha256": "8e9506d7bca72b40fe7bf7d2b40aee1b34d186cde7335f181c923414fbc428c0",
+      "bytes": 10055
+    },
+    {
+      "path": "helixwm_minecraft/evaluation.py",
+      "git_mode": "100644",
+      "git_blob": "f5991bc34e4c873f04601900243335757356fb86",
+      "sha256": "24d4cf01971af6d495bec4dccf011c82d932600e0a475bba6106ae82e46d7e6e",
+      "bytes": 34158
+    },
+    {
+      "path": "helixwm_minecraft/preflight.py",
+      "git_mode": "100644",
+      "git_blob": "057d594c4b793e33c16183bece2d352334b2b439",
+      "sha256": "867e84e15f42beb6c3fd3bcf0bb9c2c668306f1ffeb4499ee93abb429521624f",
+      "bytes": 9313
+    },
+    {
+      "path": "helixwm_minecraft/protocol.py",
+      "git_mode": "100644",
+      "git_blob": "fec5caec0b70086bf9ce783da36d95573448cc1f",
+      "sha256": "82000ebc1783372e180a93fed1ebbd02af400561c0ed4cbc474853204e8e1488",
+      "bytes": 4785
+    },
+    {
+      "path": "helixwm_minecraft/runtime.py",
+      "git_mode": "100644",
+      "git_blob": "b27f4e133a9a333894f85a9a1977c8ad73741d7a",
+      "sha256": "601c5a2efd77e9322f2ea7bad5459838b6ba1fe92a3f2cb1fb9a2059a73544db",
+      "bytes": 12005
+    },
+    {
+      "path": "helixwm_minecraft/storage.py",
+      "git_mode": "100644",
+      "git_blob": "eb630528de129f423faaa087a7bb8eafcbfde89c",
+      "sha256": "17131d752128fdec3cecf2197f055be3b8ae5884404895c1d3b40bc444a84954",
+      "bytes": 18179
+    },
+    {
+      "path": "helixwm_minecraft/task.py",
+      "git_mode": "100644",
+      "git_blob": "34801ab970f8180f9d07f5eb17a85e224a93b0ca",
+      "sha256": "8e47ba7451ef714cff743b4cdd8247139d63de8efdcfaf3150e38660607675ff",
+      "bytes": 7784
+    },
+    {
+      "path": "helixwm_minecraft/train.py",
+      "git_mode": "100644",
+      "git_blob": "0aa7b920ea2524fe20325063841a54a09667974f",
+      "sha256": "d0e8df977e13a0713340b9648f4fe75c070aec01a16468c3c3d2f2a62192f724",
+      "bytes": 34021
+    },
+    {
+      "path": "helixwm_minecraft/worker.py",
+      "git_mode": "100644",
+      "git_blob": "fbb456f22eede2c51b736fd91a5c72e717e10409",
+      "sha256": "8cb051520cfd140aa8d28db966e18c4cc9bac5de3e9ada2787930a51cf6cf07c",
+      "bytes": 6618
+    },
+    {
+      "path": "helixwm_v2/__init__.py",
+      "git_mode": "100644",
+      "git_blob": "47460df9e2638beade3d6ee286b5721671973ba7",
+      "sha256": "e7648450f91581e53be0f53873b98635dcfd251ff8c158967c4144742dcd048c",
+      "bytes": 100
+    },
+    {
+      "path": "helixwm_v2/backbone.py",
+      "git_mode": "100644",
+      "git_blob": "6628ce64bbe1badb7e604fcfa147ac5b614d62cb",
+      "sha256": "06df70e248eed50fcafe99567b964dc30002abaf4054997878b87da3fa90b1ae",
+      "bytes": 21642
+    },
+    {
+      "path": "helixwm_v2/dual_chain.py",
+      "git_mode": "100644",
+      "git_blob": "e76c1af9d78fa012ef6b764eccb982dbaf889bab",
+      "sha256": "cb3372f519f1305606e7090b35ce50c6db78bae03e000f677fb67ecc7002a3c3",
+      "bytes": 23040
+    },
+    {
+      "path": "helixwm_v2/evaluation.py",
+      "git_mode": "100644",
+      "git_blob": "d81a4018b40289618f19053aee236cfeaf7cd25e",
+      "sha256": "bfc69d53b2458f8fe1820792322f7e844819b723ac54fc36132eb9a8c624c0e5",
+      "bytes": 21163
+    },
+    {
+      "path": "helixwm_v2/preflight.py",
+      "git_mode": "100644",
+      "git_blob": "6bbe500228bd41269bf24c16177f67d073d5ac07",
+      "sha256": "af7daf881e20fcb3545f3b35f631da819f96b3200d0bc52c6f198639c9647251",
+      "bytes": 30269
+    },
+    {
+      "path": "helixwm_v2/storage.py",
+      "git_mode": "100644",
+      "git_blob": "83c0fe8993564b4a7015c72e946d7b4a4f10715f",
+      "sha256": "d5330061326ba9a882f459fa2883d4c95b32984ec4d7b7f8a8a9e02957bfa77d",
+      "bytes": 22128
+    },
+    {
+      "path": "helixwm_v2/train.py",
+      "git_mode": "100644",
+      "git_blob": "94e56782c02a92e188d81d8b6b12595ee61bd1c2",
+      "sha256": "b5407bb7cd98a39e6b904317536cf9853cd999a88f9af01e305bf6eedcf6f643",
+      "bytes": 21971
+    },
+    {
+      "path": "pyproject.toml",
+      "git_mode": "100644",
+      "git_blob": "27a8abbefd1962d77153be192370eab8c5c9fa05",
+      "sha256": "edea10309790ca79d6e617515ea2b7cfa8881fecdc47f3da8feaf3727effebe8",
+      "bytes": 556
+    },
+    {
+      "path": "requirements-v2-5090.lock.txt",
+      "git_mode": "100644",
+      "git_blob": "f0889ca1b5ecad547a241937f9c695e1901f8310",
+      "sha256": "e647dacc68181990280de9ce9cdadb9b934be027c44f5d2f7ec28e1e4d00b8bc",
+      "bytes": 2066
+    },
+    {
+      "path": "tests/test_minecraft_evaluation.py",
+      "git_mode": "100644",
+      "git_blob": "54c851e7a97504ff89e66a6b286589eb5cb8224b",
+      "sha256": "5dc60b095a50daa06d05bf0f1344467679db72a0994329f3f5063b67c065b7b1",
+      "bytes": 15451
+    },
+    {
+      "path": "tests/test_minecraft_replay.py",
+      "git_mode": "100644",
+      "git_blob": "3af2c4a3f5c5f02b6c6fa24cc861d0de37151030",
+      "sha256": "bbe842c06cdf24254545d362e8fa295c0f4e02243d951b3710091279f59453d1",
+      "bytes": 9700
+    },
+    {
+      "path": "tests/test_minecraft_runtime.py",
+      "git_mode": "100644",
+      "git_blob": "805bc3e3a648c9147678fd7e1261d27b35276bd5",
+      "sha256": "89a9f2d1429824380bc0b9b8859f2df5f76de8153598f45bb0d6b4d4e4b3a9bf",
+      "bytes": 11398
+    },
+    {
+      "path": "tests/test_minecraft_train.py",
+      "git_mode": "100644",
+      "git_blob": "aaf27fa64acedbeea606f5d8c7e36d059ad031c8",
+      "sha256": "dbba7e40a77c20af77928e1b931a1b6e24bc6c1633dbd5f641f8add121d8f63f",
+      "bytes": 21421
+    },
+    {
+      "path": "tests/test_minecraft_worker_protocol.py",
+      "git_mode": "100644",
+      "git_blob": "5761ef0af4c97d6e44ab58d5b02c8f18a593756c",
+      "sha256": "1551a81d4fbdce7cce7ff21db736917ecf24fc84e317bfbcc2e2144e5905cbe7",
+      "bytes": 9492
+    }
+  ],
+  "scope": "All helixwm_minecraft and helixwm_v2 tracked files, tests/test_minecraft*, two Minecraft training/smoke configs, requirements-v2-5090.lock.txt and pyproject.toml. Other repository packages, datasets, environments, videos and operations files are not included.",
+  "credential_and_private_path_scan": {
+    "method": "Static regex scan of exported UTF-8 files; no code executed",
+    "findings": [],
+    "source_redactions": false
+  },
+  "known_fixed_deployment_prefix": {
+    "value": "/root/helixwm_minecraft/env_py311_prebuilt",
+    "meaning": "Historical worker admission rule and configured runtime location, not a credential or SSH endpoint"
+  },
+  "tests_run_for_this_publication": false,
+  "not_a_standalone_complete_repository_distribution": true,
+  "experiment_modified": false
+}

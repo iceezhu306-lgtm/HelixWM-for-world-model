@@ -1,0 +1,16 @@
+{
+  "rows": 90,
+  "unique_cases": 90,
+  "rounds": 9,
+  "condition_counts": {
+    "clean": 45,
+    "dropout": 45
+  },
+  "all_rows_kind_periodic": true,
+  "all_complete": true,
+  "finite_episode_returns": true,
+  "original_csv_and_jsonl_copied_byte_for_byte": true,
+  "final_cases_included": 0,
+  "trace_npz_payloads_included": false,
+  "note": "Relative trace references identify original archived artifacts, which are not included in this compact public subset. This is not a trace-level reward audit."
+}

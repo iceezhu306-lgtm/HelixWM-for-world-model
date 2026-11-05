@@ -1,0 +1,41 @@
+{
+  "first_logged_memory_high_event": {
+    "agent_steps": 193335,
+    "cgroup_memory_current": "94476005376",
+    "cgroup_memory_events": "low 0\nhigh 2157\nmax 0\noom 0\noom_kill 0",
+    "cgroup_memory_max": "96636764160",
+    "disk_free_bytes": 35674456064,
+    "env_steps": 386154,
+    "episodes": 1008,
+    "gpu": "0, 3757, 32607",
+    "masked_observations": 10690,
+    "update_steps": 47083,
+    "utc": "2026-10-22T05:47:51.806974+00:00",
+    "wall_time_s": 78351.98590955883
+  },
+  "last_logged_training_resource_sample": {
+    "agent_steps": 194000,
+    "cgroup_memory_current": "94488363008",
+    "cgroup_memory_events": "low 0\nhigh 80700\nmax 0\noom 0\noom_kill 0",
+    "cgroup_memory_max": "96636764160",
+    "disk_free_bytes": 35670548480,
+    "env_steps": 387479,
+    "episodes": 1021,
+    "gpu": "24, 3757, 32607",
+    "masked_observations": 10722,
+    "update_steps": 47250,
+    "utc": "2026-10-22T05:58:58.453535+00:00",
+    "wall_time_s": 79018.62706201151
+  },
+  "post_failure_probe_utc": "2026-10-22T08:13:09.694675+00:00",
+  "memory_high_limit_bytes": 94489280512,
+  "memory_max_limit_bytes": 96636764160,
+  "post_failure_memory_events": {
+    "low": 0,
+    "high": 1268879,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0
+  },
+  "interpretation": "Memory pressure/throttling preceded the reset timeout. OOM and OOM-kill counters remained zero. Attribution and causal mechanism are not established."
+}

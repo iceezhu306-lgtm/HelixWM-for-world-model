@@ -4,3 +4,6 @@ docs/experiments/evidence/** -text whitespace=blank-at-eol,blank-at-eof,space-be
 results/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # The public provenance record hashes the analysis generator's exact bytes.
 scripts/analyze_second_experiment.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# Preserve the original received requirements exactly.
+docs/helixwm_final_20261105/user_requirements_original_zh.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

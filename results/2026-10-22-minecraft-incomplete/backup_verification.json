@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "remote_pre_post_sha256": true,
+  "local_sha256": true,
+  "checkpoint_replay_references_complete": true,
+  "stable_checkpoint_count": 19,
+  "has_full_checkpoint": true,
+  "new_files": 214,
+  "existing_verified": 2208
+}

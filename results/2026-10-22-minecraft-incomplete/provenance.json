@@ -1,0 +1,130 @@
+{
+  "generated_utc": "2026-11-05T10:29:49.267756+00:00",
+  "source_archive_run_id": "minecraft_visible_navigation_seed0_20261020",
+  "source_commit": "d570bee97717838c8c90f3b4754ad534e906e7b8",
+  "upstream_commit": "e3f02248693a79dc8b0ebd62c93683888ddaccfe",
+  "inputs": [
+    {
+      "archive_relative_path": "SNAPSHOTS/20261022T201801Z_976096/RUN/failure.json",
+      "sha256": "4e1cabca6edd77ce7c8f5ce3dcb0bfb23118984d27c313e50365d7ad85e32d42",
+      "bytes": 1558
+    },
+    {
+      "archive_relative_path": "SNAPSHOTS/20261022T201801Z_976096/RUN/status.json",
+      "sha256": "22d37a8a830b69837ea1486656823f35ebe8bf2d20ef5e60baf70c87e96a8308",
+      "bytes": 186
+    },
+    {
+      "archive_relative_path": "SNAPSHOTS/20261022T201801Z_976096/RUN/config.json",
+      "sha256": "4a06e32fb57b16b8f77bec80f66596617182eef501fdc1b2dd9629aa9bb3e1dd",
+      "bytes": 2566
+    },
+    {
+      "archive_relative_path": "SNAPSHOTS/20261022T201801Z_976096/RUN/metadata.json",
+      "sha256": "bfacb2924d34a6d6ed1a2228c4365f130d4c61d7fd1e31352dfa53801cf39eaf",
+      "bytes": 9394
+    },
+    {
+      "archive_relative_path": "SNAPSHOTS/20261022T201801Z_976096/heartbeat_health_review.json",
+      "sha256": "3122a1a48a9b713207afc90b3fe92d763ffef2c4bbb5f4eb6b77d71eddc9e561",
+      "bytes": 1090
+    },
+    {
+      "archive_relative_path": "SNAPSHOTS/20261022T201801Z_976096/backup_verification.json",
+      "sha256": "7055ea5bb1278fd2ec5da79c3fd6bd5c7b3405acb32537ca4d661139b9c4f7b7",
+      "bytes": 251
+    },
+    {
+      "archive_relative_path": "SNAPSHOTS/20261022T080850Z_920820/failure_numeric_review.json",
+      "sha256": "40b240eff505a14b3d055c6e5e3915cb36294d0a49c91768f59b52b1fafa2796",
+      "bytes": 236
+    },
+    {
+      "archive_relative_path": "CAPACITY/failure_resource_probe_20261022T081309Z.json",
+      "sha256": "47b3e1601752f41d03364731f1d7c4547812b3d2a7283c5e15eb636d7165968d",
+      "bytes": 1228
+    },
+    {
+      "archive_relative_path": "SNAPSHOTS/20261022T201801Z_976096/RUN/resources.jsonl",
+      "sha256": "d3576a9488e4d7d2056093478f1d8456f1c095b3414636eea5357cffc9df1ed7",
+      "bytes": 402967
+    },
+    {
+      "archive_relative_path": "SNAPSHOTS/20261022T201801Z_976096/RUN/EVAL/episodes.csv",
+      "sha256": "bdd1cbf7a115e0d20cc40c43595ebc49d73129140a67349d9c3199b7f87d005d",
+      "bytes": 73086
+    },
+    {
+      "archive_relative_path": "SNAPSHOTS/20261022T201801Z_976096/RUN/EVAL/episodes.jsonl",
+      "sha256": "b028f002d0f96a2842fce76c31153a6f67d793a23440af21a4b2e898ff34aa80",
+      "bytes": 136878
+    },
+    {
+      "archive_relative_path": "SOURCE/d570bee/helixwm_minecraft/backbone.py",
+      "sha256": "f56282de8e7d20e86f9fe649f61273c01378d08f7b18cfa0d0d21dd8d5ba8b3a",
+      "bytes": 1968
+    },
+    {
+      "archive_relative_path": "SOURCE/d570bee/helixwm_minecraft/bridge.py",
+      "sha256": "8e9506d7bca72b40fe7bf7d2b40aee1b34d186cde7335f181c923414fbc428c0",
+      "bytes": 10055
+    },
+    {
+      "archive_relative_path": "SOURCE/d570bee/helixwm_minecraft/evaluation.py",
+      "sha256": "24d4cf01971af6d495bec4dccf011c82d932600e0a475bba6106ae82e46d7e6e",
+      "bytes": 34158
+    },
+    {
+      "archive_relative_path": "SOURCE/d570bee/helixwm_minecraft/preflight.py",
+      "sha256": "867e84e15f42beb6c3fd3bcf0bb9c2c668306f1ffeb4499ee93abb429521624f",
+      "bytes": 9313
+    },
+    {
+      "archive_relative_path": "SOURCE/d570bee/helixwm_minecraft/protocol.py",
+      "sha256": "82000ebc1783372e180a93fed1ebbd02af400561c0ed4cbc474853204e8e1488",
+      "bytes": 4785
+    },
+    {
+      "archive_relative_path": "SOURCE/d570bee/helixwm_minecraft/runtime.py",
+      "sha256": "601c5a2efd77e9322f2ea7bad5459838b6ba1fe92a3f2cb1fb9a2059a73544db",
+      "bytes": 12005
+    },
+    {
+      "archive_relative_path": "SOURCE/d570bee/helixwm_minecraft/storage.py",
+      "sha256": "17131d752128fdec3cecf2197f055be3b8ae5884404895c1d3b40bc444a84954",
+      "bytes": 18179
+    },
+    {
+      "archive_relative_path": "SOURCE/d570bee/helixwm_minecraft/task.py",
+      "sha256": "8e47ba7451ef714cff743b4cdd8247139d63de8efdcfaf3150e38660607675ff",
+      "bytes": 7784
+    },
+    {
+      "archive_relative_path": "SOURCE/d570bee/helixwm_minecraft/train.py",
+      "sha256": "d0e8df977e13a0713340b9648f4fe75c070aec01a16468c3c3d2f2a62192f724",
+      "bytes": 34021
+    },
+    {
+      "archive_relative_path": "SOURCE/d570bee/helixwm_minecraft/worker.py",
+      "sha256": "8cb051520cfd140aa8d28db966e18c4cc9bac5de3e9ada2787930a51cf6cf07c",
+      "bytes": 6618
+    },
+    {
+      "archive_relative_path": "SOURCE/d570bee/helixwm_v2/dual_chain.py",
+      "sha256": "cb3372f519f1305606e7090b35ce50c6db78bae03e000f677fb67ecc7002a3c3",
+      "bytes": 23040
+    },
+    {
+      "archive_relative_path": "SOURCE/d570bee/helixwm_v2/backbone.py",
+      "sha256": "06df70e248eed50fcafe99567b964dc30002abaf4054997878b87da3fa90b1ae",
+      "bytes": 21642
+    },
+    {
+      "archive_relative_path": "RUN/CHECKPOINTS/minecraft_checkpoint_000190037.json",
+      "sha256": "9e7dfb4a8ff96ffcae2501bbab56580ec7ef3e34f2ad02e73ba65a93b669209e",
+      "bytes": 199972
+    }
+  ],
+  "public_data_policy": "No credentials, SSH endpoints, private absolute machine paths, environments, checkpoint payloads or replay payloads. Numeric experimental values are unchanged. Original raw periodic CSV/JSONL are byte-preserved. Transformations are documented in each derived file.",
+  "acceptance_boundary": "Archived partial evidence only, not final experiment acceptance or a new live check."
+}

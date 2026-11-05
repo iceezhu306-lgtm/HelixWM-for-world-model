@@ -1,0 +1,33 @@
+{
+  "actual_interaction_counters_complete": true,
+  "agent_steps": 194030,
+  "env_steps": 387538,
+  "episodes": 1022,
+  "error": "TimeoutError('Minecraft worker timed out during reset')",
+  "failed_episode_evidence_write_error": null,
+  "masked_observations": 10723,
+  "update_steps": 47257,
+  "utc": "2026-10-22T06:12:41.548986+00:00",
+  "wall_time_s": 79024.25379019603,
+  "publication_redactions": [
+    "Absolute deployment paths and the raw traceback were omitted. Original error and numeric fields are unchanged."
+  ],
+  "source_stack_locations": [
+    {
+      "path": "helixwm_minecraft/bridge.py",
+      "line": 81
+    },
+    {
+      "path": "helixwm_minecraft/train.py",
+      "line": 380
+    },
+    {
+      "path": "helixwm_minecraft/bridge.py",
+      "line": 111
+    },
+    {
+      "path": "helixwm_minecraft/bridge.py",
+      "line": 83
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "metric_rows": 3969,
+  "nonfinite_or_parse_errors": [],
+  "complete_history_numeric_scan": true,
+  "checkpoint_files": 19,
+  "replay_files": 932,
+  "snapshot": "20261022T080850Z_920820",
+  "formal_acceptance_passed": false
+}
