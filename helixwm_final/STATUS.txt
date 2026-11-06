@@ -1,0 +1,43 @@
+HelixWM Final implementation checkpoint — 2026-11-06
+
+Status: experimental prototype; NOT READY FOR FORMAL TRAINING.
+The user selected the complete Final architecture. The temporary C1 names in
+this package and draft protocol are implementation-stage labels, not approval
+to substitute a smaller experiment for that objective.
+
+Implemented: pinned author-backbone inference extensions, persistent Real/Dream
+candidates and complete trajectory archives, posterior-suffix reconnection,
+constrained categorical fusion with observed-fit rejection, separate uncertainty
+gates, independent small bootstrap auxiliary predictors, bounded H1/3/5 planning,
+an unknown-observation-fault guard mechanism, state/RNG snapshots, shared-bank
+offline calibration, strict checkpoints/recovery and new training/evaluation tools.
+
+Active draft protocol: configs/helixwm_final_budget_matched_20261106.json (v3).
+The earlier closed-loop full-v2 per-pin calibration design is superseded: its
+asymmetric environment interaction overhead was not acceptable for this comparison.
+Both systems share one exogenous 2480-action calibration bank; all per-pin replay
+is offline. It is empirical off-policy evidence, not a closed-loop certificate.
+A valid inactive gate disables fusion/planning and logs native-prior fallback.
+Corrupt evidence fails; a plain dictionary cannot grant a production capability.
+
+Completed CPU evidence: 420 matched/Final regression tests, no failures or skips,
+with unchanged tested source. Actual GPU evidence includes shared-startup learning,
+short independent recovery of the historical engineering-bootstrap format, a
+gap100 trajectory storage probe, and the independently collected shared bank.
+The first fresh v3 probe stopped at5500 actions on a bank seed-hash integration
+bug. It is preserved; the narrow fix passed regression and a new isolated
+6000-action v3 integration probe is ongoing engineering work.
+Formal v3 checkpoint recovery, independent numeric bank replay, live new archive
+transaction, complete capacity/throughput and supervisor gates remain pending.
+No new million-action run has started. Six-hour formal inspections start only
+after launch; this file creates no scheduler or running process.
+
+Module tests and engineering probes do not prove task performance, reliability
+under missing observations, physical safety, or completion of the Final design.
+Existing checkpoints, replay and failed-evaluation evidence are preserved.
+No existing model is an initialization for the planned new D/F comparison.
+
+Draft shared conditions: Walker Walk RGB64 camera0, repeat2, seed0, identical
+registered training mask/reset rules, and 1M actions per independent arm.
+The full Final scope and launch gates must be satisfied before any formal run.
+See docs/helixwm_final_20261106/architecture.md for formulas and limitations.

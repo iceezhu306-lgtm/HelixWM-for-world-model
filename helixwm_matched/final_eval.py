@@ -24,6 +24,8 @@ import numpy as np
 from .protocol import (atomic_json, fixed_gap_mask, load_protocol, mask_sha256,
                        protocol_sha256, validate_protocol)
 from .recovery_probe import jsonable, tree_hash
+from .final_eval_validation import (require_frozen_equal, reward_sum_audit,
+                                    validate_output_isolation, verify_file_integrity)
 
 VIDEO_PANELS = (('D', 'black_frame_native'), ('H', 'helix_v2'), ('D', 'prior_only'))
 VIDEO_SEED, VIDEO_GAP, VIDEO_FPS = 60000, 20, 20
@@ -73,16 +75,26 @@ def build_plan(config):
 
 
 def validate_checkpoint_payload(payload, record, config, expected_identity, arm):
+    if arm not in ('D', 'H'):
+        raise ValueError('Unregistered final checkpoint arm')
     if payload.get('format') != 'helixwm_matched_episode_boundary_v1':
         raise ValueError('Final evaluation requires the matched boundary format')
     if payload.get('identity') != expected_identity or record.get('identity') != expected_identity:
         raise ValueError('Final checkpoint source/protocol/environment identity mismatch')
     counters = {'agent_steps': 1000000, 'env_steps': 2000000, 'episodes': 2000, 'update_steps': 248750}
+    if any(type(payload.get('counters', {}).get(k)) is not int or type(record.get(k)) is not int for k in counters):
+        raise ValueError('Final checkpoint counters require exact integer types')
     if payload.get('counters') != counters or any(record.get(k) != v for k, v in counters.items()):
         raise ValueError('Final checkpoint did not complete the registered full budget')
     if payload.get('next_operation') != 'reset_new_episode_and_reanchor':
         raise ValueError('Final checkpoint is not an episode boundary')
     core = payload['backbone']; native = core['training']['counters']
+    if (type(core['resolved_config'].get('seed')) is not int
+            or core['resolved_config']['seed'] != 0):
+        raise ValueError('Final checkpoint training seed differs from registered seed 0')
+    if any(type(value) is not int for value in (native.get('updates'), native.get('batches'),
+            core.get('writeback_updates'), core.get('inference_version'))):
+        raise ValueError('Final learner counters require exact integer types')
     if native.get('updates') != 248750 or native.get('batches') != 248750 or core['writeback_updates'] != 248750:
         raise ValueError('Final native learner/writeback budget differs')
     if core['inference_version'] != 248750:
@@ -90,11 +102,14 @@ def validate_checkpoint_payload(payload, record, config, expected_identity, arm)
     name = 'black_frame_native' if arm == 'D' else 'helix_v2'
     controller = payload['completed_controller']
     state = controller['chain']['state']
+    if (any(type(state.get(k)) is not int for k in ('episode_id', 'timestamp', 'anchor_time', 'missing_length'))
+            or type(state.get('abstaining')) is not bool):
+        raise ValueError('Final controller counters require exact types')
     if controller['controller'] != name or state['episode_id'] != 1999 or state['timestamp'] != 500 or state['anchor_time'] != 500:
         raise ValueError('Final checkpoint arm or completed controller differs')
     if state['last_action'] is not None or state['pending'] is not None or state['missing_length'] != 0 or state['abstaining']:
         raise ValueError('Final controller contains an unresolved action or gap')
-    if payload['replay']['rows_added'] != 1002000:
+    if type(payload['replay']['rows_added']) is not int or payload['replay']['rows_added'] != 1002000:
         raise ValueError('Replay row count is not actions plus reset/final accounting')
     # Private training RNG is preserved as evidence, never consumed by eval.
     generator = np.random.default_rng(); generator.bit_generator.state = copy.deepcopy(payload['prefill_rng'])
@@ -108,9 +123,10 @@ def load_final_checkpoint(path, config, identity, arm):
     path = Path(path).resolve()
     record_path = path.with_suffix('.json')
     record = json.loads(record_path.read_text())
-    digest = sha_file(path)
-    if record.get('sha256') != digest or record.get('bytes') != path.stat().st_size:
-        raise ValueError('Final checkpoint file SHA256/size mismatch')
+    if type(record.get('bytes')) is not int:
+        raise ValueError('Final checkpoint metadata requires an integer byte count')
+    verify_file_integrity(path, record.get('sha256'), record['bytes'])
+    digest = record['sha256']
     if path.parent.name != 'CHECKPOINTS' or record.get('file', '').replace('\\', '/') != 'CHECKPOINTS/' + path.name:
         raise ValueError('Final checkpoint location differs from its metadata')
     # Trusted local training pickle only. File hashes are integrity checks, not
@@ -144,6 +160,8 @@ def frozen_fingerprint(backbone):
 
 
 def check_episode(row, planned):
+    if any(type(row.get(k)) is not int for k in ('seed', 'gap', 'actions', 'dmc_calls')):
+        raise ValueError('Episode identity/count fields require exact integer types')
     if any(row.get(k) != planned[k] for k in ('controller', 'seed', 'gap', 'actions', 'dmc_calls', 'availability_sha256')):
         raise ValueError('Actual episode identity/count differs from its registered cell')
     trace = row['trace']
@@ -162,8 +180,7 @@ def check_episode(row, planned):
     mask = np.ones(501, bool) if planned['gap'] == 0 else fixed_gap_mask(planned['gap'])
     if not np.array_equal(trace['availability_before_action'], mask[:-1]) or not np.array_equal(trace['availability_outcome'], mask[1:]):
         raise ValueError('Actual camera schedule differs from registered mask')
-    if row['episode_return'] != float(sum(trace['reward'])):
-        raise ValueError('Episode return does not equal retained raw rewards')
+    return reward_sum_audit(trace['reward'], row['episode_return'])
 
 
 class FrameCollector:
@@ -248,7 +265,8 @@ def source_manifest():
     _, runtime = source_digest()
     root = Path(__file__).resolve().parent.parent
     records = dict(runtime)
-    for relative in ('helixwm_matched/final_eval.py', 'helixwm_matched/recovery_probe.py'):
+    for relative in ('helixwm_matched/final_eval.py', 'helixwm_matched/final_eval_validation.py',
+                     'helixwm_matched/recovery_probe.py'):
         records[relative] = sha_file(root/relative)
     return {'files': records, 'manifest_sha256': protocol_sha256(records),
             'evaluation_module_excluded_from_training_runtime_hash': True}
@@ -264,11 +282,7 @@ def run(args):
     cfg = load_protocol(args.protocol); plan = build_plan(cfg)
     root = Path(args.output_dir).resolve()
     inputs = {'D': Path(args.checkpoint_d).resolve(), 'H': Path(args.checkpoint_h).resolve()}
-    for cp in inputs.values():
-        source = cp.parent.parent
-        if root == source or root.is_relative_to(source) or source.is_relative_to(root):
-            raise ValueError('Final evaluation must be isolated from both original training runs')
-    if inputs['D'] == inputs['H']: raise ValueError('D and H require distinct final checkpoints')
+    validate_output_isolation(root, inputs)
     root.mkdir(parents=True, exist_ok=False)
     (root/'CASES').mkdir()
     identity = {'protocol_sha256': protocol_sha256(cfg), 'source_sha256': source_digest()[0],
@@ -323,9 +337,10 @@ def run(args):
                 trace_path = active/'trace.npz'
                 with trace_path.open('xb') as stream: np.savez_compressed(stream, **row['trace'])
                 atomic_json(active/'observed.json', jsonable({k: v for k, v in row.items() if k != 'trace'}))
-                check_episode(row, planned)
+                return_validation = check_episode(row, planned)
+                atomic_json(active/'return_validation.json', return_validation)
                 after = frozen_fingerprint(backbone)
-                if after != before: raise RuntimeError('Frozen evaluation changed model/optimizer/counter/host RNG')
+                require_frozen_equal(before, after)
                 live_lock = runtime_lock(cfg)
                 mismatch = first_difference(expected_lock, live_lock)
                 if mismatch: raise RuntimeError(f'Final evaluation environment lock mismatch: {mismatch}')
@@ -337,6 +352,7 @@ def run(args):
                     'controller_rng_root_seed': planned['seed'],
                     'controller_rng_streams': ['real', 'actor', 'dream', 'repair'],
                     'checkpoint_sha256': record['sha256'], 'trace_sha256': sha_file(trace_path),
+                    'return_validation': return_validation,
                     'repair_events': events, 'video_frames': video_record,
                     'frozen': {'passed': True, 'before': before, 'after': after},
                     'actual_environment_lock_sha256': protocol_sha256(live_lock)}
@@ -349,8 +365,8 @@ def run(args):
                 atomic_json(root/'interaction_ledger.json', {'phase': 'in_progress', **counts})
                 active = None; frames = None
             after = frozen_fingerprint(backbone)
-            if before != after or sha_file(inputs[arm]) != record['sha256']:
-                raise RuntimeError('Final arm freeze or original checkpoint integrity failed')
+            require_frozen_equal(before, after)
+            verify_file_integrity(inputs[arm], record['sha256'], record['bytes'])
             if preserved_training_rng != tree_hash({'collector': payload['completed_controller']['chain']['rngs'],
                     'prefill': payload['prefill_rng'], 'sampler': payload['replay']['sampler_rng']}):
                 raise RuntimeError('Preserved training RNG payload changed')
@@ -366,7 +382,7 @@ def run(args):
         artifact_before = frozen_fingerprint(backbone)
         video = make_video(root, panel_records)
         artifact_after = frozen_fingerprint(backbone)
-        if artifact_before != artifact_after: raise RuntimeError('Media generation changed frozen state or host RNG')
+        require_frozen_equal(artifact_before, artifact_after)
         with (root/'episodes.csv').open('x', newline='', encoding='utf8') as stream:
             writer = csv.DictWriter(stream, fieldnames=list(rows[0])); writer.writeheader(); writer.writerows(rows)
         if source_manifest() != frozen_sources: raise RuntimeError('Evaluation source changed during execution')

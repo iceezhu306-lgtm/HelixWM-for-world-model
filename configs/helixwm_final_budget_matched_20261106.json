@@ -1,0 +1,855 @@
+{
+  "schema_version": 3,
+  "protocol_id": "dreamerv3_vs_helixwm_final_budget_matched_walker_20261106",
+  "design_status": "REGISTERED_ENGINEERING_DESIGN_PENDING_PREFLIGHT",
+  "launch_status_at_registration": "NOT_LAUNCHED",
+  "implementation_complete_at_registration": false,
+  "current_runtime_state_is_separate_evidence": true,
+  "registration_provenance": {
+    "user_document_truncated_after": "section_7_2_H2_Helix",
+    "full_final_details": "engineering_registration_20261106_not_verbatim_user_document",
+    "preserved_C1_protocol_id": "dreamerv3_vs_helixwm_final_walker_20261105",
+    "preserved_C1_config_sha256": "8132c0e25d8e783afcdeced58d57022c3eb2aa82b0ec5cd4085a951c43f25514",
+    "prior_experimental_protocol": "dreamerv3_vs_helixwm_walker_20261026",
+    "new_protocol_identity_required": true,
+    "old_results_preserved": true,
+    "preserved_full_v2_protocol_id": "dreamerv3_vs_helixwm_final_full_walker_20261106",
+    "budget_revision": "restore_one_shared_2480_action_exogenous_bank_no_per_pin_environment_sampling"
+  },
+  "scope": "two_fresh_D_and_Final_runs_same_Walker_training_and_one_shared_independent_bank",
+  "official_core": {
+    "repository": "https://github.com/danijar/dreamerv3",
+    "commit": "e3f02248693a79dc8b0ebd62c93683888ddaccfe",
+    "presets": [
+      "defaults",
+      "dmc_vision",
+      "size12m"
+    ],
+    "declared_model_size": "official_size12m_preset",
+    "actual_parameter_count": null,
+    "unmodified_default_size_correspondence": "size200m_RSSM_dimensions",
+    "claims_default_configuration_reproduction": false,
+    "claims_verified_original_paper_release": false,
+    "modify_loss_optimizer_actor_or_critic_formula": false
+  },
+  "environment": {
+    "domain": "walker",
+    "task": "walk",
+    "observation": "RGB_only",
+    "image_size": 64,
+    "camera_id": 0,
+    "action_dimensions": 6,
+    "action_repeat": 2,
+    "episode_action_decisions": 500,
+    "episode_dmc_calls": 1000,
+    "env_steps_unit": "acknowledged_DMC_step_calls_not_MuJoCo_substeps",
+    "dynamics_changed": false,
+    "runtime_version_binding": "REQUIRED_BEFORE_LAUNCH",
+    "privileged_current_state_to_policy": false,
+    "identical_environment_contract": {
+      "required_by_user": true,
+      "single_shared_environment_factory": true,
+      "single_shared_fault_wrapper": true,
+      "same_frozen_source_interpreter_dependencies_and_GPU": true,
+      "environment_lock_filename": "environment_lock.json",
+      "environment_lock_sha256": null,
+      "bind_fields": [
+        "source_files",
+        "Python",
+        "dm_control",
+        "MuJoCo",
+        "task_assets",
+        "rendering_libraries",
+        "GPU_driver_EGL",
+        "camera",
+        "RGB_shape_dtype_preprocessing",
+        "observation_keys",
+        "action_bounds_clip_repeat",
+        "reward_aggregation",
+        "discounts",
+        "terminal_time_limit",
+        "episode_horizon",
+        "RNG_reset_derivation"
+      ],
+      "run_manifests_must_share_lock_reset_seed_and_mask_hashes": true,
+      "training_episode_reset_seeds": {
+        "start": 100000,
+        "count": 2000,
+        "step": 1
+      },
+      "fixed_action_gate": {
+        "fresh_processes": 2,
+        "seeds": [
+          72000,
+          72001
+        ],
+        "actions_per_episode": 500,
+        "action_dimensions": 6,
+        "wrappers": [
+          "clean",
+          "registered_faults"
+        ],
+        "exact_comparisons": [
+          "reset_RGB",
+          "visible_RGB",
+          "clipped_actions",
+          "availability",
+          "reward",
+          "DMC_calls",
+          "discount",
+          "terminal_flags",
+          "physics_state_diagnostic_hash"
+        ],
+        "tolerance_relaxation_allowed": false,
+        "physics_state_is_policy_input": false,
+        "passed": false
+      },
+      "mismatch_blocks_launch": true,
+      "revalidate_after_source_or_runtime_change": true,
+      "lock_rechecked_before_each_arm": true,
+      "different_policy_actions_may_produce_different_trajectories": true
+    }
+  },
+  "training": {
+    "arms": [
+      {
+        "id": "D",
+        "name": "native_image_DreamerV3",
+        "controller": "black_frame_native",
+        "consumes_availability_flag": false
+      },
+      {
+        "id": "F",
+        "name": "HelixWM_Final_full",
+        "controller": "helix_final",
+        "consumes_availability_flag": true
+      }
+    ],
+    "independent_runs": true,
+    "paired_training_seeds": [
+      0
+    ],
+    "training_seed_count_per_arm": 1,
+    "actions_per_arm": 1000000,
+    "dmc_calls_per_arm": 2000000,
+    "combined_training_actions": 2000000,
+    "combined_training_dmc_calls": 4000000,
+    "episodes_per_arm": 2000,
+    "batch_size": 16,
+    "batch_length": 64,
+    "replay_context": 1,
+    "custom_burnin": 0,
+    "replay_capacity_transitions": 1000000,
+    "train_ratio_positions_per_decision": 256,
+    "prefill_actions": 5000,
+    "prefill_included_in_budget": true,
+    "prefill_action_rule": "shared_seeded_bounded_random",
+    "prefill_rule_is_shared_harness_override": true,
+    "nominal_update_target": "floor(max(0,actions-5000)*256/(16*64))",
+    "nominal_updates_at_budget": 248750,
+    "native_scheduler_count_gate_required": true,
+    "environments_per_arm": 1,
+    "compute_dtype": "bfloat16",
+    "checkpoint_every_actions": 10000,
+    "policy_parameter_sync": {
+      "rule": "copy_at_each_episode_boundary_then_hold_for_500_actions",
+      "shared_by_both_arms": true,
+      "official_core_untouched": true,
+      "is_native_author_sync_schedule": false,
+      "reason": "keep_each_Helix_candidate_segment_on_one_inference_version"
+    },
+    "learner_image_source": "corrupted_visible_RGB_only_for_both_arms",
+    "learner_missing_image": "uint8_zeros",
+    "learner_hidden_clean_targets_allowed": false,
+    "arm_specific_masked_loss_removal_allowed": false,
+    "synthetic_candidate_images_to_learner_allowed": false,
+    "same_visibility_does_not_mean_same_collected_trajectories": true,
+    "training_missingness": {
+      "mask_seed": 710000,
+      "generate_before_both_training_runs": true,
+      "start_probability_at_eligible_timestamp": 0.02,
+      "burst_length_uniform_inclusive": [
+        1,
+        5
+      ],
+      "minimum_valid_observations_between_bursts": 1,
+      "actual_contiguous_gap_max": 5,
+      "burst_must_fit_before_final_observation": true,
+      "initial_and_final_observations_valid": true,
+      "same_mask_per_paired_episode": true,
+      "masks_apply_during_prefill": true,
+      "policy_reward_dependent": false,
+      "save_full_masks_and_sha256": true
+    },
+    "development_evaluation": {
+      "every_training_actions": 20000,
+      "environment_seeds": {
+        "start": 50000,
+        "count": 5
+      },
+      "conditions": [
+        "clean_native",
+        "training_controller_fixed_gap20_at150"
+      ],
+      "episodes_per_round": 10,
+      "rounds_per_arm": 50,
+      "episodes_per_arm": 500,
+      "actions_per_arm": 250000,
+      "included_in_training_budget": false,
+      "checkpoint_or_hyperparameter_selection_allowed": false
+    },
+    "consec_train": 1,
+    "replay_sample_positions": 65,
+    "context_positions_removed_before_loss": 1,
+    "learning_positions_per_sequence": 64,
+    "native_replay_stepid_consec_and_update_writeback_required": true,
+    "fresh_initialization_required": true,
+    "historical_checkpoint_or_replay_initialization_allowed": false,
+    "additional_trainable_parameters": 3456,
+    "additional_loss_terms": [],
+    "prefill_action_rng_seed": 810000,
+    "replay_sampler_rng_seed": 0,
+    "additional_parameters_scope": "three_auxiliary_ridge_predictors_not_author_Dreamer_parameters",
+    "auxiliary_by_arm": {
+      "D": {
+        "fitted_coefficients": 3456,
+        "mode": "diagnostic_only_for_frozen_inference_ablations",
+        "may_affect_training_action": false,
+        "may_affect_author_updates": false,
+        "report_extra_CPU_memory_storage_separately": true
+      },
+      "F": {
+        "fitted_coefficients": 3456,
+        "mode": "visible_training_dynamics_uncertainty_proxy",
+        "may_affect_training_action_after_bound_calibration": true,
+        "may_affect_author_updates": false
+      }
+    },
+    "bootstrap": {
+      "both_arms_use_native_black_frame_controller_through_actions": 5500,
+      "random_external_action_decisions": 5000,
+      "native_actor_learning_bootstrap_action_decisions": 500,
+      "author_learner_updates_at_5000": 0,
+      "author_learner_updates_at_5500": 125,
+      "all_Final_fusion_planning_unknown_guard_gates_inactive": true,
+      "auxiliary_heads_may_fit_adjacent_visible_training_pairs": true,
+      "Final_first_calibration_boundary_actions": 5500,
+      "Final_5501_requires_new_pin_and_verified_model_heads_calibration": false,
+      "uncalibrated_formal_continuation_allowed": true,
+      "candidate_trajectory_archive_starts_at_Final_action": 5501,
+      "earlier_native_state_and_action_evidence": "native_controller_checkpoint_and_replay",
+      "fabricated_precalibration_candidate_trajectories_allowed": false,
+      "FullController_bootstrap_mode_is_isolated_probe_only": true,
+      "Final_5501_requires_current_bank_measurement_or_explicit_native_fallback": true,
+      "uncalibrated_continuation_scope": "native_prior_only_no_fusion_no_planning_logged_each_action"
+    },
+    "auxiliary_predictor": {
+      "schema": "helixwm_visible_bootstrap_dynamics_v1",
+      "members": 3,
+      "input_features": 22,
+      "random_features_including_bias": 64,
+      "image_features": 16,
+      "outputs": 18,
+      "fitted_coefficients": 3456,
+      "features": "4x4_means_of_RGB_channel_mean_divided_by_255_plus_executed_action6",
+      "targets": "next_visible_image_features16_actual_repeat2_reward_divided_by2_actual_continuation",
+      "feature_map": "[1,cos(W_m[x,a]+b_m)]/sqrt(64)",
+      "feature_projection_distribution": "independent_standard_normal_per_member",
+      "feature_phase_distribution": "independent_uniform_minus_pi_plus_pi_per_member",
+      "fixed_prior_distribution": "independent_standard_normal_64x18_per_member",
+      "fixed_prior_scale": 0.1,
+      "ridge_lambda": 1.0,
+      "bootstrap_weights": "independent_Poisson_1_per_member_per_visible_training_transition",
+      "objective": "sum_bootstrap_weight_squared_prediction_error_plus_squared_coefficient_norm",
+      "solve": "separate_ridge_sufficient_statistics_solve_at_pin",
+      "rng_seed_root": 0,
+      "streams": "SeedSequence(seed).spawn(6):first3_maps_last3_bootstrap",
+      "update_partitions": [
+        "training"
+      ],
+      "both_adjacent_observations_must_be_actually_available": true,
+      "hidden_clean_or_calibration_or_eval_data_allowed": false,
+      "extra_author_gradients_or_loss_terms": [],
+      "minimum_ready_visible_pairs": 32,
+      "each_member_requires_positive_bootstrap_count": true,
+      "frozen_per_inference_version": true,
+      "pin_SHA_and_complete_statistics_RNG_in_checkpoint_required": true,
+      "uncertainty_scope": "independent_bootstrap_coarse_visible_dynamics_proxy_not_Dreamer_ensemble",
+      "claims_calibrated_Bayesian_posterior": false,
+      "disagreement_raw_predictions_clipped_before_variance": false
+    }
+  },
+  "architecture": {
+    "implementation_stage": "Final_budget_matched_bank_v3",
+    "controller": "helix_final",
+    "max_candidates": 8,
+    "maximum_supported_gap_actions": 100,
+    "known_mask_stage_B_availability_used_by_Final": true,
+    "unknown_fault_detector_stage_D_only": true,
+    "unknown_fault_detector_claim": "visible_image_engineering_anomaly_screen_not_semantic_or_physical_failure_oracle",
+    "independent_auxiliary_predictors": 3,
+    "independent_Dreamer_backbones": 1,
+    "auxiliary_epistemic_proxy_available_only_after_measured_validation": true,
+    "candidate_variance_is_epistemic_uncertainty": false,
+    "original_dreamer_loss_unchanged": true,
+    "additional_trainable_parameters": 3456,
+    "additional_author_loss_terms": [],
+    "candidate_rejection_required": true,
+    "real_posterior_cannot_be_overwritten_by_candidate": true,
+    "single_action_advance_required": true,
+    "recovery_requires_observed_error_and_all_uncertainty_ESS_gates": true,
+    "prediction_does_not_equal_observed_state": true,
+    "unbounded_missingness_or_physical_safety_claim_allowed": false,
+    "calibration_claim": "off_policy_empirical_not_closed_loop_certificate"
+  },
+  "calibration": {
+    "registration_source": "engineering_choice_not_verbatim_user_document",
+    "bank_collection": "one_clean_fixed_action_bank_shared_by_both_models",
+    "fit_environment_seeds": {
+      "start": 55000,
+      "count": 10
+    },
+    "validation_environment_seeds": {
+      "start": 55010,
+      "count": 10
+    },
+    "window_actions": 124,
+    "window_observations": 125,
+    "warmup_actions": 16,
+    "maximum_gap_actions": 100,
+    "recovery_actions": 8,
+    "missing_observation_start": 17,
+    "missing_lengths_actions": [
+      1,
+      5,
+      10,
+      20,
+      50,
+      100
+    ],
+    "action_rng_seed_formula": "730000+environment_seed",
+    "action_rng_base": 730000,
+    "action_distribution": "numpy_default_rng_uniform_minus1_plus1_float32_shape6",
+    "windows_per_seed": 1,
+    "total_bank_actions": 2480,
+    "total_bank_dmc_calls": 4960,
+    "bank_collection_repeated_per_model": false,
+    "bank_collection_in_training_budget": false,
+    "bank_actions_or_images_to_learner_allowed": false,
+    "hidden_clean_target_to_policy_allowed": false,
+    "simulated_missing_clean_target_use": "diagnostics_and_calibration_only_never_policy_or_learner",
+    "fit_validation_partitions_disjoint": true,
+    "final_test_seeds_allowed": false,
+    "recompute_every_pinned_inference_version": true,
+    "all_registered_gaps_required_per_version": true,
+    "gap_specific_thresholds_required": true,
+    "gap5_threshold_extrapolation_to_gap100_allowed": false,
+    "current_model_and_bank_hash_binding_required": true,
+    "calibration_is_model_weight_update": false,
+    "version_mismatch_disables": [
+      "fusion",
+      "planning"
+    ],
+    "sustained_uncalibrated_formal_launch_allowed": true,
+    "gpu_cost_and_coverage_gate_required": true,
+    "threshold_fit_formula_frozen_in_source_before_launch": true,
+    "indexing": "x0 reset; actual actions1..16 produce warmup x1..x16; missing x17..x(16+gap); recover next8 observations",
+    "schema": "helixwm_independent_bank_gate_v3",
+    "measurement_protocol": "independent_action_aligned_bank_v3",
+    "evidence_scope": "off_policy_empirical_not_closed_loop_certificate",
+    "bank_origin_protocol_id": "dreamerv3_vs_helixwm_final_walker_20261105",
+    "bank_origin_source_protocol_environment_manifest_bound_separately": true,
+    "bank_available_identically_to_D_and_F": true,
+    "independent_bank_not_author_or_auxiliary_training_data": true,
+    "per_pin_additional_environment_actions": 0,
+    "per_pin_execution": "synchronous_model_only_forced_recorded_action_replay",
+    "current_model_heads_source_protocol_bank_binding_required": true,
+    "fit_upper_quantile": 0.99,
+    "fit_ESS_lower_quantile": 0.05,
+    "planning_horizons": [
+      1,
+      3,
+      5
+    ],
+    "coverage_scope": "equal_seed_mean_within_gap_empirical_not_IID",
+    "required_upper_coverage_per_gap": 0.95,
+    "required_lower_coverage_per_gap": 0.9,
+    "support_rule": {
+      "features": "mean_of_three_auxiliary_pre_action_features16_plus_executed_action6",
+      "standardization": "FIT_mean_std_floor_1e-6",
+      "radius": "FIT_Q95_higher_third_distinct_other_seed_nearest_distance",
+      "minimum_distinct_fit_seeds": 3,
+      "all_plan_steps_and_particles_required": true,
+      "claims_dynamics_error_bound": false
+    },
+    "planning_support_fit_only": true,
+    "novel_plan_counterfactual_real_outcomes_available": false,
+    "unsupported_plans": "reject_then_shorter_H_then_native_prior_fallback",
+    "missing_inactive_or_stale_gate": "native_prior_fallback_fusion_planning_disabled",
+    "invalid_integrity_or_nonfinite_evidence": "fail_and_preserve",
+    "heldout_driven_threshold_retry_allowed": false,
+    "all_failed_attempts_retained": true,
+    "thresholds_frozen_before_corresponding_tests": true,
+    "final_test_may_update_thresholds": false,
+    "reused_bank_across_versions_is_new_independent_sample": false,
+    "same_checkpoint_gate_numeric_recomputation_required": true,
+    "fresh_process_replay_each_pin_required": false,
+    "fresh_process_replay_required_at": [
+      "actual_GPU_preflight",
+      "final_checkpoint_audit"
+    ],
+    "per_pin_full_model_anchor_duplication_required": false,
+    "F_first_boundary_actions": 5500,
+    "F_subsequent_pin_interval_actions": 500,
+    "F_training_pins": 1989,
+    "F_final_evaluation_pin": 1,
+    "D_final_cross_controller_pin": 1,
+    "minimum_registered_model_version_suites": 1991,
+    "GPU_cost_and_complete_storage_gate_required": true,
+    "shared_open_loop_bank_can_replace_closed_loop_certificate": false
+  },
+  "periodic_evaluation": {
+    "every_actions": 20000,
+    "environment_seeds": [
+      50000,
+      50001,
+      50002,
+      50003,
+      50004
+    ],
+    "conditions_by_arm": {
+      "D": [
+        [
+          "clean_native",
+          0
+        ],
+        [
+          "black_frame_native",
+          20
+        ]
+      ],
+      "F": [
+        [
+          "clean_native",
+          0
+        ],
+        [
+          "helix_final",
+          20
+        ]
+      ]
+    },
+    "training_updates": 0,
+    "total_actions_both_arms": 500000,
+    "total_dmc_calls_both_arms": 1000000
+  },
+  "final_evaluation": {
+    "checkpoints": [
+      "D_final_1000000",
+      "F_final_1000000"
+    ],
+    "historical_checkpoint_in_confirmatory_matrix": false,
+    "controllers": [
+      "clean_native",
+      "black_frame_native",
+      "prior_only",
+      "helix_final"
+    ],
+    "prior_only_is_native_unmodified_policy": false,
+    "environment_seeds": {
+      "start": 60000,
+      "count": 40
+    },
+    "smoke_seeds": [
+      72000,
+      72001
+    ],
+    "policy_sampling": "stochastic_original_actor_for_all_controllers",
+    "private_rng_semantics": "implementation_must_bind_official_latent_actor_and_Helix_streams_before_launch",
+    "pre_gap_and_no_gap_native_parity_required": true,
+    "events_per_episode": 1,
+    "missing_observation_start": 150,
+    "missing_lengths_actions": [
+      1,
+      5,
+      10,
+      20,
+      50
+    ],
+    "indexing": "x_t_available_before_a_t",
+    "clean_episodes_per_seed_per_checkpoint": 1,
+    "total_episodes": 1520,
+    "total_actions": 760000,
+    "total_dmc_calls": 1520000,
+    "training_updates": 0,
+    "training_rng_unchanged": true,
+    "model_optimizer_normalizer_target_counters_unchanged": true,
+    "unavailable_clean_frame_access_allowed": false,
+    "evaluation_time_adaptation_allowed": false,
+    "core_total_episodes": 1280,
+    "core_total_actions": 640000,
+    "core_total_dmc_calls": 1280000,
+    "historical_seed_exposure_disclosed": true,
+    "known_historically_observed_final_seeds": [
+      60000
+    ],
+    "claims_fully_unseen_blind_test": false,
+    "strata": {
+      "core": {
+        "gaps": [
+          1,
+          5,
+          10,
+          20,
+          50
+        ],
+        "include_clean": true,
+        "episodes": 1280,
+        "actions": 640000,
+        "dmc_calls": 1280000
+      },
+      "long_gap100_stress": {
+        "gaps": [
+          100
+        ],
+        "include_clean": false,
+        "episodes": 240,
+        "actions": 120000,
+        "dmc_calls": 240000,
+        "outside_training_gap_distribution": true,
+        "inside_calibration_gap_support": true,
+        "claims_uncalibrated_horizon_ood": false
+      }
+    },
+    "controller_namespace": "helixwm_final_budget_bank_v3_not_closed_loop_v2",
+    "same_checkpoint_helix_inference_requires_its_own_heads_and_calibration": true,
+    "stage_B_unknown_fault_detector_enabled": false,
+    "stage_C_mechanism_and_stage_D_unknown_require_separate_frozen_manifests": true,
+    "known_mask_B_and_long_gap_stress_only_in_this_matrix": true,
+    "final_threshold_artifact_frozen_before_any_test": true
+  },
+  "metrics": {
+    "normalized_reward": "action_reward_sum/actual_DMC_call_count",
+    "primary_absolute_score": "mean(arm_u) over [150,150+gap+100), then equal mean over five gaps per seed",
+    "primary_direction": "higher_is_better",
+    "secondary_clean_relative_deficit": "mean(checkpoint_matched_clean_u-arm_u) over [150,150+gap+100), then equal mean over five gaps per seed",
+    "lower_deficit_better": true,
+    "deficit_improvement_alone_can_establish_primary_claim": false,
+    "absolute_fault_and_recovery_reward_required": true,
+    "raw_episode_return_required": true,
+    "functional_failure": {
+      "normalized_reward_below": 0.2,
+      "consecutive_actions": 20,
+      "window": "gap_plus_100_recovery_actions",
+      "certifies_fall_or_safety": false
+    },
+    "recovery": {
+      "pre_fault_actions": 50,
+      "minimum_pre_fault_mean": 0.75,
+      "trailing_mean_actions": 10,
+      "fraction_of_own_pre_fault_mean": 0.9,
+      "consecutive_successful_checks": 10,
+      "censor_after_return_actions": 100
+    },
+    "time_limit_completion_equals_survival": false,
+    "technical_failures_kept_in_results": true,
+    "technical_primary_tail_imputation": "keep_finite_observed_prefix_then_zero_unobserved_reward_to_scheduled_horizon_plus_complete_case_sensitivity",
+    "normalized_reward_bounds": [
+      0.0,
+      1.0
+    ],
+    "unresolved_technical_or_hash_failure_blocks_positive_acceptance": true,
+    "unknown_functional_outcomes_imputed_as_success": false
+  },
+  "analysis": {
+    "primary_system_comparisons": [
+      {
+        "proposal": "F/helix_final",
+        "comparator": "D/black_frame_native",
+        "scope": "total_system_effect_including_availability_use_and_training_trajectory_distribution"
+      },
+      {
+        "proposal": "F/helix_final",
+        "comparator": "D/prior_only",
+        "scope": "availability_aware_stronger_control"
+      }
+    ],
+    "secondary_attribution": [
+      "helix_final_vs_prior_only_within_each_checkpoint",
+      "D_vs_F_under_same_controller"
+    ],
+    "holm_primary_tests": 2,
+    "primary_test_direction": "one_sided_F_minus_comparator_absolute_score_greater_than_zero",
+    "both_primary_tests_required_for_superiority_over_both_controls": true,
+    "each_primary_seed_cluster_ci95_lower_bound_must_exceed": 0.0,
+    "alpha": 0.05,
+    "bootstrap_unit": "whole_environment_seed_cluster_all_cells_and_gaps",
+    "bootstrap_replicates": 10000,
+    "paired_sign_randomization_draws": 100000,
+    "sign_randomization_assumption": "within_pair_exchangeability_under_null",
+    "failure_uncertainty": "exact_one_sided_Clopper_Pearson_for_any_failure_across_five_gaps_per_seed_cluster",
+    "functional_failure_descriptive_guard": "no_observed_aggregate_count_increase_against_either_primary_comparator; unknown_outcomes_make_guard_inconclusive",
+    "clean_performance_guard": {
+      "metric": "mean_clean_full_episode_return",
+      "rule": "F_mean >= 0.95 * D_mean",
+      "ratio_minimum": 0.95,
+      "margin_source": "predeclared_engineering_choice_not_paper_threshold",
+      "nonpositive_D_mean": "INCONCLUSIVE",
+      "report_all_violated_or_inconclusive_guards": true
+    },
+    "zero_events_40clusters_95percent_upper": 0.0722,
+    "claim_multi_training_seed_generalization": false,
+    "claim_safety_or_five_percent_risk_bound": false,
+    "long_gap100_is_separate_secondary_stratum": true,
+    "core_confirmatory_gaps_remain": [
+      1,
+      5,
+      10,
+      20,
+      50
+    ]
+  },
+  "operations": {
+    "intended_hardware": "rented_RTX5090_live_identity_and_capacity_must_be_verified",
+    "tmux_required": true,
+    "GPU_execution": "sequential_D_then_F_one_active_learner",
+    "inspection_interval_hours": 6,
+    "continuous_codex_polling": false,
+    "auto_restart_or_resume": false,
+    "local_output_drive": "E:",
+    "checkpoint_every_actions": 10000,
+    "checkpoint_count_per_arm": 100,
+    "complete_checkpoint_and_all_replay_versions_required": true,
+    "archive_before_ack_required": true,
+    "archive_receipt_binds_run_arm_source_protocol_and_checkpoint": true,
+    "latest_checkpoint_dependencies_retained_remotely": true,
+    "remote_duplicate_pruning_requires_this_run_authorization": true,
+    "old_experiment_cleanup_allowed": false,
+    "automatic_E_unique_data_deletion_allowed": false,
+    "final_video_selection": {
+      "environment_seed": 60000,
+      "gap_actions": 20,
+      "panels": [
+        "D_final_1000000/black_frame_native",
+        "F_final_1000000/helix_final",
+        "D_final_1000000/prior_only"
+      ],
+      "formal_mp4_count": 1
+    },
+    "new_training_namespace_manifest_required": true,
+    "old_protocol_global_monkeypatch_allowed": false,
+    "full_array_trajectory_and_calibration_artifacts_must_enter_capacity_estimate": true,
+    "old_342GiB_estimate_is_sufficient_for_full_Final_launch": false,
+    "formal_launch_requires_actual_measured_gate_not_registration_flags": true,
+    "additional_automatic_unregistered_evaluation_stages_allowed": false,
+    "checkpoint_includes_auxiliary_statistics_RNG_pinned_heads_and_trajectory_dependencies": true
+  },
+  "launch_gate_requirements": [
+    "new_v3_source_protocol_and_original_environment_frozen",
+    "one_original_2480_action_independent_bank_SHA_identical_for_both_arms",
+    "identical_training_masks_seeds_budget_and_author_update_schedule",
+    "actual_size_bootstrap_GPU_and_independent_recovery_evidence",
+    "actual_GPU_bank_replay_zero_environment_calls_zero_training_updates_and_all_frozen_hashes",
+    "FIT_sealed_before_HELDOUT_no_bank_data_to_author_or_auxiliary_training",
+    "actual_GPU_preflight_independent_bank_numeric_recomputation",
+    "action_support_and_inactive_current_version_native_fallback_verified",
+    "100step_full_array_trajectory_reconstruction_and_measured_compressed_capacity",
+    "strict_checkpoint_reload_and_fresh_process_next_sample_update_recovery",
+    "new_run_archive_ACK_transaction_and_live_capacity",
+    "measured_per_pin_offline_compute_and_complete_archive_capacity"
+  ],
+  "planned_interaction_accounting": {
+    "training_actions": 2000000,
+    "training_DMC_calls": 4000000,
+    "periodic_evaluation_actions": 500000,
+    "known_mask_final_evaluation_actions": 760000,
+    "one_shared_calibration_bank_actions": 2480,
+    "one_shared_calibration_bank_DMC_calls": 4960,
+    "per_pin_calibration_environment_actions": 0,
+    "total_actions_excluding_smoke_failed_attempts_and_recovery_probes": 3262480,
+    "total_DMC_calls_excluding_smoke_failed_attempts_and_recovery_probes": 6524960,
+    "shared_bank_information_available_to_both_arms_identically": true,
+    "offline_model_compute_is_reported_separately_not_free": true,
+    "unknown_fault_stage_D_not_automatically_added": true
+  },
+  "planning": {
+    "operator_version": "helixwm_final_planning_statistics_v2",
+    "proposals": [
+      "native_actor_first_action",
+      "hold_previous_executed_action"
+    ],
+    "hold_before_first_executed_action": "zeros6",
+    "identical_first_action_proposals_deduplicated": true,
+    "horizons_measured": [
+      1,
+      3,
+      5
+    ],
+    "horizon_preference_per_proposal": [
+      5,
+      3,
+      1
+    ],
+    "shorter_horizon_only_if_longer_fails_own_gate": true,
+    "candidate_selection": "highest_fixed_utility_among_longest_accepted_horizon_per_proposal",
+    "reward_units": "repeat2_DMC_reward_in_0_2",
+    "raw_model_reward_predictions_retained": true,
+    "utility_reward_projection": "clip_raw_reward_prediction_to_0_2_only_for_utility",
+    "utility_reward_normalizer": "2_times_H",
+    "utility_reward_formula": "sum_survival_before_step_times_projected_reward_divided_by_2H",
+    "termination_risk": "weighted_1_minus_product_of_continuations",
+    "uncertainty_aggregation": "maximum_over_measured_horizon",
+    "utility_weights": {
+      "reward": 1.0,
+      "uncertainty": 0.25,
+      "disagreement": 0.25,
+      "termination": 1.0,
+      "slew": 0.1
+    },
+    "zero_reward_calibration_supported": true,
+    "scratch_plans_may_change_executed_history_or_actor_RNG": false,
+    "actual_control_and_calibration_share_same_operator": true,
+    "fallback": "bounded_native_prior_actor_with_registered_amplitude_and_slew",
+    "fallback_constraint_conflict": "explicit_failure_no_action_not_silent_relaxation",
+    "physical_safety_proven": false,
+    "action_support_required_every_candidate_and_depth": true,
+    "support_scope": "empirical_OOD_rejection_no_dynamics_error_or_physical_safety_bound",
+    "accepted_plan_label": "EXPERIMENTAL_SUPPORTED_PLAN"
+  },
+  "trajectory_evidence": {
+    "schema": "helixwm_final_trajectory_archive_v1",
+    "record_schema": "helixwm_final_trajectory_record_v1",
+    "actual_and_prospective_records_separate": true,
+    "maximum_candidates": 8,
+    "maximum_missing_age": 100,
+    "maximum_ring_references": 100,
+    "retain_true_latent_action_predicted_image_reward_continuation_probability_arrays": true,
+    "retain_candidate_ancestor_model_source_RNG_and_executed_prefix_identities": true,
+    "retain_entropy_JSD_ESS_weights_observed_errors_and_calibration_identity": true,
+    "missing_observation_error": null,
+    "unknown_or_unmeasured_value_may_be_fabricated": false,
+    "epistemic_proxy_is_separate_from_same_model_particle_JSD": true,
+    "immutable_NPZ_JSON_manifest_SHA_and_no_pickle_required": true,
+    "checkpoint_contains_cursor_and_verified_dependencies_not_duplicated_pixels": true,
+    "writable_restore_cannot_overwrite_later_tail": true,
+    "streaming_100step_reconstruction_gate_required": true,
+    "measured_full_array_storage_and_transfer_cost_required_before_launch": true
+  },
+  "unknown_observation_faults": {
+    "stage": "D_separate_unknown_fault_inference_stress",
+    "enabled_during_known_mask_training_or_stage_B": false,
+    "ground_truth_fault_mask_or_clean_pixels_to_detector_allowed": false,
+    "visible_features": [
+      "mean",
+      "std",
+      "high_frequency",
+      "temporal_l1",
+      "repeat_run",
+      "model_innovation_MSE"
+    ],
+    "pre_observation_prediction_identity_and_timing_required": true,
+    "labels_allowed_only_in_offline_fit_and_evaluation": true,
+    "fault_families": [
+      "black",
+      "freeze",
+      "noise"
+    ],
+    "confirm_frames": 2,
+    "recover_frames": 2,
+    "minimum_repeat_run": 3,
+    "static_frame_alone_can_instantly_trigger_fault": false,
+    "fit_environment_seeds": {
+      "start": 55000,
+      "count": 10
+    },
+    "validation_environment_seeds": {
+      "start": 55010,
+      "count": 10
+    },
+    "file_backed_current_model_source_data_protocol_binding_required": true,
+    "synthetic_only_evidence_can_activate_production": false,
+    "quarantined_image_may_update_posterior": false,
+    "metrics": [
+      "false_positive_rate",
+      "false_negative_rate",
+      "quarantine_latency",
+      "recovery_latency"
+    ],
+    "claims_universal_semantic_fault_recognition": false,
+    "distinct_frozen_stage_D_matrix_and_resource_gate_required_before_execution": true,
+    "unknown_fault_results_may_be_pooled_into_stage_B_primary_statistics": false
+  },
+  "smoke": {
+    "partition": "isolated_actual_size_learning_smoke_not_formal_training",
+    "arms": [
+      "D",
+      "F"
+    ],
+    "actions_per_arm": 5500,
+    "DMC_calls_per_arm": 11000,
+    "episodes_per_arm": 11,
+    "total_paired_episode_executions": 22,
+    "environment_seeds": {
+      "start": 72000,
+      "count": 11,
+      "step": 1
+    },
+    "mask_rng_seed": 1710000,
+    "prefill_action_rng_seed": 1810000,
+    "author_updates_per_arm": 125,
+    "formal_seed_reuse_allowed": false,
+    "fresh_process_reload_and_next_update_probe_required": true,
+    "post5500_calibration_and_controller_probes_have_separate_actual_counts": true,
+    "no_formal_data_initialization_from_smoke": true
+  },
+  "formal_recovery_probe": {
+    "scope": "isolated_same_hardware_fresh_process_next_sample_update",
+    "environment_seed": 72120,
+    "missing_observation_indices": [
+      3
+    ],
+    "actions_per_process": 4,
+    "DMC_calls_per_process": 8,
+    "author_updates_per_process": 1,
+    "fresh_processes": 2,
+    "total_actions": 8,
+    "total_DMC_calls": 16,
+    "total_author_updates": 2,
+    "counts_as_formal_training": false,
+    "separate_output_directory_required": true,
+    "cross_hardware_or_long_horizon_bitwise_claim": false,
+    "proves_uninterrupted_environment_continuation": false
+  },
+  "full_integration_preflight": {
+    "scope": "isolated_fresh_native_then_bank_Final_integrated_learning_preflight",
+    "environment_seeds": {
+      "start": 72000,
+      "count": 12
+    },
+    "mask_rng_seed": 1710000,
+    "mask_rule": "same_smoke_generator_0.02_start_uniform_gap1to5_boundary_visible",
+    "first_eleven_masks_equal_preserved_smoke": true,
+    "prefill_action_rng_seed": 1810000,
+    "counts": {
+      "agent_steps": 6000,
+      "env_steps": 12000,
+      "episodes": 12,
+      "update_steps": 250
+    },
+    "native_bootstrap_actions": 5500,
+    "bank_production_actions": 500,
+    "current_pin_bank_replay_boundaries": [
+      5500,
+      6000
+    ],
+    "bank_replay_environment_actions": 0,
+    "formal_training_actions": 0,
+    "fresh_initialization": true,
+    "old_checkpoint_loaded": false,
+    "checkpoint_format": "helixwm_final_bank_preflight_boundary_v3",
+    "run_id_prefix": "preflight_",
+    "original_D_and_F_shared_native_startup_exercised": true,
+    "proves_two_complete_formal_runs": false,
+    "inactive_bank_gate_uses_explicit_native_fallback": true
+  }
+}

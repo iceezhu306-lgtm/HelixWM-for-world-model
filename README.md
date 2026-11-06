@@ -297,7 +297,7 @@ The first version establishes the basic model, equations, and correctness tests 
 | Second bounded dual-chain experiment | One seed completed and locally archived; clean 946.88, short-gap repair 940.04; incremental repair benefit not established |
 | Further continuity comparisons | Completed frozen study: 520 design and 1,040 held-out episodes; no established advantage over both V2 and single-prior control |
 | Matched DreamerV3 vs HelixWM | Both training budgets complete; final evaluation blocked by numerical consistency gate |
-| HelixWM Final | Updated requirements received; architecture and new experimental results not implemented by this publication |
+| HelixWM Final | [New modules and budget-matched v3 design](docs/helixwm_final_20261106/architecture.md) implemented; 420 CPU regression tests passed; actual integration/recovery/archive gates pending, no new million-action result |
 | Multiple seeds and publication-level comparisons | Not started |
 
 Future experiments must follow these requirements:

@@ -1,0 +1,150 @@
+{
+  "scope": "shared_exogenous_bank_acquisition_only_not_current_model_calibration",
+  "manifest_sha256": "4d25f2755c8258f8c0ca0b7233fa8c4bb2aab2b529e391f8c7127ae3d8af0f42",
+  "actions": 2480,
+  "dmc_calls": 4960,
+  "files": [
+    {
+      "bytes": 384710,
+      "file": "seed55000.npz",
+      "seed": 55000,
+      "sha256": "7f143ba089c59e8dc44a1ba0ca1f6439398ec7927eb0fc730c9681f56f93a4da",
+      "split": "fit"
+    },
+    {
+      "bytes": 363002,
+      "file": "seed55001.npz",
+      "seed": 55001,
+      "sha256": "8ae4c4697f2b8f4ef81d8017c25a0ab8b1b1c2cad074a048aa6dddcc0a739212",
+      "split": "fit"
+    },
+    {
+      "bytes": 377531,
+      "file": "seed55002.npz",
+      "seed": 55002,
+      "sha256": "84c95c28ad785e17be063106ff49dd89411d4255f1d1ebfbacd70a163faed2f9",
+      "split": "fit"
+    },
+    {
+      "bytes": 365217,
+      "file": "seed55003.npz",
+      "seed": 55003,
+      "sha256": "87171b743adac1de75e4acdaf3e004a6466f48553393bc3145efa7f3511b3cf3",
+      "split": "fit"
+    },
+    {
+      "bytes": 369458,
+      "file": "seed55004.npz",
+      "seed": 55004,
+      "sha256": "a0d0adfb331a6fd06b0addb371bf33beec0078aa85ee2cf326427bfc5f3bb213",
+      "split": "fit"
+    },
+    {
+      "bytes": 391176,
+      "file": "seed55005.npz",
+      "seed": 55005,
+      "sha256": "8b97de423670cac81c823e8c4663c5e846ee8dba90027609660805b0d163490c",
+      "split": "fit"
+    },
+    {
+      "bytes": 373483,
+      "file": "seed55006.npz",
+      "seed": 55006,
+      "sha256": "4902bfc36e5298374ef55541efd497e2cd53cb7f7b51c92f2992367d6f91a11a",
+      "split": "fit"
+    },
+    {
+      "bytes": 364128,
+      "file": "seed55007.npz",
+      "seed": 55007,
+      "sha256": "0e7aceece37de04f53d7149c0a85daa9e36305194b9ed7e0ae49215adc407b96",
+      "split": "fit"
+    },
+    {
+      "bytes": 388494,
+      "file": "seed55008.npz",
+      "seed": 55008,
+      "sha256": "fe64a95eb70317a997ab38c29443a0dbf2b708effac699e07c11cb632be240cf",
+      "split": "fit"
+    },
+    {
+      "bytes": 381595,
+      "file": "seed55009.npz",
+      "seed": 55009,
+      "sha256": "4e61e280bf6c6b1cf5eb2fac9e1c56410f4d3411a75d46081a88d0ccca80a041",
+      "split": "fit"
+    },
+    {
+      "bytes": 382573,
+      "file": "seed55010.npz",
+      "seed": 55010,
+      "sha256": "11c636755dd7789f2e8910a93e26fd101b0ecdcca4e0b57a590a95a39316abe3",
+      "split": "validation"
+    },
+    {
+      "bytes": 370842,
+      "file": "seed55011.npz",
+      "seed": 55011,
+      "sha256": "44babdf1f1eeb3e269aa329a9cc139a6785be041bd0a233bca09f017c4e61f38",
+      "split": "validation"
+    },
+    {
+      "bytes": 390248,
+      "file": "seed55012.npz",
+      "seed": 55012,
+      "sha256": "d5568b5c5b2531bf26dc188ea50fbf4343ede030d4521167b5175fa3fbdc0929",
+      "split": "validation"
+    },
+    {
+      "bytes": 341550,
+      "file": "seed55013.npz",
+      "seed": 55013,
+      "sha256": "b58c9be876cfe18065102685d301f9366ba9b2a8a13e7fe08756058fd0216230",
+      "split": "validation"
+    },
+    {
+      "bytes": 353826,
+      "file": "seed55014.npz",
+      "seed": 55014,
+      "sha256": "dc0e40bd4aa536f0818f5a69c390975d43e3fe674c564f222fb330ce88292eb1",
+      "split": "validation"
+    },
+    {
+      "bytes": 371414,
+      "file": "seed55015.npz",
+      "seed": 55015,
+      "sha256": "5bc5f73b79525f05e2abf3a303915c63dc61f2b7014aa782e885c9b91bedc3dc",
+      "split": "validation"
+    },
+    {
+      "bytes": 363828,
+      "file": "seed55016.npz",
+      "seed": 55016,
+      "sha256": "ef2d9030b0335336ed2bcc5082ba90188d3f50b11b0c9c41d75a2c7eb08b0f2e",
+      "split": "validation"
+    },
+    {
+      "bytes": 389210,
+      "file": "seed55017.npz",
+      "seed": 55017,
+      "sha256": "9fc2c2da640fe2f55059c4b69be71ffe3c404b064718626defee8e54693ab442",
+      "split": "validation"
+    },
+    {
+      "bytes": 355740,
+      "file": "seed55018.npz",
+      "seed": 55018,
+      "sha256": "2041e8b155cddf64190b6bbca0b27b17228366efcd2df8d9cb31f27f9df63e17",
+      "split": "validation"
+    },
+    {
+      "bytes": 371383,
+      "file": "seed55019.npz",
+      "seed": 55019,
+      "sha256": "bf4f10c29f883d74b5c9abbc4b9fd68e78ef7a1e79571cfbd5509316c253df62",
+      "split": "validation"
+    }
+  ],
+  "formal_training_started": false,
+  "model_updates": 0
+}

@@ -1,0 +1,525 @@
+{
+  "schema_version": 1,
+  "protocol_id": "dreamerv3_vs_helixwm_final_walker_20261105",
+  "design_status": "REGISTERED_ENGINEERING_DESIGN_PENDING_PREFLIGHT",
+  "launch_status_at_registration": "NOT_LAUNCHED",
+  "implementation_complete_at_registration": false,
+  "current_runtime_state_is_separate_evidence": true,
+  "registration_provenance": {
+    "user_document_truncated_after": "section_7_2_H2_Helix",
+    "calibration_and_Final_C1_details": "engineering_registration_20261105_not_verbatim_user_document",
+    "prior_protocol": "dreamerv3_vs_helixwm_walker_20261026",
+    "old_results_preserved": true
+  },
+  "scope": "two_fresh_independent_D_and_Final_C1_runs_same_environment_contract_and_visible_data_rules",
+  "official_core": {
+    "repository": "https://github.com/danijar/dreamerv3",
+    "commit": "e3f02248693a79dc8b0ebd62c93683888ddaccfe",
+    "presets": [
+      "defaults",
+      "dmc_vision",
+      "size12m"
+    ],
+    "declared_model_size": "official_size12m_preset",
+    "actual_parameter_count": null,
+    "unmodified_default_size_correspondence": "size200m_RSSM_dimensions",
+    "claims_default_configuration_reproduction": false,
+    "claims_verified_original_paper_release": false,
+    "modify_loss_optimizer_actor_or_critic_formula": false
+  },
+  "environment": {
+    "domain": "walker",
+    "task": "walk",
+    "observation": "RGB_only",
+    "image_size": 64,
+    "camera_id": 0,
+    "action_dimensions": 6,
+    "action_repeat": 2,
+    "episode_action_decisions": 500,
+    "episode_dmc_calls": 1000,
+    "env_steps_unit": "acknowledged_DMC_step_calls_not_MuJoCo_substeps",
+    "dynamics_changed": false,
+    "runtime_version_binding": "REQUIRED_BEFORE_LAUNCH",
+    "privileged_current_state_to_policy": false,
+    "identical_environment_contract": {
+      "required_by_user": true,
+      "single_shared_environment_factory": true,
+      "single_shared_fault_wrapper": true,
+      "same_frozen_source_interpreter_dependencies_and_GPU": true,
+      "environment_lock_filename": "environment_lock.json",
+      "environment_lock_sha256": null,
+      "bind_fields": [
+        "source_files",
+        "Python",
+        "dm_control",
+        "MuJoCo",
+        "task_assets",
+        "rendering_libraries",
+        "GPU_driver_EGL",
+        "camera",
+        "RGB_shape_dtype_preprocessing",
+        "observation_keys",
+        "action_bounds_clip_repeat",
+        "reward_aggregation",
+        "discounts",
+        "terminal_time_limit",
+        "episode_horizon",
+        "RNG_reset_derivation"
+      ],
+      "run_manifests_must_share_lock_reset_seed_and_mask_hashes": true,
+      "training_episode_reset_seeds": {
+        "start": 100000,
+        "count": 2000,
+        "step": 1
+      },
+      "fixed_action_gate": {
+        "fresh_processes": 2,
+        "seeds": [
+          72000,
+          72001
+        ],
+        "actions_per_episode": 500,
+        "action_dimensions": 6,
+        "wrappers": [
+          "clean",
+          "registered_faults"
+        ],
+        "exact_comparisons": [
+          "reset_RGB",
+          "visible_RGB",
+          "clipped_actions",
+          "availability",
+          "reward",
+          "DMC_calls",
+          "discount",
+          "terminal_flags",
+          "physics_state_diagnostic_hash"
+        ],
+        "tolerance_relaxation_allowed": false,
+        "physics_state_is_policy_input": false,
+        "passed": false
+      },
+      "mismatch_blocks_launch": true,
+      "revalidate_after_source_or_runtime_change": true,
+      "lock_rechecked_before_each_arm": true,
+      "different_policy_actions_may_produce_different_trajectories": true
+    }
+  },
+  "training": {
+    "arms": [
+      {
+        "id": "D",
+        "name": "native_image_DreamerV3",
+        "controller": "black_frame_native",
+        "consumes_availability_flag": false
+      },
+      {
+        "id": "F",
+        "name": "HelixWM_Final_C1",
+        "controller": "helix_final",
+        "consumes_availability_flag": true
+      }
+    ],
+    "independent_runs": true,
+    "paired_training_seeds": [
+      0
+    ],
+    "training_seed_count_per_arm": 1,
+    "actions_per_arm": 1000000,
+    "dmc_calls_per_arm": 2000000,
+    "combined_training_actions": 2000000,
+    "combined_training_dmc_calls": 4000000,
+    "episodes_per_arm": 2000,
+    "batch_size": 16,
+    "batch_length": 64,
+    "replay_context": 1,
+    "custom_burnin": 0,
+    "replay_capacity_transitions": 1000000,
+    "train_ratio_positions_per_decision": 256,
+    "prefill_actions": 5000,
+    "prefill_included_in_budget": true,
+    "prefill_action_rule": "shared_seeded_bounded_random",
+    "prefill_rule_is_shared_harness_override": true,
+    "nominal_update_target": "floor(max(0,actions-5000)*256/(16*64))",
+    "nominal_updates_at_budget": 248750,
+    "native_scheduler_count_gate_required": true,
+    "environments_per_arm": 1,
+    "compute_dtype": "bfloat16",
+    "checkpoint_every_actions": 10000,
+    "policy_parameter_sync": {
+      "rule": "copy_at_each_episode_boundary_then_hold_for_500_actions",
+      "shared_by_both_arms": true,
+      "official_core_untouched": true,
+      "is_native_author_sync_schedule": false,
+      "reason": "keep_each_Helix_candidate_segment_on_one_inference_version"
+    },
+    "learner_image_source": "corrupted_visible_RGB_only_for_both_arms",
+    "learner_missing_image": "uint8_zeros",
+    "learner_hidden_clean_targets_allowed": false,
+    "arm_specific_masked_loss_removal_allowed": false,
+    "synthetic_candidate_images_to_learner_allowed": false,
+    "same_visibility_does_not_mean_same_collected_trajectories": true,
+    "training_missingness": {
+      "mask_seed": 710000,
+      "generate_before_both_training_runs": true,
+      "start_probability_at_eligible_timestamp": 0.02,
+      "burst_length_uniform_inclusive": [
+        1,
+        5
+      ],
+      "minimum_valid_observations_between_bursts": 1,
+      "actual_contiguous_gap_max": 5,
+      "burst_must_fit_before_final_observation": true,
+      "initial_and_final_observations_valid": true,
+      "same_mask_per_paired_episode": true,
+      "masks_apply_during_prefill": true,
+      "policy_reward_dependent": false,
+      "save_full_masks_and_sha256": true
+    },
+    "development_evaluation": {
+      "every_training_actions": 20000,
+      "environment_seeds": {
+        "start": 50000,
+        "count": 5
+      },
+      "conditions": [
+        "clean_native",
+        "training_controller_fixed_gap20_at150"
+      ],
+      "episodes_per_round": 10,
+      "rounds_per_arm": 50,
+      "episodes_per_arm": 500,
+      "actions_per_arm": 250000,
+      "included_in_training_budget": false,
+      "checkpoint_or_hyperparameter_selection_allowed": false
+    },
+    "consec_train": 1,
+    "replay_sample_positions": 65,
+    "context_positions_removed_before_loss": 1,
+    "learning_positions_per_sequence": 64,
+    "native_replay_stepid_consec_and_update_writeback_required": true,
+    "fresh_initialization_required": true,
+    "historical_checkpoint_or_replay_initialization_allowed": false,
+    "additional_trainable_parameters": 0,
+    "additional_loss_terms": [],
+    "prefill_action_rng_seed": 810000,
+    "replay_sampler_rng_seed": 0
+  },
+  "architecture": {
+    "implementation_stage": "Final_C1",
+    "controller": "helix_final",
+    "max_candidates": 8,
+    "maximum_supported_gap_actions": 100,
+    "known_availability_required": true,
+    "automatic_unknown_fault_detector_implemented": false,
+    "true_epistemic_available": false,
+    "ensemble_independent_models": 0,
+    "candidate_variance_is_epistemic_uncertainty": false,
+    "original_dreamer_loss_unchanged": true,
+    "additional_trainable_parameters": 0,
+    "additional_loss_terms": [],
+    "candidate_rejection_required": true,
+    "real_posterior_cannot_be_overwritten_by_candidate": true,
+    "single_action_advance_required": true
+  },
+  "calibration": {
+    "registration_source": "engineering_choice_not_verbatim_user_document",
+    "bank_collection": "one_clean_fixed_action_bank_shared_by_both_models",
+    "fit_environment_seeds": {
+      "start": 55000,
+      "count": 10
+    },
+    "validation_environment_seeds": {
+      "start": 55010,
+      "count": 10
+    },
+    "window_actions": 124,
+    "window_observations": 125,
+    "warmup_actions": 16,
+    "maximum_gap_actions": 100,
+    "recovery_actions": 8,
+    "missing_observation_start": 17,
+    "missing_lengths_actions": [
+      1,
+      5,
+      10,
+      20,
+      50,
+      100
+    ],
+    "action_rng_seed_formula": "730000+environment_seed",
+    "action_rng_base": 730000,
+    "action_distribution": "numpy_default_rng_uniform_minus1_plus1_float32_shape6",
+    "windows_per_seed": 1,
+    "total_bank_actions": 2480,
+    "total_bank_dmc_calls": 4960,
+    "bank_collection_repeated_per_model": false,
+    "bank_collection_in_training_budget": false,
+    "bank_actions_or_images_to_learner_allowed": false,
+    "hidden_clean_target_to_policy_allowed": false,
+    "simulated_missing_clean_target_use": "diagnostics_and_calibration_only_never_policy_or_learner",
+    "fit_validation_partitions_disjoint": true,
+    "final_test_seeds_allowed": false,
+    "recompute_every_pinned_inference_version": true,
+    "all_registered_gaps_required_per_version": true,
+    "gap_specific_thresholds_required": true,
+    "gap5_threshold_extrapolation_to_gap100_allowed": false,
+    "current_model_and_bank_hash_binding_required": true,
+    "calibration_is_model_weight_update": false,
+    "version_mismatch_disables": [
+      "fusion",
+      "planning"
+    ],
+    "sustained_uncalibrated_formal_launch_allowed": false,
+    "gpu_cost_and_coverage_gate_required": true,
+    "threshold_fit_formula_frozen_in_source_before_launch": true,
+    "indexing": "x0 reset; actual actions1..16 produce warmup x1..x16; missing x17..x(16+gap); recover next8 observations"
+  },
+  "periodic_evaluation": {
+    "every_actions": 20000,
+    "environment_seeds": [
+      50000,
+      50001,
+      50002,
+      50003,
+      50004
+    ],
+    "conditions_by_arm": {
+      "D": [
+        [
+          "clean_native",
+          0
+        ],
+        [
+          "black_frame_native",
+          20
+        ]
+      ],
+      "F": [
+        [
+          "clean_native",
+          0
+        ],
+        [
+          "helix_final",
+          20
+        ]
+      ]
+    },
+    "training_updates": 0,
+    "total_actions_both_arms": 500000,
+    "total_dmc_calls_both_arms": 1000000
+  },
+  "final_evaluation": {
+    "checkpoints": [
+      "D_final_1000000",
+      "F_final_1000000"
+    ],
+    "historical_checkpoint_in_confirmatory_matrix": false,
+    "controllers": [
+      "clean_native",
+      "black_frame_native",
+      "prior_only",
+      "helix_final"
+    ],
+    "prior_only_is_native_unmodified_policy": false,
+    "environment_seeds": {
+      "start": 60000,
+      "count": 40
+    },
+    "smoke_seeds": [
+      72000,
+      72001
+    ],
+    "policy_sampling": "stochastic_original_actor_for_all_controllers",
+    "private_rng_semantics": "implementation_must_bind_official_latent_actor_and_Helix_streams_before_launch",
+    "pre_gap_and_no_gap_native_parity_required": true,
+    "events_per_episode": 1,
+    "missing_observation_start": 150,
+    "missing_lengths_actions": [
+      1,
+      5,
+      10,
+      20,
+      50
+    ],
+    "indexing": "x_t_available_before_a_t",
+    "clean_episodes_per_seed_per_checkpoint": 1,
+    "total_episodes": 1520,
+    "total_actions": 760000,
+    "total_dmc_calls": 1520000,
+    "training_updates": 0,
+    "training_rng_unchanged": true,
+    "model_optimizer_normalizer_target_counters_unchanged": true,
+    "unavailable_clean_frame_access_allowed": false,
+    "evaluation_time_adaptation_allowed": false,
+    "core_total_episodes": 1280,
+    "core_total_actions": 640000,
+    "core_total_dmc_calls": 1280000,
+    "historical_seed_exposure_disclosed": true,
+    "known_historically_observed_final_seeds": [
+      60000
+    ],
+    "claims_fully_unseen_blind_test": false,
+    "strata": {
+      "core": {
+        "gaps": [
+          1,
+          5,
+          10,
+          20,
+          50
+        ],
+        "include_clean": true,
+        "episodes": 1280,
+        "actions": 640000,
+        "dmc_calls": 1280000
+      },
+      "long_gap100_stress": {
+        "gaps": [
+          100
+        ],
+        "include_clean": false,
+        "episodes": 240,
+        "actions": 120000,
+        "dmc_calls": 240000,
+        "outside_training_gap_distribution": true,
+        "inside_calibration_gap_support": true,
+        "claims_uncalibrated_horizon_ood": false
+      }
+    }
+  },
+  "metrics": {
+    "normalized_reward": "action_reward_sum/actual_DMC_call_count",
+    "primary_absolute_score": "mean(arm_u) over [150,150+gap+100), then equal mean over five gaps per seed",
+    "primary_direction": "higher_is_better",
+    "secondary_clean_relative_deficit": "mean(checkpoint_matched_clean_u-arm_u) over [150,150+gap+100), then equal mean over five gaps per seed",
+    "lower_deficit_better": true,
+    "deficit_improvement_alone_can_establish_primary_claim": false,
+    "absolute_fault_and_recovery_reward_required": true,
+    "raw_episode_return_required": true,
+    "functional_failure": {
+      "normalized_reward_below": 0.2,
+      "consecutive_actions": 20,
+      "window": "gap_plus_100_recovery_actions",
+      "certifies_fall_or_safety": false
+    },
+    "recovery": {
+      "pre_fault_actions": 50,
+      "minimum_pre_fault_mean": 0.75,
+      "trailing_mean_actions": 10,
+      "fraction_of_own_pre_fault_mean": 0.9,
+      "consecutive_successful_checks": 10,
+      "censor_after_return_actions": 100
+    },
+    "time_limit_completion_equals_survival": false,
+    "technical_failures_kept_in_results": true,
+    "technical_primary_tail_imputation": "keep_finite_observed_prefix_then_zero_unobserved_reward_to_scheduled_horizon_plus_complete_case_sensitivity",
+    "normalized_reward_bounds": [
+      0.0,
+      1.0
+    ],
+    "unresolved_technical_or_hash_failure_blocks_positive_acceptance": true,
+    "unknown_functional_outcomes_imputed_as_success": false
+  },
+  "analysis": {
+    "primary_system_comparisons": [
+      {
+        "proposal": "F/helix_final",
+        "comparator": "D/black_frame_native",
+        "scope": "total_system_effect_including_availability_use_and_training_trajectory_distribution"
+      },
+      {
+        "proposal": "F/helix_final",
+        "comparator": "D/prior_only",
+        "scope": "availability_aware_stronger_control"
+      }
+    ],
+    "secondary_attribution": [
+      "helix_final_vs_prior_only_within_each_checkpoint",
+      "D_vs_F_under_same_controller"
+    ],
+    "holm_primary_tests": 2,
+    "primary_test_direction": "one_sided_F_minus_comparator_absolute_score_greater_than_zero",
+    "both_primary_tests_required_for_superiority_over_both_controls": true,
+    "each_primary_seed_cluster_ci95_lower_bound_must_exceed": 0.0,
+    "alpha": 0.05,
+    "bootstrap_unit": "whole_environment_seed_cluster_all_cells_and_gaps",
+    "bootstrap_replicates": 10000,
+    "paired_sign_randomization_draws": 100000,
+    "sign_randomization_assumption": "within_pair_exchangeability_under_null",
+    "failure_uncertainty": "exact_one_sided_Clopper_Pearson_for_any_failure_across_five_gaps_per_seed_cluster",
+    "functional_failure_descriptive_guard": "no_observed_aggregate_count_increase_against_either_primary_comparator; unknown_outcomes_make_guard_inconclusive",
+    "clean_performance_guard": {
+      "metric": "mean_clean_full_episode_return",
+      "rule": "F_mean >= 0.95 * D_mean",
+      "ratio_minimum": 0.95,
+      "margin_source": "predeclared_engineering_choice_not_paper_threshold",
+      "nonpositive_D_mean": "INCONCLUSIVE",
+      "report_all_violated_or_inconclusive_guards": true
+    },
+    "zero_events_40clusters_95percent_upper": 0.0722,
+    "claim_multi_training_seed_generalization": false,
+    "claim_safety_or_five_percent_risk_bound": false,
+    "long_gap100_is_separate_secondary_stratum": true,
+    "core_confirmatory_gaps_remain": [
+      1,
+      5,
+      10,
+      20,
+      50
+    ]
+  },
+  "operations": {
+    "intended_hardware": "rented_RTX5090_live_identity_and_capacity_must_be_verified",
+    "tmux_required": true,
+    "GPU_execution": "sequential_D_then_F_one_active_learner",
+    "inspection_interval_hours": 6,
+    "continuous_codex_polling": false,
+    "auto_restart_or_resume": false,
+    "local_output_drive": "E:",
+    "checkpoint_every_actions": 10000,
+    "checkpoint_count_per_arm": 100,
+    "complete_checkpoint_and_all_replay_versions_required": true,
+    "archive_before_ack_required": true,
+    "archive_receipt_binds_run_arm_source_protocol_and_checkpoint": true,
+    "latest_checkpoint_dependencies_retained_remotely": true,
+    "remote_duplicate_pruning_requires_this_run_authorization": true,
+    "old_experiment_cleanup_allowed": false,
+    "automatic_E_unique_data_deletion_allowed": false,
+    "final_video_selection": {
+      "environment_seed": 60000,
+      "gap_actions": 20,
+      "panels": [
+        "D_final_1000000/black_frame_native",
+        "F_final_1000000/helix_final",
+        "D_final_1000000/prior_only"
+      ],
+      "formal_mp4_count": 1
+    },
+    "new_training_namespace_manifest_required": true,
+    "old_protocol_global_monkeypatch_allowed": false
+  },
+  "launch_gate_requirements": [
+    "new_source_and_environment_frozen",
+    "D_and_F_fresh_initialization",
+    "identical_environment_fixed_action_trace",
+    "no_hidden_data_to_policy_or_learner",
+    "all_calibration_gaps_current_version_identity_and_validation",
+    "calibration_GPU_cost_within_registered_limit",
+    "both_actual_size_GPU_smokes",
+    "strict_checkpoint_reload_and_fresh_process_recovery",
+    "archive_ACK_transaction_and_capacity",
+    "full_final_package_storage_capacity"
+  ],
+  "planned_interaction_accounting": {
+    "training_actions": 2000000,
+    "periodic_evaluation_actions": 500000,
+    "one_shared_calibration_bank_actions": 2480,
+    "final_evaluation_actions": 760000,
+    "total_actions_excluding_smoke_failed_attempts_and_recovery_probes": 3262480,
+    "total_dmc_calls_excluding_smoke_failed_attempts_and_recovery_probes": 6524960,
+    "per_version_calibration_bank_replay_adds_environment_actions": false,
+    "smoke_failed_attempts_recovery_probes_require_separate_actual_counts": true
+  }
+}
