@@ -66,7 +66,7 @@ def measure_window(backbone,heads,context,bank_record,*,seed,gap,phase,candidate
     if context['collector_sha256']!=collector_sha256():raise ValueError('Executed bank collector source mismatch')
     expected=g.FIT_SEEDS if phase=='fit' else g.VALIDATION_SEEDS
     if type(seed) is not int or seed not in expected or type(gap) is not int or gap not in g.GAPS:raise ValueError('Invalid bank partition/window')
-    if phase=='validation':g.validate_fitted_candidate(candidate,context)
+    if phase=='validation':candidate=g.seal_bank_candidate(candidate,context)
     elif candidate is not None:raise ValueError('FIT cannot use a fitted candidate')
     controller=FullController(backbone,heads,context,seed=int(np.random.SeedSequence([760000,seed,gap]).generate_state(1)[0]),
         execution='bank_'+phase,fitted_bank_candidate=candidate)
@@ -105,10 +105,10 @@ def measure_window(backbone,heads,context,bank_record,*,seed,gap,phase,candidate
             arrays['temporal_prediction_error'].append(float(controller.current_temporal_error))
         elif pred['prediction_error'] is not None or controller.current_temporal_error is not None:
             raise ValueError('Virtual hidden bank target leaked into controller diagnostics')
-        before=tree_digest(controller.snapshot())
+        before=controller.scratch_state_digest()
         proposed=np.asarray(backbone.act(controller.state,deterministic=False,rng=diagnostic_rng),np.float32)
         measured,_=controller.scratch_plans(proposed[0],rng=diagnostic_rng,archive=False)
-        if tree_digest(controller.snapshot())!=before:raise ValueError('Scratch planning changed actual recorded history')
+        if controller.scratch_state_digest()!=before:raise ValueError('Scratch planning changed actual recorded history')
         plans.extend(copy.deepcopy(p['measurement']) for p in measured)
     row={k:np.asarray(v,np.bool_ if k in ('availability','risk_reset','fallback') else np.int32 if k=='timestamp' else np.float64)
          for k,v in arrays.items()}
@@ -150,6 +150,7 @@ def measure_and_write(backbone,heads,context,bank,*,directory,bank_origin,frozen
                 fit_candidate=g.fit_candidate(rows,context);_write(root/'candidate.json',fit_candidate)
                 sealed=time.perf_counter_ns()
                 if frozen_state_hashes()!=before:raise ValueError('Model changed during FIT; HELDOUT not started')
+                fit_candidate=g.seal_bank_candidate(fit_candidate,context)
                 heldout_started=time.perf_counter_ns()
             for seed in seeds:
                 for gap in g.GAPS:

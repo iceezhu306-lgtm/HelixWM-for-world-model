@@ -20,17 +20,47 @@ is offline. It is empirical off-policy evidence, not a closed-loop certificate.
 A valid inactive gate disables fusion/planning and logs native-prior fallback.
 Corrupt evidence fails; a plain dictionary cannot grant a production capability.
 
-Completed CPU evidence: 420 matched/Final regression tests, no failures or skips,
-with unchanged tested source. Actual GPU evidence includes shared-startup learning,
+Completed CPU evidence: 426/426 matched/Final regression tests, no failures,
+errors or skips, with unchanged tested source. Evidence snapshot:
+preflight/full_cpu_regression_20261106T112940Z.
+The optimized frozen runtime SHA-256 is
+5430cccc774ae578c8569828bf37dd1ce9e1418d3a9e2e69b51076a986e2a57f.
+The optimized_equivalence_rng_20261106 benchmark passed all 14 cases for
+numerical outputs, full public snapshots and all private RNG states. Both workers
+used standardized synthetic provenance. Its CPU gap20 timing was approximately
+8.101 -> 0.381 seconds; this is not actual-model GPU evidence or a GPU guarantee.
+
+Actual GPU evidence includes shared-startup learning,
 short independent recovery of the historical engineering-bootstrap format, a
 gap100 trajectory storage probe, and the independently collected shared bank.
-The first fresh v3 probe stopped at5500 actions on a bank seed-hash integration
-bug. It is preserved; the narrow fix passed regression and a new isolated
-6000-action v3 integration probe is ongoing engineering work.
+The first fresh v3 probe stopped at 5500 actions on a bank seed-hash integration
+bug. It and its 96 SHA-verified archived files are preserved. The corrected
+isolated probe uses the earlier 6fb927a9 runtime: at 2026-11-06 11:29 UTC it had
+reached 6000 actions / 250 author updates and was measuring its second bank.
+The 5500-action gate was inactive; the intervening 500 FullController actions
+used native-prior fallback, not activated fusion or planning.
+The new optimized-runtime GPU probe remains pending; no GPU completion is claimed.
+The v3 protocol allows inactive fallback for the entire 1M-action budget without
+a maximum consecutive inactive-window count. Each 500-action pin needs a new
+measurement; final loading/evaluation also permits a valid inactive gate.
+Budget completion therefore cannot prove that repair/planning ever activated.
+Training instrumentation remains incomplete: interactions.jsonl lacks per-action
+decision/fusion_lambda/gate_active. Bounded controller histories saved every
+10000 actions cannot reconstruct full-run fusion/planning/fallback rates.
+Bank artifacts support complete active-pin counts; final evaluation can report
+its own module rates when run. Neither supplies the missing training-wide rates.
+Durable per-action logging and coverage validation remain pending; runtime is
+unchanged by this documentation update.
 Formal v3 checkpoint recovery, independent numeric bank replay, live new archive
 transaction, complete capacity/throughput and supervisor gates remain pending.
-No new million-action run has started. Six-hour formal inspections start only
-after launch; this file creates no scheduler or running process.
+The remote retention capacity audit is BLOCKED: expanding the local archive
+drive alone cannot remove current-checkpoint historical trajectory dependencies.
+Only current/previous gates are direct latest-checkpoint gate dependencies, but
+the archive bridge has no prune transaction. No historical data were deleted.
+No new million-action run has started. The requested inspection cadence is
+six hours; no new scheduler has been created. The earlier engineering probe
+remains in its existing tmux session. There is no continuous polling here; new
+optimized GPU/recovery/archive work awaits a resolved capacity path.
 
 Module tests and engineering probes do not prove task performance, reliability
 under missing observations, physical safety, or completion of the Final design.
@@ -41,3 +71,4 @@ Draft shared conditions: Walker Walk RGB64 camera0, repeat2, seed0, identical
 registered training mask/reset rules, and 1M actions per independent arm.
 The full Final scope and launch gates must be satisfied before any formal run.
 See docs/helixwm_final_20261106/architecture.md for formulas and limitations.
+See docs/helixwm_final_20261106/audit_status.md for evidence scope and blockers.

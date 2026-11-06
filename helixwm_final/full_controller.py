@@ -39,7 +39,7 @@ class FullController(FinalController):
             if deployment is not None or fitted_candidate is not None or observation_guard is not None:
                 raise ValueError('Independent-bank control cannot consume closed-loop certificates or unknown-fault guards')
             self.FORMAT='helixwm_final_integrated_bank_controller_v3'
-            from .bank_gate import VerifiedBankGate, verify_bank_gate, validate_fitted_candidate
+            from .bank_gate import VerifiedBankGate, verify_bank_gate, seal_bank_candidate
             if execution=='bank_production' and bank_gate is not None:
                 if not isinstance(bank_gate,VerifiedBankGate):
                     raise ValueError('Bank production requires a file-authenticated independent-bank handle')
@@ -48,7 +48,7 @@ class FullController(FinalController):
                 verify_bank_gate(bank_gate,bank_gate['context'],require_active=False)
             elif bank_gate is not None:
                 raise ValueError('Only bank production accepts a verified bank handle')
-            if execution=='bank_validation':validate_fitted_candidate(fitted_bank_candidate,context)
+            if execution=='bank_validation':fitted_bank_candidate=seal_bank_candidate(fitted_bank_candidate,context)
             elif fitted_bank_candidate is not None:
                 raise ValueError('Fitted bank proposals are isolated validation inputs only')
         elif bank_gate is not None or fitted_bank_candidate is not None:
@@ -308,7 +308,7 @@ class FullController(FinalController):
         if self._calibration is None:return None
         return self._calibration['artifact_sha256' if self.execution=='bank_production' else 'sha256']
 
-    def snapshot(self):
+    def _snapshot_with_integration(self):
         out=super().snapshot()
         out['integration']={'context':copy.deepcopy(self.context),'execution':self.execution,
             'heads_sha256':self.heads.sha256,'auxiliary_state':copy.deepcopy(self.auxiliary_state),
@@ -318,6 +318,32 @@ class FullController(FinalController):
             'guard':None if self.observation_guard is None else self.observation_guard.snapshot(),
             'trajectory':None if self.trajectory is None else self.trajectory.snapshot()}
         return out
+
+    def snapshot(self):
+        out=self._snapshot_with_integration()
+        from .bank_gate import SealedBankCandidate,candidate_plain_data
+        if isinstance(out['calibration'],SealedBankCandidate):
+            # Preserve the exact historical persistent dict/list schema. The
+            # immutable handle is an execution optimization, never new evidence.
+            out['calibration']=candidate_plain_data(out['calibration'],self.context)
+        return out
+
+    def scratch_state_digest(self):
+        """Hash all mutable controller state; reference immutable FIT data only.
+
+        Full checkpoint snapshots remain unchanged. Every mutable state/RNG
+        from the normal snapshot is included, plus transient diagnostic caches.
+        Only an authenticated sealed candidate may use its canonical SHA here.
+        """
+        from .bank_gate import SealedBankCandidate,verify_sealed_candidate
+        out=self._snapshot_with_integration()
+        if isinstance(out['calibration'],SealedBankCandidate):
+            candidate=out['calibration'];verify_sealed_candidate(candidate,self.context)
+            out['calibration']={'immutable_candidate_sha256':candidate['sha256'],
+                                'context':dict(candidate['context'])}
+        out['scratch_diagnostic_caches']={k:copy.deepcopy(getattr(self,k)) for k in
+            ('last_prediction','last_plans','last_guard','last_recovery_qualified','prediction_rng_before')}
+        return tree_digest(out)
 
     def restore_completed_episode(self,record):
         """Carry private RNGs across a pin while discarding all old latents.

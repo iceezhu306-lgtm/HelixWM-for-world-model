@@ -31,6 +31,7 @@ SUPPORT_RULE={'features':'mean_of_three_auxiliary_pre_action_features16_plus_exe
     'minimum_distinct_fit_seeds':3,'all_plan_steps_and_particles_required':True,
     'claims_dynamics_error_bound':False}
 _TOKEN=object()
+_CANDIDATE_TOKEN=object()
 
 
 def digest(value):return hashlib.sha256(canonical_json(value)).hexdigest()
@@ -57,6 +58,56 @@ def _freeze(value):
     if isinstance(value,(tuple,list)):return tuple(_freeze(v) for v in value)
     if value is None or type(value) in (str,bool,int,float):return value
     raise TypeError('Unexpected mutable content inside verified bank evidence')
+
+
+def _thaw(value):
+    """Restore the original JSON dict/list layout for persistent evidence."""
+    if isinstance(value,dict):return {k:_thaw(v) for k,v in value.items()}
+    if isinstance(value,(tuple,list)):return [_thaw(v) for v in value]
+    return value
+
+
+class SealedBankCandidate(_FrozenDict):
+    """Immutable FIT proposal, usable ONLY in isolated bank validation.
+
+    This is not a VerifiedBankGate and grants no production authority. The
+    complete ordinary candidate is validated once before sealing; hot checks
+    authenticate its immutable references and current context without hashing
+    a megabyte of unchanged support points on every observation.
+    """
+    def __init__(self,value,*,_token=None):
+        if _token is not _CANDIDATE_TOKEN:raise ValueError('Use verified FIT candidate sealing')
+        dict.__init__(self,{k:_freeze(v) for k,v in value.items()})
+        self._bound_items=tuple(self.items())
+    def __deepcopy__(self,memo):
+        verify_sealed_candidate(self,self['context'])
+        return self
+    def __reduce_ex__(self,protocol):
+        # Reloaded bytes must be validated and resealed in the new process.
+        return (dict,(_thaw(self),))
+
+
+def verify_sealed_candidate(candidate,context):
+    context_valid(context)
+    if (not isinstance(candidate,SealedBankCandidate)
+            or len(candidate)!=len(candidate._bound_items)
+            or any(k not in candidate or candidate[k] is not v for k,v in candidate._bound_items)):
+        raise ValueError('FIT candidate handle is forged or modified')
+    if candidate['context']!=context:raise ValueError('Sealed FIT source/model/heads/version/protocol/bank differs')
+    if candidate['active'] is not False:raise ValueError('A FIT proposal cannot acquire production privilege')
+    return True
+
+
+def seal_bank_candidate(candidate,context):
+    if isinstance(candidate,SealedBankCandidate):
+        verify_sealed_candidate(candidate,context);return candidate
+    validate_fitted_candidate(candidate,context)
+    return SealedBankCandidate(candidate,_token=_CANDIDATE_TOKEN)
+
+
+def candidate_plain_data(candidate,context):
+    verify_sealed_candidate(candidate,context)
+    return _thaw(candidate)
 
 
 class VerifiedBankGate(dict):
@@ -227,6 +278,7 @@ def fit_candidate(rows,context):
 
 
 def validate_fitted_candidate(candidate,context):
+    if isinstance(candidate,SealedBankCandidate):return verify_sealed_candidate(candidate,context)
     context_valid(context)
     if (not isinstance(candidate,dict) or candidate.get('schema')!=SCHEMA or candidate.get('context')!=context
             or candidate.get('sha256')!=digest({k:v for k,v in candidate.items() if k!='sha256'})
