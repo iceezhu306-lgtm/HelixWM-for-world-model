@@ -262,8 +262,107 @@ def wait_for_json(path, *, status_path, stage, identity, counts, timeout_seconds
         sleep(min(poll_seconds, max(0., remaining)))
 
 
+def _finite_evidence(value):
+    """Detach diagnostic values without sampling, inference or state mutation."""
+    if value is None or type(value) in (str, bool, int): return value
+    if isinstance(value, np.bool_): return bool(value)
+    if isinstance(value, np.integer): return int(value)
+    if isinstance(value, (float, np.floating)):
+        if not math.isfinite(float(value)): raise FloatingPointError('Nonfinite module evidence')
+        return float(value)
+    if isinstance(value, np.ndarray): return _finite_evidence(value.tolist())
+    if isinstance(value, (list, tuple)): return [_finite_evidence(x) for x in value]
+    if isinstance(value, dict) and all(type(k) is str for k in value):
+        return {k:_finite_evidence(v) for k,v in value.items()}
+    raise ValueError('Module evidence must contain JSON-compatible detached values')
+
+
+def _module_gate_status(controller):
+    # FullController.calibration_status and the bound-handle verifier only read
+    # immutable identities/readiness/version; neither calls a model nor an RNG.
+    active, reason = controller.calibration_status()
+    if type(active) is not bool or type(reason) is not str:
+        raise ValueError('Invalid module gate diagnostic')
+    return active, reason
+
+
+def _module_selection(controller, *, timestamp, available, external):
+    """Capture a_t after act, using only state/observation o_t (not o_{t+1})."""
+    from .full_controller import FullController
+    full = isinstance(controller, FullController)
+    native_name = getattr(controller, 'name', None)
+    evidence = {'phase':'after_act_before_environment_step',
+        'conditioning_observation_timestamp':timestamp-1,
+        'conditioning_observation_available':available,
+        'full_controller':full, 'execution':controller.execution if full else None,
+        'controller_name':'helixwm_final' if full else native_name,
+        'action_origin':'external_prefill' if external else ('final_controller' if full else 'native_or_test_controller'),
+        'final_action_modules_applicable':full and not external,
+        'model_version':controller.model_version if full else None,
+        'model_sha256':controller.context['model_sha256'] if full else None,
+        'bank_gate_artifact_sha256':(controller._calibration.get('artifact_sha256')
+            if full and controller._calibration is not None else None),
+        'gate_active':None, 'gate_status':None, 'missing_age':None,
+        'decision':{'kind':'external_prefill' if external else 'native_policy', 'planning':None},
+        'planning_attempted':None, 'planning_accepted':None,
+        'prior_only_fallback':None, 'fallback_reason':None}
+    if full:
+        if controller.timestamp != timestamp-1: raise ValueError('Selection diagnostic timestamp differs')
+        decision = _finite_evidence(controller.last_action_decision)
+        if type(decision) is not dict or decision.get('kind') not in (
+                'external_prefill','candidate_control','prior_only_fallback','observed_actor'):
+            raise ValueError('Missing exact issued-action decision')
+        if (decision['kind']=='external_prefill') != external:
+            raise ValueError('Issued-action prefill provenance differs')
+        planning = decision.get('planning')
+        if planning is False: attempted = accepted = False
+        elif (type(planning) is dict and type(planning.get('used')) is bool
+                and type(planning.get('reason')) is str):
+            attempted = planning['used']; accepted = planning['reason']=='accepted_plan'
+            if accepted and not attempted: raise ValueError('Accepted plan without a planning attempt')
+        else: raise ValueError('Missing issued-action planning diagnostic')
+        active, reason = _module_gate_status(controller)
+        fallback = decision['kind']=='prior_only_fallback'
+        evidence.update(gate_active=active, gate_status=reason, missing_age=controller.missing_age,
+            decision=decision, planning_attempted=attempted, planning_accepted=accepted,
+            prior_only_fallback=fallback, fallback_reason=(
+                planning['reason'] if isinstance(planning,dict) and planning['reason']=='all_plans_rejected'
+                else decision.get('calibration_status')) if fallback else None)
+    return _finite_evidence(evidence)
+
+
+def _module_observation(controller, *, timestamp, available):
+    """Capture assimilation of o_{t+1}; fusion here did not choose a_t."""
+    from .full_controller import FullController
+    evidence = {'phase':'after_controller_step_before_learner_updates',
+        'observation_timestamp':timestamp, 'observation_available':available,
+        'full_controller':isinstance(controller,FullController),
+        'gate_active':None, 'gate_status':None, 'fusion_lambda':None,
+        'fusion_accepted':None, 'fusion_kl':None, 'mode':None,
+        'evidence_kind':None, 'missing_age':None, 'observation_restored':None,
+        'candidate_reconnection_accepted':None}
+    if evidence['full_controller']:
+        if controller.timestamp != timestamp: raise ValueError('Observation diagnostic timestamp differs')
+        metrics = controller.last_metrics
+        # Do not interpret previous-episode history or a gate's existence as use.
+        fusion = metrics['fusion_lambda']; kl = metrics['fusion_kl']
+        if (isinstance(fusion,(bool,np.bool_)) or not math.isfinite(float(fusion))
+                or not math.isfinite(float(kl))):
+            raise FloatingPointError('Nonfinite/invalid fusion evidence')
+        if not 0 <= float(fusion) <= 1 or float(kl) < 0: raise ValueError('Invalid fusion evidence range')
+        active, reason = _module_gate_status(controller)
+        if 'bank_gate_active' in metrics and metrics['bank_gate_active'] is not active:
+            raise ValueError('Post-observation bank diagnostic differs')
+        evidence.update(gate_active=active, gate_status=reason,
+            fusion_lambda=float(fusion), fusion_accepted=bool(fusion>0), fusion_kl=float(kl),
+            mode=controller.mode, evidence_kind=metrics['evidence_kind'],
+            missing_age=metrics['missing_age'], observation_restored=metrics['observation_restored'],
+            candidate_reconnection_accepted=metrics['candidate_reconnection_accepted'])
+    return _finite_evidence(evidence)
+
+
 def run_episode(*, env, controller, replay, auxiliary, prefill_rng, counts, episode,
-                seed, mask, on_reset=None, on_interaction=None, on_metric=None):
+                seed, mask, on_reset=None, on_interaction=None, on_metric=None, arm=None):
     """One exact author-learning episode; auxiliary output never chooses action.
 
     Dependencies are explicit for CPU orchestration tests. Only the guarded CLI
@@ -271,6 +370,7 @@ def run_episode(*, env, controller, replay, auxiliary, prefill_rng, counts, epis
     advances are counted even if a later rendering/inference/update fails.
     """
     validate_counts(counts, boundary=True)
+    if arm not in (None,'D','F'): raise ValueError('Interaction arm must be explicitly D/F or unspecified engineering scope')
     if type(episode) is not int or episode != counts['episodes'] or counts['agent_steps']+500 > 1000000:
         raise ValueError('Wrong episode or action budget would be exceeded')
     if not isinstance(mask,np.ndarray) or mask.dtype != np.bool_ or mask.shape != (501,) or not mask[0] or not mask[-1]:
@@ -285,38 +385,66 @@ def run_episode(*, env, controller, replay, auxiliary, prefill_rng, counts, epis
         external = prefill_rng.uniform(-1,1,6).astype(np.float32) if counts['agent_steps'] < 5000 else None
         action = np.asarray(controller.act(external),np.float32).reshape(6)
         if not np.isfinite(action).all() or np.any(np.abs(action)>1): raise ValueError('Controller issued invalid action')
+        selection = (_module_selection(controller,timestamp=timestamp,available=available,external=external is not None)
+                     if on_interaction is not None else None)
         current_state = controller.state
         a0,c0 = env.action_decisions,env.episode_env_steps
-        try: next_image,reward,done,info = env.step(action)
-        finally:
-            counts['agent_steps'] += env.action_decisions-a0
-            counts['env_steps'] += env.episode_env_steps-c0
-        if (done != (timestamp==500) or info.get('observation_timestamp') != timestamp
-                or type(info.get('availability')) is not bool or info['availability'] != bool(mask[timestamp])
-                or info.get('env_steps_this_step') != 2
-                or env.action_decisions-a0 != 1 or env.episode_env_steps-c0 != 2):
-            raise RuntimeError('Actual environment horizon/mask/call accounting differs')
-        if not math.isfinite(float(reward)) or not -1e-12 <= float(reward) <= 2+1e-12:
-            raise FloatingPointError('Invalid returned DMC reward')
-        if (not isinstance(next_image,np.ndarray) or next_image.dtype!=np.uint8 or next_image.shape!=(64,64,3)
-                or (not info['availability'] and np.any(next_image))):
-            raise ValueError('Learner must receive exactly the visible/corrupted RGB frame')
-        replay.add(observation,action,current_state)
-        auxiliary.update(image,action,next_image,float(reward),float(not info['terminated']),
-            transition_id=counts['agent_steps'],previous_available=available,next_available=info['availability'])
-        controller.step(next_image,action,info,episode_id=episode)
-        image=next_image; available=info['availability']; rewards.append(float(reward))
-        observation={'image':image.copy(),'reward':np.float32(reward),'is_first':np.bool_(False),
-                     'is_last':np.bool_(done),'is_terminal':np.bool_(info['terminated'])}
-        target=max(0,counts['agent_steps']-5000)//4
-        while counts['update_steps']<target:
-            metrics=replay.train_once()
-            if any(not np.isfinite(v) for v in metrics.values()): raise FloatingPointError('Nonfinite author loss/gradient')
-            counts['update_steps']+=1
-            if on_metric is not None:on_metric(dict(counts),metrics)
-        if on_interaction is not None:
-            on_interaction({'episode':episode,'timestamp':timestamp,**counts,'reward':float(reward),
-                'availability':available,'action':action.tolist(),'DMC_calls':2})
+        stage='environment_step'; post=None; validated_reward=None; validated_available=None
+        try:
+            try: next_image,reward,done,info = env.step(action)
+            finally:
+                counts['agent_steps'] += env.action_decisions-a0
+                counts['env_steps'] += env.episode_env_steps-c0
+            stage='environment_result_validation'
+            if (done != (timestamp==500) or info.get('observation_timestamp') != timestamp
+                    or type(info.get('availability')) is not bool or info['availability'] != bool(mask[timestamp])
+                    or info.get('env_steps_this_step') != 2
+                    or env.action_decisions-a0 != 1 or env.episode_env_steps-c0 != 2):
+                raise RuntimeError('Actual environment horizon/mask/call accounting differs')
+            if not math.isfinite(float(reward)) or not -1e-12 <= float(reward) <= 2+1e-12:
+                raise FloatingPointError('Invalid returned DMC reward')
+            if (not isinstance(next_image,np.ndarray) or next_image.dtype!=np.uint8 or next_image.shape!=(64,64,3)
+                    or (not info['availability'] and np.any(next_image))):
+                raise ValueError('Learner must receive exactly the visible/corrupted RGB frame')
+            validated_reward=float(reward); validated_available=info['availability']
+            stage='replay_and_auxiliary_update'
+            replay.add(observation,action,current_state)
+            auxiliary.update(image,action,next_image,float(reward),float(not info['terminated']),
+                transition_id=counts['agent_steps'],previous_available=available,next_available=info['availability'])
+            stage='controller_observation_update'
+            controller.step(next_image,action,info,episode_id=episode)
+            stage='observation_evidence_validation'
+            if on_interaction is not None:post=_module_observation(controller,timestamp=timestamp,available=info['availability'])
+            image=next_image; available=info['availability']; rewards.append(float(reward))
+            observation={'image':image.copy(),'reward':np.float32(reward),'is_first':np.bool_(False),
+                         'is_last':np.bool_(done),'is_terminal':np.bool_(info['terminated'])}
+            target=max(0,counts['agent_steps']-5000)//4
+            stage='learner_update'
+            while counts['update_steps']<target:
+                metrics=replay.train_once()
+                if any(not np.isfinite(v) for v in metrics.values()): raise FloatingPointError('Nonfinite author loss/gradient')
+                counts['update_steps']+=1
+                if on_metric is not None:on_metric(dict(counts),metrics)
+            stage='interaction_log'
+            if on_interaction is not None:
+                on_interaction({'episode':episode,'timestamp':timestamp,**counts,'reward':float(reward),
+                    'availability':available,'action':action.tolist(),'DMC_calls':2,
+                    'module_evidence':{'schema':'helixwm_final_action_module_evidence_v1','arm':arm,
+                        'action_selection':selection,'observation_update':post,'interaction_complete':True}})
+        except BaseException as exc:
+            # Preserve acknowledged actions even if inference or an author
+            # update fails. Missing outcomes stay null, never invented. A log
+            # failure must not replace the original execution exception.
+            if on_interaction is not None and env.action_decisions>a0 and stage!='interaction_log':
+                try:
+                    on_interaction({'episode':episode,'timestamp':timestamp,**counts,'reward':validated_reward,
+                        'availability':validated_available,'action':action.tolist(),'DMC_calls':env.episode_env_steps-c0,
+                        'module_evidence':{'schema':'helixwm_final_action_module_evidence_v1','arm':arm,
+                            'action_selection':selection,'observation_update':post,'interaction_complete':False,
+                            'failure_stage':stage,'error':repr(exc)}})
+                except BaseException as secondary:
+                    exc.add_note('Secondary interaction evidence write failed: '+repr(secondary))
+            raise
     replay.add(observation,np.zeros(6,np.float32),controller.state)
     counts['episodes']+=1
     validate_counts(counts,boundary=True)
@@ -683,7 +811,7 @@ def main():
             episode_gate_reference=gate_reference if isinstance(controller,FullController) else None
             row=run_episode(env=env,controller=controller,replay=replay,auxiliary=auxiliary,prefill_rng=prefill,
                 counts=counts,episode=episode,seed=protocol.training_seed(config,episode),mask=masks[episode],
-                on_reset=verify_live_lock,on_interaction=interaction,on_metric=metric)
+                on_reset=verify_live_lock,on_interaction=interaction,on_metric=metric,arm=args.arm)
             _append(root/'episodes.jsonl',row);resources(root,counts)
             completed=controller.snapshot()
             if isinstance(controller,FullController):previous_full_snapshot=completed

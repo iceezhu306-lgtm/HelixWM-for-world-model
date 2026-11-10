@@ -1,0 +1,59 @@
+{
+  "scope": "engineering_only_not_formal_performance",
+  "files": [
+    {
+      "public_path": "evidence/cpu_training_runtime_434.json",
+      "local_evidence_relative_path": "preflight/full_cpu_regression_20261109T081945Z/summary.json",
+      "bytes": 9462,
+      "sha256": "815052ea15bc54774e17d1979a2c271bb542c084325b3a9f4fac74a02d8e48b0"
+    },
+    {
+      "public_path": "evidence/cpu_integrated_runtime_437.json",
+      "local_evidence_relative_path": "preflight/full_cpu_regression_20261110T082021Z/summary.json",
+      "bytes": 9717,
+      "sha256": "9b203dd0168d56e88aa38c5eb86fbccf50ca6bb18dd7adca60350f8a266051c1"
+    },
+    {
+      "public_path": "evidence/evaluator_patch_cpu_18.json",
+      "local_evidence_relative_path": "patches/final_eval_interface_20261109/evidence_20261109T085126Z/summary.json",
+      "bytes": 1555,
+      "sha256": "ca81f0cb65b69d424ee1fe7c50bb0bdb46e8b381bde24bfee0ac7966cdccdc33"
+    },
+    {
+      "public_path": "evidence/action_evidence_audit.json",
+      "local_evidence_relative_path": "preflight/full_bank_20261109T082235056959Z/module_log_audit_20261110T080049105523Z.json",
+      "bytes": 1808,
+      "sha256": "03f21ae315cf73413e3dce86b2e5b05b90c7c417424d42828016603024b3314f"
+    },
+    {
+      "public_path": "evidence/archive_transaction.json",
+      "local_evidence_relative_path": "archive_engineering/archive_cp6000_20261110T075931Z_public_summary.json",
+      "bytes": 3565,
+      "sha256": "c111b409e6be7013b29fee08c7350db1801f5f2224f33d2567eae425584e49c2"
+    },
+    {
+      "public_path": "evidence/recovery_gate.json",
+      "local_evidence_relative_path": "preflight/full_recovery_20261110T075814935828Z/VERIFIED_BACKUP/run/recovery_gate.json",
+      "bytes": 1682,
+      "sha256": "ca608b971438b1732fe932b01b8c0dc231d724130373d26239631662fddfbe56"
+    },
+    {
+      "public_path": "evidence/independent_bank_replay.json",
+      "local_evidence_relative_path": "preflight/full_bank_20261110T080823732090Z/VERIFIED_BACKUP_regularfiles/run/result.json",
+      "bytes": 4733,
+      "sha256": "fef8e2c006bfb52d7b10727a15a191f629e6207ac89a6cf0c3a48da2693ebe43"
+    },
+    {
+      "public_path": "evidence/bounded_evaluator_completion.json",
+      "local_evidence_relative_path": "preflight/bounded_eval_20261110T082855294544Z/VERIFIED_BACKUP/run/completion.json",
+      "bytes": 10602,
+      "sha256": "9f7ed9204b42161aeac87a39f5b0734730841c544df3b670446d2d057044c8d0"
+    },
+    {
+      "public_path": "evidence/validation_evidence_index.json",
+      "local_evidence_relative_path": "REPORT/HelixWM_Final_validation_evidence_20261110.json",
+      "bytes": 250460,
+      "sha256": "1d0f668ff3f0b6f50aef19250754e38580d9fc641b34934e87eecc4b59b8ef22"
+    }
+  ]
+}

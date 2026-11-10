@@ -1,0 +1,40 @@
+{
+  "scope": "Independent evaluator audit patch; CPU synthetic backends only; no SSH/GPU/evaluation run",
+  "tests_run": 18,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": true,
+  "seconds": 8.96617959998548,
+  "tool_and_reference_sources_unchanged": true,
+  "frozen_runtime_unchanged": true,
+  "frozen_runtime_sha256": "2331816df9627b5660f406ee2998338bfed9d4df09347425c9cdf7ed19a7c243",
+  "source_sha256": {
+    "patch": "9fb3357143201daf582868a2dc8859525b150f448eb82b1c85edf2f9f9ed3bab",
+    "new_tests": "f60837ebe1b045248de07bbe61150029c9d68829f61b1bbb0a20053bc8a5cf04",
+    "original": "312460eb62b31c291e8f663efb623591c30fa6cb533857579396dd73f1e866af"
+  },
+  "actual_adapter_500_action_cases": [
+    "native clean",
+    "native black frame",
+    "native prior-only",
+    "FullController inactive bank",
+    "FullController synthetic calibration candidate"
+  ],
+  "preserved": [
+    "all actions/rewards/counts",
+    "model inference call counts and inputs",
+    "full controller snapshots/private RNG",
+    "host RNG",
+    "auxiliary head state",
+    "zero training-update calls",
+    "original 1520-case matrix/strata/masks",
+    "registered video panel selection"
+  ],
+  "limitations": [
+    "synthetic backend is not production performance proof",
+    "legacy native reference uses explicit keyword-only adaptation because old signature is broken",
+    "new tool is outside and not part of frozen training runtime",
+    "formal D/F final checkpoints do not exist; formal matrix not run"
+  ]
+}

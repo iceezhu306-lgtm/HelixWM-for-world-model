@@ -1,0 +1,69 @@
+{
+  "archive_volume_free_bytes_at_readback": 415201341440,
+  "archived_bytes": 599012549,
+  "archived_files": 1637,
+  "automatic_retries": 0,
+  "checked_at_utc": "2026-11-10T08:07:10.659001+00:00",
+  "checkpoint_record_sha256": "518d1fc42e0a8d0c9139e1f4885b948bdd88b6f5462099d519b52a4ab2c5533d",
+  "checkpoint_sha256": "bb75c351cec8756d0a802ab2046956fd9070dd813967c9de2ba8fc3e5e2361c5",
+  "counts": {
+    "agent_steps": 6000,
+    "env_steps": 12000,
+    "episodes": 12,
+    "update_steps": 250
+  },
+  "effective_end_to_end_decimal_MB_per_second": 4.493818683092414,
+  "end_to_end_seconds": 133.29699999996228,
+  "exact_member_set_passed": true,
+  "formal_ACK_created": false,
+  "formal_training_actions": 0,
+  "formal_training_started": false,
+  "independent_waiter_exit": 0,
+  "independent_waiter_pid": 342305,
+  "independent_waiter_process_ended": true,
+  "limitations": [
+    "Engineering archive transport and integrity only.",
+    "GPU recovery, algorithm activation and performance require separate evidence.",
+    "Full-budget storage and retention feasibility remain separate gates."
+  ],
+  "local_deletions": 0,
+  "local_inventory_sha256": "132894a577ab2ebb34d06b28b6c54cde3d8e0c2087a003a27e170df3f7c4d52a",
+  "original_inputs_unchanged": true,
+  "post_transfer_independent_full_rehash_passed": true,
+  "production_launch_gate_granted": false,
+  "protocol_sha256": "c3c5a5c594c0ad7bd3fd2fb02123d222c099e48fe551589996198da05121b719",
+  "receipt_canonical_json_sha256": "25577ac2ea1bf6c32673fd5af05e0fe0271934b4420ac5e359a66891b585ccd8",
+  "receipt_file_sha256": "cef114aa12af858827ed4a4864677015fe51e7f9d40cf9e40a25be39d577a7f6",
+  "receipt_hash_encoding_note": "Canonical receipt identity hashes compact sorted JSON without the terminal newline. The retained file hash includes that newline.",
+  "remote_after_inventory_sha256": "132894a577ab2ebb34d06b28b6c54cde3d8e0c2087a003a27e170df3f7c4d52a",
+  "remote_before_inventory_sha256": "132894a577ab2ebb34d06b28b6c54cde3d8e0c2087a003a27e170df3f7c4d52a",
+  "remote_deletions": 0,
+  "result": "PASS",
+  "schema": "helixwm_final_archive_engineering_public_summary_v1",
+  "scope": "Single isolated 6000-action checkpoint archive transaction; no formal training or scientific acceptance claim.",
+  "source_sha256": "2331816df9627b5660f406ee2998338bfed9d4df09347425c9cdf7ed19a7c243",
+  "throughput_note": "Both rates include validation and protocol overhead; neither is a raw network bandwidth measurement.",
+  "tools": {
+    "archive_service_source_sha256": "cb54955fe05046f8974c29cf35047e5c1d9f62bc04a13e8ef133511cbb6fea13",
+    "files": {
+      "archive_protocol.py": {
+        "bytes": 20130,
+        "sha256": "66886517bb578e927fb9fba3993aeb1fe773e9560e1227afcfd19b1ee76f4a6d"
+      },
+      "bridge.py": {
+        "bytes": 15217,
+        "sha256": "ed89dbf77cb6a1dd525a251ad8a406d7a25802c6ee5d269b2b59a3cb7d3e65a4"
+      },
+      "preflight_archive.py": {
+        "bytes": 22854,
+        "sha256": "908a87d9348277c83e7ccdd1fb26359e7a8c95ff357b4c066d411196b6312b5b"
+      }
+    },
+    "fixed_transport_file_sha256": "a006c7862e4d9c30e43f4c28bfdc7ae1c3ea5575edc86b7f6450b094dfdba911",
+    "harness_source_sha256": "63904f92692fcaa9b589ecead2409867172b48cdf922c76546b42c427bcf08cb",
+    "launcher_sha256": "1bf9e6b0d528e1c98c3eff5cecbc09c909c742501140fb180f0b9e74e75828ba"
+  },
+  "transfer_and_reverification_decimal_MB_per_second": 6.919135801392803,
+  "transfer_and_reverification_seconds": 86.57331871986389,
+  "transfer_stderr_bytes": 0
+}

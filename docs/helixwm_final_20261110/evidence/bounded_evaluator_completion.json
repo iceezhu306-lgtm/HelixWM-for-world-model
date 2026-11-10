@@ -1,0 +1,240 @@
+{
+  "actions": 1500,
+  "author_updates": 0,
+  "auxiliary_updates": 0,
+  "cases": [
+    {
+      "case": {
+        "actions": 500,
+        "arm": "F",
+        "availability_sha256": "f065f16344e19178a7924af05e3be1a9989f92fee2f16934dccaa6184b2caaa7",
+        "case_id": "ENGINEERING_F6000_black_frame_native_seed74000_gap20",
+        "controller": "black_frame_native",
+        "gap": 20,
+        "record_video_frames": false,
+        "seed": 74000,
+        "stratum": "engineering_not_formal"
+      },
+      "counts": {
+        "actions": 500,
+        "dmc_calls": 1000
+      },
+      "episode_return": 61.359051465342375,
+      "formal_result": false,
+      "freeze_after": [
+        {
+          "counters": "76552cece2a2d4015c04e404a63bede52641936427241c6126311d814c76ddc5",
+          "epistemic_heads": "f5dd1621e20cbd047c537d9797b6348d4877a06fd634fe511f0610a587468d9d",
+          "model": "071ce01b0bfdef0f86ac5ac9bdb958b191189c5ad8f887ca6cd4b4415217e4f6",
+          "normalizers": "84d6d5e8dd16afb3023968f5e7793eefe256aad2507a5f21488a1e6b0fd79653",
+          "optimizer": "84d6d5e8dd16afb3023968f5e7793eefe256aad2507a5f21488a1e6b0fd79653",
+          "training_rng": "5832f9dff3694bfcef06a21e79799b504261f2cc8787c2bd5a1d4aa147b22869"
+        },
+        "89e0fcdd789ae43b4bc5ce7c902ccf5bbbb00a6ebd7deb05a0ddb6e5c7c8260e"
+      ],
+      "freeze_before": [
+        {
+          "counters": "76552cece2a2d4015c04e404a63bede52641936427241c6126311d814c76ddc5",
+          "epistemic_heads": "f5dd1621e20cbd047c537d9797b6348d4877a06fd634fe511f0610a587468d9d",
+          "model": "071ce01b0bfdef0f86ac5ac9bdb958b191189c5ad8f887ca6cd4b4415217e4f6",
+          "normalizers": "84d6d5e8dd16afb3023968f5e7793eefe256aad2507a5f21488a1e6b0fd79653",
+          "optimizer": "84d6d5e8dd16afb3023968f5e7793eefe256aad2507a5f21488a1e6b0fd79653",
+          "training_rng": "5832f9dff3694bfcef06a21e79799b504261f2cc8787c2bd5a1d4aa147b22869"
+        },
+        "89e0fcdd789ae43b4bc5ce7c902ccf5bbbb00a6ebd7deb05a0ddb6e5c7c8260e"
+      ],
+      "gate_active": null,
+      "original_checkpoint_sha256": "bb75c351cec8756d0a802ab2046956fd9070dd813967c9de2ba8fc3e5e2361c5",
+      "pin_after": {
+        "sha256": "071ce01b0bfdef0f86ac5ac9bdb958b191189c5ad8f887ca6cd4b4415217e4f6",
+        "version": 250
+      },
+      "pin_before": {
+        "sha256": "071ce01b0bfdef0f86ac5ac9bdb958b191189c5ad8f887ca6cd4b4415217e4f6",
+        "version": 250
+      },
+      "return_validation": {
+        "absolute_error": 0.0,
+        "absolute_error_bound": 3.4135102168439456e-12,
+        "assumptions": "IEEE754 binary64 round-to-nearest; finite rewards in [0,2]; no overflow",
+        "bound_formula": "gamma_(n-1)*(fsum(abs(r))+2*ulp(fsum(abs(r))))+2*ulp(fsum(r))+n*min_subnormal; rounded upward",
+        "bound_version": "binary64_gamma_n_minus_1_fsum_2ulp_v1",
+        "canonical_return": 61.359051465342375,
+        "count": 500,
+        "file_integrity_proven_by_this_check": false,
+        "passed": true,
+        "recorded_return": 61.359051465342375,
+        "reduction": "math.fsum(explicit_python_float_binary64_rewards)",
+        "unit_roundoff": 1.1102230246251565e-16
+      },
+      "scope": "same_preflight_F_checkpoint_inference_intervention_not_training_comparison",
+      "training_updates": 0
+    },
+    {
+      "case": {
+        "actions": 500,
+        "arm": "F",
+        "availability_sha256": "f065f16344e19178a7924af05e3be1a9989f92fee2f16934dccaa6184b2caaa7",
+        "case_id": "ENGINEERING_F6000_prior_only_seed74000_gap20",
+        "controller": "prior_only",
+        "gap": 20,
+        "record_video_frames": false,
+        "seed": 74000,
+        "stratum": "engineering_not_formal"
+      },
+      "counts": {
+        "actions": 500,
+        "dmc_calls": 1000
+      },
+      "episode_return": 62.36988072904706,
+      "formal_result": false,
+      "freeze_after": [
+        {
+          "counters": "76552cece2a2d4015c04e404a63bede52641936427241c6126311d814c76ddc5",
+          "epistemic_heads": "f5dd1621e20cbd047c537d9797b6348d4877a06fd634fe511f0610a587468d9d",
+          "model": "071ce01b0bfdef0f86ac5ac9bdb958b191189c5ad8f887ca6cd4b4415217e4f6",
+          "normalizers": "84d6d5e8dd16afb3023968f5e7793eefe256aad2507a5f21488a1e6b0fd79653",
+          "optimizer": "84d6d5e8dd16afb3023968f5e7793eefe256aad2507a5f21488a1e6b0fd79653",
+          "training_rng": "5832f9dff3694bfcef06a21e79799b504261f2cc8787c2bd5a1d4aa147b22869"
+        },
+        "89e0fcdd789ae43b4bc5ce7c902ccf5bbbb00a6ebd7deb05a0ddb6e5c7c8260e"
+      ],
+      "freeze_before": [
+        {
+          "counters": "76552cece2a2d4015c04e404a63bede52641936427241c6126311d814c76ddc5",
+          "epistemic_heads": "f5dd1621e20cbd047c537d9797b6348d4877a06fd634fe511f0610a587468d9d",
+          "model": "071ce01b0bfdef0f86ac5ac9bdb958b191189c5ad8f887ca6cd4b4415217e4f6",
+          "normalizers": "84d6d5e8dd16afb3023968f5e7793eefe256aad2507a5f21488a1e6b0fd79653",
+          "optimizer": "84d6d5e8dd16afb3023968f5e7793eefe256aad2507a5f21488a1e6b0fd79653",
+          "training_rng": "5832f9dff3694bfcef06a21e79799b504261f2cc8787c2bd5a1d4aa147b22869"
+        },
+        "89e0fcdd789ae43b4bc5ce7c902ccf5bbbb00a6ebd7deb05a0ddb6e5c7c8260e"
+      ],
+      "gate_active": null,
+      "original_checkpoint_sha256": "bb75c351cec8756d0a802ab2046956fd9070dd813967c9de2ba8fc3e5e2361c5",
+      "pin_after": {
+        "sha256": "071ce01b0bfdef0f86ac5ac9bdb958b191189c5ad8f887ca6cd4b4415217e4f6",
+        "version": 250
+      },
+      "pin_before": {
+        "sha256": "071ce01b0bfdef0f86ac5ac9bdb958b191189c5ad8f887ca6cd4b4415217e4f6",
+        "version": 250
+      },
+      "return_validation": {
+        "absolute_error": 0.0,
+        "absolute_error_bound": 3.4695102883781875e-12,
+        "assumptions": "IEEE754 binary64 round-to-nearest; finite rewards in [0,2]; no overflow",
+        "bound_formula": "gamma_(n-1)*(fsum(abs(r))+2*ulp(fsum(abs(r))))+2*ulp(fsum(r))+n*min_subnormal; rounded upward",
+        "bound_version": "binary64_gamma_n_minus_1_fsum_2ulp_v1",
+        "canonical_return": 62.36988072904706,
+        "count": 500,
+        "file_integrity_proven_by_this_check": false,
+        "passed": true,
+        "recorded_return": 62.36988072904706,
+        "reduction": "math.fsum(explicit_python_float_binary64_rewards)",
+        "unit_roundoff": 1.1102230246251565e-16
+      },
+      "scope": "same_preflight_F_checkpoint_inference_intervention_not_training_comparison",
+      "training_updates": 0
+    },
+    {
+      "case": {
+        "actions": 500,
+        "arm": "F",
+        "availability_sha256": "f065f16344e19178a7924af05e3be1a9989f92fee2f16934dccaa6184b2caaa7",
+        "case_id": "ENGINEERING_F6000_helix_final_seed74000_gap20",
+        "controller": "helix_final",
+        "gap": 20,
+        "record_video_frames": false,
+        "seed": 74000,
+        "stratum": "engineering_not_formal"
+      },
+      "counts": {
+        "actions": 500,
+        "dmc_calls": 1000
+      },
+      "episode_return": 62.36988072904706,
+      "formal_result": false,
+      "freeze_after": [
+        {
+          "counters": "76552cece2a2d4015c04e404a63bede52641936427241c6126311d814c76ddc5",
+          "epistemic_heads": "f5dd1621e20cbd047c537d9797b6348d4877a06fd634fe511f0610a587468d9d",
+          "model": "071ce01b0bfdef0f86ac5ac9bdb958b191189c5ad8f887ca6cd4b4415217e4f6",
+          "normalizers": "84d6d5e8dd16afb3023968f5e7793eefe256aad2507a5f21488a1e6b0fd79653",
+          "optimizer": "84d6d5e8dd16afb3023968f5e7793eefe256aad2507a5f21488a1e6b0fd79653",
+          "training_rng": "5832f9dff3694bfcef06a21e79799b504261f2cc8787c2bd5a1d4aa147b22869"
+        },
+        "89e0fcdd789ae43b4bc5ce7c902ccf5bbbb00a6ebd7deb05a0ddb6e5c7c8260e"
+      ],
+      "freeze_before": [
+        {
+          "counters": "76552cece2a2d4015c04e404a63bede52641936427241c6126311d814c76ddc5",
+          "epistemic_heads": "f5dd1621e20cbd047c537d9797b6348d4877a06fd634fe511f0610a587468d9d",
+          "model": "071ce01b0bfdef0f86ac5ac9bdb958b191189c5ad8f887ca6cd4b4415217e4f6",
+          "normalizers": "84d6d5e8dd16afb3023968f5e7793eefe256aad2507a5f21488a1e6b0fd79653",
+          "optimizer": "84d6d5e8dd16afb3023968f5e7793eefe256aad2507a5f21488a1e6b0fd79653",
+          "training_rng": "5832f9dff3694bfcef06a21e79799b504261f2cc8787c2bd5a1d4aa147b22869"
+        },
+        "89e0fcdd789ae43b4bc5ce7c902ccf5bbbb00a6ebd7deb05a0ddb6e5c7c8260e"
+      ],
+      "gate_active": false,
+      "original_checkpoint_sha256": "bb75c351cec8756d0a802ab2046956fd9070dd813967c9de2ba8fc3e5e2361c5",
+      "pin_after": {
+        "sha256": "071ce01b0bfdef0f86ac5ac9bdb958b191189c5ad8f887ca6cd4b4415217e4f6",
+        "version": 250
+      },
+      "pin_before": {
+        "sha256": "071ce01b0bfdef0f86ac5ac9bdb958b191189c5ad8f887ca6cd4b4415217e4f6",
+        "version": 250
+      },
+      "return_validation": {
+        "absolute_error": 0.0,
+        "absolute_error_bound": 3.4695102883781875e-12,
+        "assumptions": "IEEE754 binary64 round-to-nearest; finite rewards in [0,2]; no overflow",
+        "bound_formula": "gamma_(n-1)*(fsum(abs(r))+2*ulp(fsum(abs(r))))+2*ulp(fsum(r))+n*min_subnormal; rounded upward",
+        "bound_version": "binary64_gamma_n_minus_1_fsum_2ulp_v1",
+        "canonical_return": 62.36988072904706,
+        "count": 500,
+        "file_integrity_proven_by_this_check": false,
+        "passed": true,
+        "recorded_return": 62.36988072904706,
+        "reduction": "math.fsum(explicit_python_float_binary64_rewards)",
+        "unit_roundoff": 1.1102230246251565e-16
+      },
+      "scope": "same_preflight_F_checkpoint_inference_intervention_not_training_comparison",
+      "training_updates": 0
+    }
+  ],
+  "completed_cases": 3,
+  "dmc_calls": 3000,
+  "formal_evaluation_complete": false,
+  "formal_video_generated": false,
+  "full_experiment_acceptance": false,
+  "original_dependencies_unchanged": true,
+  "passed": true,
+  "registration": {
+    "DMC_calls_per_case": 1000,
+    "actions_per_case": 500,
+    "author_updates": 0,
+    "auxiliary_updates": 0,
+    "controllers": [
+      "black_frame_native",
+      "prior_only",
+      "helix_final"
+    ],
+    "formal_evaluation_cases": 0,
+    "formal_training_actions": 0,
+    "formal_video_generated": false,
+    "gap": 20,
+    "independent_training_comparison": false,
+    "initialization_actions": 0,
+    "initialization_resets": 1,
+    "same_preflight_F_checkpoint_for_all_cases": true,
+    "schema": "helixwm_final_bounded_evaluator_engineering_v1",
+    "seed": 74000,
+    "total_DMC_calls": 3000,
+    "total_actions": 1500
+  },
+  "scientific_superiority_established": false,
+  "scope": "bounded_engineering_only"
+}

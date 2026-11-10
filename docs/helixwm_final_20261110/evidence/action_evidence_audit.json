@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "scope": "verified_preflight_raw_log_consistency_only",
+  "counts": {
+    "agent_steps": 6000,
+    "env_steps": 12000,
+    "episodes": 12,
+    "update_steps": 250
+  },
+  "source_sha256": "2331816df9627b5660f406ee2998338bfed9d4df09347425c9cdf7ed19a7c243",
+  "action_origin_counts": {
+    "external_prefill": 5000,
+    "native_or_test_controller": 500,
+    "final_controller": 500
+  },
+  "all_actions_match_saved_masks": true,
+  "selection_vs_observation_phases_not_conflated": true,
+  "all_actions_have_module_evidence": true,
+  "full_controller_actions": 500,
+  "native_bootstrap_actions": 5500,
+  "decision_counts": {
+    "observed_actor": 459,
+    "prior_only_fallback": 41
+  },
+  "fallback_reasons": {
+    "Current empirical bank gate is inactive": 41
+  },
+  "selection_gate_active_actions": 0,
+  "accepted_fusion_observations": 0,
+  "planning_attempted_actions": 0,
+  "planning_accepted_actions": 0,
+  "finite_metric_rows": 250,
+  "formal_training_started": false,
+  "does_not_prove_active_repair_or_task_performance": true,
+  "does_not_replace_checkpoint_recovery_or_independent_bank_replay": true,
+  "auditor_sha256": "47b9937ca93679ac3225c2207e9fa3364e766ac17cbcc79b7563559a4a353ab9",
+  "checks_sha256": "d1cf3aea165353808ce43316ddba0e404d3f8e64b67e8707672fdfd69e83031a",
+  "earlier_source_diagnostic": {
+    "reference": "full_bank_20261106T105944699003Z",
+    "used_as_new_run_acceptance_evidence": false,
+    "scope": "numeric_log_comparison_only_not_complete_cross_source_artifact_identity",
+    "reference_verified": true,
+    "all_6000_original_interaction_fields_exact": true,
+    "all_250_learner_metric_rows_exact": true,
+    "interaction_first_mismatch_row_1based": null,
+    "metric_first_mismatch_row_1based": null
+  }
+}

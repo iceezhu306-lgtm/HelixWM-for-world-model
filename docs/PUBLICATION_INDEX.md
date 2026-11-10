@@ -1,6 +1,6 @@
 # Research, code and result index
 
-Updated 2026-11-05. This index separates received design requirements, implemented code, observed results and final-acceptance status.
+Updated 2026-11-10. This index separates received design requirements, implemented code, observed results and final-acceptance status.
 
 | Study | Report and data | Code | Scope and outcome |
 |---|---|---|---|
@@ -11,6 +11,7 @@ Updated 2026-11-05. This index separates received design requirements, implement
 | Matched DreamerV3 vs H, 2026-10-26 | [Report](../results/2026-10-29-matched-walker-development/REPORT.md), [data and plots](../results/2026-10-29-matched-walker-development/) | [Matched runtime](../helixwm_matched/), [analysis code](../results/2026-10-29-matched-walker-development/code/) | Both 1M-action trainings complete; development comparison published; final acceptance blocked |
 | Defect review, 2026-11-05 | [Full Word/PDF and earlier report](../results/2026-11-05-defect-review/README.md) | Existing frozen source audited; no algorithm change | Numerical evaluator defect and mechanism limits distinguished from proposed improvements |
 | HelixWM Final requirements, 2026-11-05 | [Received scope and original text](helixwm_final_20261105/README.md) | Not implemented by this publication | Attachment ends at section 7.2; omitted content was not reconstructed |
+| HelixWM Final engineering validation, 2026-11-10 | [Current audit](helixwm_final_20261110/audit_status.md), [small evidence](helixwm_final_20261110/evidence/) | [Final implementation](../helixwm_final/), [tests](../tests/) | 437 CPU tests, 6,000-action preflight, recovery, bank replay, archive transaction and 1,500-action frozen evaluator checks pass; formal D/F training deferred for storage; fusion/planning efficacy unproven |
 
 ## Preservation policy
 

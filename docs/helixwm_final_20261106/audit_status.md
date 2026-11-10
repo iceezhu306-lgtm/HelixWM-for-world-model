@@ -1,3 +1,5 @@
+> Historical snapshot from 2026-11-06. For the later completed engineering checks and remaining limits, see the [2026-11-10 validation report](../helixwm_final_20261110/audit_status.md). The historical text below is preserved.
+
 # HelixWM Final audit status — 2026-11-06
 
 **Status: implementation and preflight; formal training has not started.**

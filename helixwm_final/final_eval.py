@@ -150,7 +150,9 @@ def _frame(image,available):
 
 def evaluate_case(controller,planned,env,*,render_callback=None):
     """One already prescribed case; partial errors retain true interaction counts."""
+    from .train import _module_selection, _module_observation, _finite_evidence
     actions=[];rewards=[];available=[];events=[];counts={'actions':0,'dmc_calls':0};primary_error=None
+    selection=None
     try:
         mask=np.ones(501,np.bool_) if planned['gap']==0 else fixed_gap_mask(planned['gap'])
         if protocol.mask_sha256(mask)!=planned['availability_sha256']:
@@ -160,8 +162,13 @@ def evaluate_case(controller,planned,env,*,render_callback=None):
         controller.reset(image,episode_id=planned['seed'])
         if render_callback is not None:render_callback(env.render_diagnostic(256),0,{'availability':True})
         for timestamp in range(1,501):
-            action=np.asarray(controller.act(deterministic=False),np.float32).reshape(6)
+            # Native Controller.act() and FullController.act() share this
+            # no-argument stochastic interface. Do not pass a Final-only kwarg
+            # to the native adapter or consume another sample for diagnostics.
+            action=np.asarray(controller.act(),np.float32).reshape(6)
             if not np.isfinite(action).all() or np.any(np.abs(action)>1):raise ValueError('Invalid policy action')
+            selection=_module_selection(controller,timestamp=timestamp,
+                available=bool(mask[timestamp-1]),external=False)
             a0,c0=env.action_decisions,env.episode_env_steps
             try:image,reward,done,info=env.step(action)
             finally:
@@ -180,13 +187,17 @@ def evaluate_case(controller,planned,env,*,render_callback=None):
             _frame(image,info['availability'])
             controller.step(image,action,info,episode_id=planned['seed'])
             actions.append(action.copy());rewards.append(float(reward));available.append(info['availability'])
-            if hasattr(controller,'last_action_decision'):
-                # Exact arrays remain in the trajectory artifact; this compact
-                # event stream supports gate/fallback rates without new RNG.
-                decision=controller.last_action_decision
-                events.append({'timestamp':timestamp,'kind':decision.get('kind'),
-                    'calibration_status':decision.get('calibration_status'),
-                    'metrics':copy.deepcopy(controller.last_metrics)})
+            # Selection uses o_t; fusion below assimilates o_{t+1}. Preserve the
+            # complete issued decision, including attempted/rejected planning,
+            # and never assign the latter fusion to the preceding action.
+            observation=_module_observation(controller,timestamp=timestamp,available=info['availability'])
+            decision=selection['decision']
+            events.append({'timestamp':timestamp,'kind':decision['kind'],
+                'calibration_status':decision.get('calibration_status'),
+                'metrics':_finite_evidence(controller.last_metrics) if hasattr(controller,'last_metrics') else None,
+                'module_evidence':{'schema':'helixwm_final_action_module_evidence_v1','arm':planned['arm'],
+                    'action_selection':selection,'observation_update':observation,'interaction_complete':True}})
+            selection=None
             if render_callback is not None:
                 render_callback(env.render_diagnostic(256),timestamp,{'availability':info['availability']})
         if counts!={'actions':500,'dmc_calls':1000}:raise ValueError('Final case budget differs')
@@ -199,7 +210,8 @@ def evaluate_case(controller,planned,env,*,render_callback=None):
     except BaseException as error:
         primary_error=error
         error.evaluation_partial={'counts':counts,'recorded_reward_prefix':rewards,
-            'recorded_action_prefix':[a.tolist() for a in actions],'automatic_retry':False}
+            'recorded_action_prefix':[a.tolist() for a in actions],'automatic_retry':False,
+            'module_events_prefix':events,'pending_action_selection':selection}
         raise
     finally:
         try:env.close()
@@ -208,7 +220,8 @@ def evaluate_case(controller,planned,env,*,render_callback=None):
                 primary_error.evaluation_cleanup_errors=[{'operation':'close_environment','error':repr(cleanup)}]
             else:
                 cleanup.evaluation_partial={'counts':counts,'recorded_reward_prefix':rewards,
-                    'recorded_action_prefix':[a.tolist() for a in actions],'automatic_retry':False}
+                    'recorded_action_prefix':[a.tolist() for a in actions],'automatic_retry':False,
+                    'module_events_prefix':events,'pending_action_selection':selection}
                 raise
 
 def make_video(root, panel_records):
